@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,23 @@ class  price extends StatefulWidget {
 }
 
 // ignore: camel_case_types
-class _priceState extends State<price> {final myController = TextEditingController();
+class _priceState extends State<price> {
+  final myController = TextEditingController();
+  List<DropdownMenuItem<double>> listdrop=[];
+  void loaddata(){
+  if (listdrop.isEmpty)
+  {
+    listdrop.add(new DropdownMenuItem(child: new Text("5%"),
+    value: 0.05,)
+    
+    );
+    listdrop.add(new DropdownMenuItem(child: new Text("10%"),
+    value: 0.10,));
+    listdrop.add(new DropdownMenuItem(child: new Text("15%"),
+    value: 0.15,));
+    listdrop.add(new DropdownMenuItem(child: new Text("20%"),
+    value: 0.20,));}
+  }
 
   @override
   void dispose() {
@@ -21,9 +38,12 @@ class _priceState extends State<price> {final myController = TextEditingControll
     myController.dispose();
     super.dispose();
   }
-
+  var ok;
+  var percentage;
   @override
   Widget build(BuildContext context) {
+    
+    loaddata();
     return Scaffold(
       appBar: AppBar(
         title: Text('Retrieve Text Input'),
@@ -37,11 +57,31 @@ class _priceState extends State<price> {final myController = TextEditingControll
                 controller: myController,
               ),
             ),
-            SizedBox(height: 30.0,),
+          SizedBox(height: 30.0,),
+          DropdownButton(
+            iconSize: 20.0,
+            value: ok,
+            items: listdrop,
+            focusColor: Colors.blueAccent.shade400,
+            
+            dropdownColor: Colors.blueAccent.shade100,
+            hint: Text("select value"),
+            onChanged: (values){
+                
+                setState(() {
+                  ok=values!;
+                  percentage=ok;
+                  
+                  
+                });
+            },
+          ),
+        SizedBox(height: 30.0,),
             FloatingActionButton(
               onPressed: () {
-          var amount=int.parse(myController.text);
-          var convert=amount+amount*0.05;
+          var amount=double.parse(myController.text);
+          var convert=amount+amount*percentage;
+          convert=convert.round() as double;
           showDialog(
             context: context,
             builder: (context) {
