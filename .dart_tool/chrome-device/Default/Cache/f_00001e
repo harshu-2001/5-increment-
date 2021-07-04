@@ -1,1112 +1,2383 @@
-define(['dart_sdk', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/semantics/semantics.dart', 'packages/flutter/src/painting/placeholder_span.dart', 'packages/flutter/src/painting/basic_types.dart', 'packages/flutter/src/gestures/hit_test.dart', 'packages/vector_math/vector_math_64.dart', 'packages/flutter/src/services/text_editing.dart', 'packages/flutter/src/gestures/tap.dart', 'packages/flutter/src/gestures/multitap.dart', 'packages/flutter/src/gestures/long_press.dart', 'packages/flutter/src/foundation/debug.dart', 'packages/flutter/src/painting/strut_style.dart'], (function load__packages__flutter__src__rendering__paragraph_dart(dart_sdk, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__semantics__semantics$46dart, packages__flutter__src__painting__placeholder_span$46dart, packages__flutter__src__painting__basic_types$46dart, packages__flutter__src__gestures__hit_test$46dart, packages__vector_math__vector_math_64$46dart, packages__flutter__src__services__text_editing$46dart, packages__flutter__src__gestures__tap$46dart, packages__flutter__src__gestures__multitap$46dart, packages__flutter__src__gestures__long_press$46dart, packages__flutter__src__foundation__debug$46dart, packages__flutter__src__painting__strut_style$46dart) {
+define(['dart_sdk', 'packages/flutter/src/painting/colors.dart'], (function load__packages__flutter__src__material__colors_dart(dart_sdk, packages__flutter__src__painting__colors$46dart) {
   'use strict';
   const core = dart_sdk.core;
-  const _interceptors = dart_sdk._interceptors;
   const ui = dart_sdk.ui;
-  const _internal = dart_sdk._internal;
-  const collection = dart_sdk.collection;
-  const math = dart_sdk.math;
   const dart = dart_sdk.dart;
   const dartx = dart_sdk.dartx;
-  const box = packages__flutter__src__rendering__layer$46dart.src__rendering__box;
-  const object = packages__flutter__src__rendering__layer$46dart.src__rendering__object;
-  const debug = packages__flutter__src__rendering__layer$46dart.src__rendering__debug;
-  const semantics = packages__flutter__src__semantics__semantics$46dart.src__semantics__semantics;
-  const text_painter = packages__flutter__src__painting__placeholder_span$46dart.src__painting__text_painter;
-  const placeholder_span = packages__flutter__src__painting__placeholder_span$46dart.src__painting__placeholder_span;
-  const inline_span = packages__flutter__src__painting__placeholder_span$46dart.src__painting__inline_span;
-  const text_span = packages__flutter__src__painting__placeholder_span$46dart.src__painting__text_span;
-  const basic_types = packages__flutter__src__painting__basic_types$46dart.src__painting__basic_types;
-  const hit_test = packages__flutter__src__gestures__hit_test$46dart.src__gestures__hit_test;
-  const vector_math_64 = packages__vector_math__vector_math_64$46dart.vector_math_64;
-  const text_editing = packages__flutter__src__services__text_editing$46dart.src__services__text_editing;
-  const tap = packages__flutter__src__gestures__tap$46dart.src__gestures__tap;
-  const multitap = packages__flutter__src__gestures__multitap$46dart.src__gestures__multitap;
-  const long_press = packages__flutter__src__gestures__long_press$46dart.src__gestures__long_press;
-  const diagnostics = packages__flutter__src__foundation__debug$46dart.src__foundation__diagnostics;
-  const strut_style = packages__flutter__src__painting__strut_style$46dart.src__painting__strut_style;
-  var paragraph = Object.create(dart.library);
-  var $add = dartx.add;
-  var $join = dartx.join;
-  var $_get = dartx._get;
-  var $_set = dartx._set;
-  var $length = dartx.length;
-  var $abs = dartx.abs;
-  var $any = dartx.any;
-  var $isNotEmpty = dartx.isNotEmpty;
-  var $elementAt = dartx.elementAt;
-  var $isEmpty = dartx.isEmpty;
-  var $first = dartx.first;
-  var $skip = dartx.skip;
-  var $floorToDouble = dartx.floorToDouble;
-  var $ceilToDouble = dartx.ceilToDouble;
-  var $runtimeType = dartx.runtimeType;
+  const colors = packages__flutter__src__painting__colors$46dart.src__painting__colors;
+  var colors$ = Object.create(dart.library);
   dart._checkModuleNullSafetyMode(true);
-  var T = {
-    JSArrayOfString: () => (T.JSArrayOfString = dart.constFn(_interceptors.JSArray$(core.String)))(),
-    JSArrayOfPlaceholderSpan: () => (T.JSArrayOfPlaceholderSpan = dart.constFn(_interceptors.JSArray$(placeholder_span.PlaceholderSpan)))(),
-    InlineSpanTobool: () => (T.InlineSpanTobool = dart.constFn(dart.fnType(core.bool, [inline_span.InlineSpan])))(),
-    ListOfPlaceholderDimensions: () => (T.ListOfPlaceholderDimensions = dart.constFn(core.List$(text_painter.PlaceholderDimensions)))(),
-    VoidTobool: () => (T.VoidTobool = dart.constFn(dart.fnType(core.bool, [])))(),
-    boolTodynamic: () => (T.boolTodynamic = dart.constFn(dart.fnType(dart.dynamic, [core.bool])))(),
-    OffsetN: () => (T.OffsetN = dart.constFn(dart.nullable(ui.Offset)))(),
-    BoxHitTestResultAndOffsetNTobool: () => (T.BoxHitTestResultAndOffsetNTobool = dart.constFn(dart.fnType(core.bool, [box.BoxHitTestResult, T.OffsetN()])))(),
-    JSArrayOfPlaceholderDimensions: () => (T.JSArrayOfPlaceholderDimensions = dart.constFn(_interceptors.JSArray$(text_painter.PlaceholderDimensions)))(),
-    JSArrayOfColor: () => (T.JSArrayOfColor = dart.constFn(_interceptors.JSArray$(ui.Color)))(),
-    PaintingContextAndOffsetTovoid: () => (T.PaintingContextAndOffsetTovoid = dart.constFn(dart.fnType(dart.void, [object.PaintingContext, ui.Offset])))(),
-    InlineSpanSemanticsInformationTobool: () => (T.InlineSpanSemanticsInformationTobool = dart.constFn(dart.fnType(core.bool, [inline_span.InlineSpanSemanticsInformation])))(),
-    JSArrayOfSemanticsNode: () => (T.JSArrayOfSemanticsNode = dart.constFn(_interceptors.JSArray$(semantics.SemanticsNode)))(),
-    ListQueueOfSemanticsNode: () => (T.ListQueueOfSemanticsNode = dart.constFn(collection.ListQueue$(semantics.SemanticsNode)))(),
-    JSArrayOfDiagnosticsNode: () => (T.JSArrayOfDiagnosticsNode = dart.constFn(_interceptors.JSArray$(diagnostics.DiagnosticsNode)))(),
-    EnumPropertyOfTextAlign: () => (T.EnumPropertyOfTextAlign = dart.constFn(diagnostics.EnumProperty$(ui.TextAlign)))(),
-    EnumPropertyOfTextDirection: () => (T.EnumPropertyOfTextDirection = dart.constFn(diagnostics.EnumProperty$(ui.TextDirection)))(),
-    EnumPropertyOfTextOverflow: () => (T.EnumPropertyOfTextOverflow = dart.constFn(diagnostics.EnumProperty$(paragraph.TextOverflow)))(),
-    DiagnosticsPropertyOfLocale: () => (T.DiagnosticsPropertyOfLocale = dart.constFn(diagnostics.DiagnosticsProperty$(ui.Locale)))()
-  };
   const CT = Object.create({
     _: () => (C, CT)
   });
   dart.defineLazy(CT, {
     get C0() {
       return C[0] = dart.const({
-        __proto__: paragraph.TextOverflow.prototype,
-        [_name$]: "TextOverflow.clip",
-        index: 0
+        __proto__: ui.Color.prototype,
+        [Color_value]: 0
       });
     },
     get C1() {
       return C[1] = dart.const({
-        __proto__: paragraph.TextOverflow.prototype,
-        [_name$]: "TextOverflow.fade",
-        index: 1
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278190080.0
       });
     },
     get C2() {
       return C[2] = dart.const({
-        __proto__: paragraph.TextOverflow.prototype,
-        [_name$]: "TextOverflow.ellipsis",
-        index: 2
+        __proto__: ui.Color.prototype,
+        [Color_value]: 3707764736.0
       });
     },
     get C3() {
       return C[3] = dart.const({
-        __proto__: paragraph.TextOverflow.prototype,
-        [_name$]: "TextOverflow.visible",
-        index: 3
+        __proto__: ui.Color.prototype,
+        [Color_value]: 2315255808.0
       });
     },
     get C4() {
-      return C[4] = dart.constList([C[0] || CT.C0, C[1] || CT.C1, C[2] || CT.C2, C[3] || CT.C3], paragraph.TextOverflow);
+      return C[4] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1929379840
+      });
     },
     get C5() {
       return C[5] = dart.const({
-        __proto__: ui.TextAlign.prototype,
-        [_name]: "TextAlign.start",
-        index: 4
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1627389952
       });
     },
     get C6() {
       return C[6] = dart.const({
-        __proto__: text_painter.TextWidthBasis.prototype,
-        [_name$0]: "TextWidthBasis.parent",
-        index: 0
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1107296256
       });
     },
     get C7() {
       return C[7] = dart.const({
-        __proto__: basic_types.RenderComparison.prototype,
-        [_name$1]: "RenderComparison.identical",
-        index: 0
+        __proto__: ui.Color.prototype,
+        [Color_value]: 520093696
       });
     },
     get C8() {
       return C[8] = dart.const({
-        __proto__: basic_types.RenderComparison.prototype,
-        [_name$1]: "RenderComparison.metadata",
-        index: 1
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294967295.0
       });
     },
     get C9() {
       return C[9] = dart.const({
-        __proto__: basic_types.RenderComparison.prototype,
-        [_name$1]: "RenderComparison.paint",
-        index: 2
+        __proto__: ui.Color.prototype,
+        [Color_value]: 3019898879.0
       });
     },
     get C10() {
       return C[10] = dart.const({
-        __proto__: basic_types.RenderComparison.prototype,
-        [_name$1]: "RenderComparison.layout",
-        index: 3
+        __proto__: ui.Color.prototype,
+        [Color_value]: 2583691263.0
       });
     },
     get C11() {
       return C[11] = dart.const({
-        __proto__: ui.PlaceholderAlignment.prototype,
-        [_name]: "PlaceholderAlignment.baseline",
-        index: 0
+        __proto__: ui.Color.prototype,
+        [Color_value]: 2332033023.0
       });
     },
     get C12() {
       return C[12] = dart.const({
-        __proto__: ui.PlaceholderAlignment.prototype,
-        [_name]: "PlaceholderAlignment.aboveBaseline",
-        index: 1
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1660944383
       });
     },
     get C13() {
       return C[13] = dart.const({
-        __proto__: ui.PlaceholderAlignment.prototype,
-        [_name]: "PlaceholderAlignment.belowBaseline",
-        index: 2
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1308622847
       });
     },
     get C14() {
       return C[14] = dart.const({
-        __proto__: ui.PlaceholderAlignment.prototype,
-        [_name]: "PlaceholderAlignment.top",
-        index: 3
+        __proto__: ui.Color.prototype,
+        [Color_value]: 1040187391
       });
     },
     get C15() {
       return C[15] = dart.const({
-        __proto__: ui.PlaceholderAlignment.prototype,
-        [_name]: "PlaceholderAlignment.middle",
-        index: 5
+        __proto__: ui.Color.prototype,
+        [Color_value]: 536870911
       });
     },
     get C16() {
       return C[16] = dart.const({
-        __proto__: ui.PlaceholderAlignment.prototype,
-        [_name]: "PlaceholderAlignment.bottom",
-        index: 4
-      });
-    },
-    get C17() {
-      return C[17] = dart.const({
-        __proto__: ui.TextDirection.prototype,
-        [_name]: "TextDirection.rtl",
-        index: 0
-      });
-    },
-    get C18() {
-      return C[18] = dart.const({
-        __proto__: ui.TextDirection.prototype,
-        [_name]: "TextDirection.ltr",
-        index: 1
+        __proto__: ui.Color.prototype,
+        [Color_value]: 452984831
       });
     },
     get C19() {
       return C[19] = dart.const({
         __proto__: ui.Color.prototype,
-        [Color_value]: 4294967295.0
+        [Color_value]: 4294962158.0
       });
     },
     get C20() {
       return C[20] = dart.const({
         __proto__: ui.Color.prototype,
-        [Color_value]: 16777215
+        [Color_value]: 4294954450.0
       });
+    },
+    get C21() {
+      return C[21] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293892762.0
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293227379.0
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293874512.0
+      });
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294198070.0
+      });
+    },
+    get C25() {
+      return C[25] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293212469.0
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292030255.0
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291176488.0
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290190364.0
+      });
+    },
+    get C18() {
+      return C[18] = dart.constMap(core.int, ui.Color, [50, C[19] || CT.C19, 100, C[20] || CT.C20, 200, C[21] || CT.C21, 300, C[22] || CT.C22, 400, C[23] || CT.C23, 500, C[24] || CT.C24, 600, C[25] || CT.C25, 700, C[26] || CT.C26, 800, C[27] || CT.C27, 900, C[28] || CT.C28]);
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4294198070.0,
+        [ColorSwatch__swatch]: C[18] || CT.C18
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294937216.0
+      });
+    },
+    get C32() {
+      return C[32] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294922834.0
+      });
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294907716.0
+      });
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292149248.0
+      });
+    },
+    get C30() {
+      return C[30] = dart.constMap(core.int, ui.Color, [100, C[31] || CT.C31, 200, C[32] || CT.C32, 400, C[33] || CT.C33, 700, C[34] || CT.C34]);
+    },
+    get C29() {
+      return C[29] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4294922834.0,
+        [ColorSwatch__swatch]: C[30] || CT.C30
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294763756.0
+      });
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294491088.0
+      });
+    },
+    get C39() {
+      return C[39] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294217649.0
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293943954.0
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293673082.0
+      });
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293467747.0
+      });
+    },
+    get C43() {
+      return C[43] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292352864.0
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290910299.0
+      });
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289533015.0
+      });
+    },
+    get C46() {
+      return C[46] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287106639.0
+      });
+    },
+    get C36() {
+      return C[36] = dart.constMap(core.int, ui.Color, [50, C[37] || CT.C37, 100, C[38] || CT.C38, 200, C[39] || CT.C39, 300, C[40] || CT.C40, 400, C[41] || CT.C41, 500, C[42] || CT.C42, 600, C[43] || CT.C43, 700, C[44] || CT.C44, 800, C[45] || CT.C45, 900, C[46] || CT.C46]);
+    },
+    get C35() {
+      return C[35] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4293467747.0,
+        [ColorSwatch__swatch]: C[36] || CT.C36
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294934699.0
+      });
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294918273.0
+      });
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294246487.0
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291105122.0
+      });
+    },
+    get C48() {
+      return C[48] = dart.constMap(core.int, ui.Color, [100, C[49] || CT.C49, 200, C[50] || CT.C50, 400, C[51] || CT.C51, 700, C[52] || CT.C52]);
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4294918273.0,
+        [ColorSwatch__swatch]: C[48] || CT.C48
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294174197.0
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292984551.0
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291728344.0
+      });
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290406600.0
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289415100.0
+      });
+    },
+    get C60() {
+      return C[60] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288423856.0
+      });
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287505578.0
+      });
+    },
+    get C62() {
+      return C[62] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286259106.0
+      });
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285143962.0
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283045004.0
+      });
+    },
+    get C54() {
+      return C[54] = dart.constMap(core.int, ui.Color, [50, C[55] || CT.C55, 100, C[56] || CT.C56, 200, C[57] || CT.C57, 300, C[58] || CT.C58, 400, C[59] || CT.C59, 500, C[60] || CT.C60, 600, C[61] || CT.C61, 700, C[62] || CT.C62, 800, C[63] || CT.C63, 900, C[64] || CT.C64]);
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4288423856.0,
+        [ColorSwatch__swatch]: C[54] || CT.C54
+      });
+    },
+    get C67() {
+      return C[67] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293558524.0
+      });
+    },
+    get C68() {
+      return C[68] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292886779.0
+      });
+    },
+    get C69() {
+      return C[69] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292149497.0
+      });
+    },
+    get C70() {
+      return C[70] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289331455.0
+      });
+    },
+    get C66() {
+      return C[66] = dart.constMap(core.int, ui.Color, [100, C[67] || CT.C67, 200, C[68] || CT.C68, 400, C[69] || CT.C69, 700, C[70] || CT.C70]);
+    },
+    get C65() {
+      return C[65] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4292886779.0,
+        [ColorSwatch__swatch]: C[66] || CT.C66
+      });
+    },
+    get C73() {
+      return C[73] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293781494.0
+      });
+    },
+    get C74() {
+      return C[74] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291937513.0
+      });
+    },
+    get C75() {
+      return C[75] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289961435.0
+      });
+    },
+    get C76() {
+      return C[76] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287985101.0
+      });
+    },
+    get C77() {
+      return C[77] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286470082.0
+      });
+    },
+    get C78() {
+      return C[78] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284955319.0
+      });
+    },
+    get C79() {
+      return C[79] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284364209.0
+      });
+    },
+    get C80() {
+      return C[80] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283510184.0
+      });
+    },
+    get C81() {
+      return C[81] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282722208.0
+      });
+    },
+    get C82() {
+      return C[82] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281408402.0
+      });
+    },
+    get C72() {
+      return C[72] = dart.constMap(core.int, ui.Color, [50, C[73] || CT.C73, 100, C[74] || CT.C74, 200, C[75] || CT.C75, 300, C[76] || CT.C76, 400, C[77] || CT.C77, 500, C[78] || CT.C78, 600, C[79] || CT.C79, 700, C[80] || CT.C80, 800, C[81] || CT.C81, 900, C[82] || CT.C82]);
+    },
+    get C71() {
+      return C[71] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4284955319.0,
+        [ColorSwatch__swatch]: C[72] || CT.C72
+      });
+    },
+    get C85() {
+      return C[85] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289956095.0
+      });
+    },
+    get C86() {
+      return C[86] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286336511.0
+      });
+    },
+    get C87() {
+      return C[87] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284817407.0
+      });
+    },
+    get C88() {
+      return C[88] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284612842.0
+      });
+    },
+    get C84() {
+      return C[84] = dart.constMap(core.int, ui.Color, [100, C[85] || CT.C85, 200, C[86] || CT.C86, 400, C[87] || CT.C87, 700, C[88] || CT.C88]);
+    },
+    get C83() {
+      return C[83] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4286336511.0,
+        [ColorSwatch__swatch]: C[84] || CT.C84
+      });
+    },
+    get C91() {
+      return C[91] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293454582.0
+      });
+    },
+    get C92() {
+      return C[92] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291152617.0
+      });
+    },
+    get C93() {
+      return C[93] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288653530.0
+      });
+    },
+    get C94() {
+      return C[94] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286154443.0
+      });
+    },
+    get C95() {
+      return C[95] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284246976.0
+      });
+    },
+    get C96() {
+      return C[96] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282339765.0
+      });
+    },
+    get C97() {
+      return C[97] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281944491.0
+      });
+    },
+    get C98() {
+      return C[98] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281352095.0
+      });
+    },
+    get C99() {
+      return C[99] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280825235.0
+      });
+    },
+    get C100() {
+      return C[100] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4279903102.0
+      });
+    },
+    get C90() {
+      return C[90] = dart.constMap(core.int, ui.Color, [50, C[91] || CT.C91, 100, C[92] || CT.C92, 200, C[93] || CT.C93, 300, C[94] || CT.C94, 400, C[95] || CT.C95, 500, C[96] || CT.C96, 600, C[97] || CT.C97, 700, C[98] || CT.C98, 800, C[99] || CT.C99, 900, C[100] || CT.C100]);
+    },
+    get C89() {
+      return C[89] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4282339765.0,
+        [ColorSwatch__swatch]: C[90] || CT.C90
+      });
+    },
+    get C103() {
+      return C[103] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287405823.0
+      });
+    },
+    get C104() {
+      return C[104] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283657726.0
+      });
+    },
+    get C105() {
+      return C[105] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282211070.0
+      });
+    },
+    get C106() {
+      return C[106] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281356286.0
+      });
+    },
+    get C102() {
+      return C[102] = dart.constMap(core.int, ui.Color, [100, C[103] || CT.C103, 200, C[104] || CT.C104, 400, C[105] || CT.C105, 700, C[106] || CT.C106]);
+    },
+    get C101() {
+      return C[101] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4283657726.0,
+        [ColorSwatch__swatch]: C[102] || CT.C102
+      });
+    },
+    get C109() {
+      return C[109] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293128957.0
+      });
+    },
+    get C110() {
+      return C[110] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290502395.0
+      });
+    },
+    get C111() {
+      return C[111] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287679225.0
+      });
+    },
+    get C112() {
+      return C[112] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284790262.0
+      });
+    },
+    get C113() {
+      return C[113] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282557941.0
+      });
+    },
+    get C114() {
+      return C[114] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280391411.0
+      });
+    },
+    get C115() {
+      return C[115] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280191205.0
+      });
+    },
+    get C116() {
+      return C[116] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4279858898.0
+      });
+    },
+    get C117() {
+      return C[117] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4279592384.0
+      });
+    },
+    get C118() {
+      return C[118] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4279060385.0
+      });
+    },
+    get C108() {
+      return C[108] = dart.constMap(core.int, ui.Color, [50, C[109] || CT.C109, 100, C[110] || CT.C110, 200, C[111] || CT.C111, 300, C[112] || CT.C112, 400, C[113] || CT.C113, 500, C[114] || CT.C114, 600, C[115] || CT.C115, 700, C[116] || CT.C116, 800, C[117] || CT.C117, 900, C[118] || CT.C118]);
+    },
+    get C107() {
+      return C[107] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4280391411.0,
+        [ColorSwatch__swatch]: C[108] || CT.C108
+      });
+    },
+    get C121() {
+      return C[121] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286755327.0
+      });
+    },
+    get C122() {
+      return C[122] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282682111.0
+      });
+    },
+    get C123() {
+      return C[123] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280908287.0
+      });
+    },
+    get C124() {
+      return C[124] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280902399.0
+      });
+    },
+    get C120() {
+      return C[120] = dart.constMap(core.int, ui.Color, [100, C[121] || CT.C121, 200, C[122] || CT.C122, 400, C[123] || CT.C123, 700, C[124] || CT.C124]);
+    },
+    get C119() {
+      return C[119] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4282682111.0,
+        [ColorSwatch__swatch]: C[120] || CT.C120
+      });
+    },
+    get C127() {
+      return C[127] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292998654.0
+      });
+    },
+    get C128() {
+      return C[128] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289979900.0
+      });
+    },
+    get C129() {
+      return C[129] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286698746.0
+      });
+    },
+    get C130() {
+      return C[130] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283417591.0
+      });
+    },
+    get C131() {
+      return C[131] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280923894.0
+      });
+    },
+    get C132() {
+      return C[132] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278430196.0
+      });
+    },
+    get C133() {
+      return C[133] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278426597.0
+      });
+    },
+    get C134() {
+      return C[134] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278356177.0
+      });
+    },
+    get C135() {
+      return C[135] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278351805.0
+      });
+    },
+    get C136() {
+      return C[136] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278278043.0
+      });
+    },
+    get C126() {
+      return C[126] = dart.constMap(core.int, ui.Color, [50, C[127] || CT.C127, 100, C[128] || CT.C128, 200, C[129] || CT.C129, 300, C[130] || CT.C130, 400, C[131] || CT.C131, 500, C[132] || CT.C132, 600, C[133] || CT.C133, 700, C[134] || CT.C134, 800, C[135] || CT.C135, 900, C[136] || CT.C136]);
+    },
+    get C125() {
+      return C[125] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4278430196.0,
+        [ColorSwatch__swatch]: C[126] || CT.C126
+      });
+    },
+    get C139() {
+      return C[139] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286634239.0
+      });
+    },
+    get C140() {
+      return C[140] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282434815.0
+      });
+    },
+    get C141() {
+      return C[141] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278235391.0
+      });
+    },
+    get C142() {
+      return C[142] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278227434.0
+      });
+    },
+    get C138() {
+      return C[138] = dart.constMap(core.int, ui.Color, [100, C[139] || CT.C139, 200, C[140] || CT.C140, 400, C[141] || CT.C141, 700, C[142] || CT.C142]);
+    },
+    get C137() {
+      return C[137] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4282434815.0,
+        [ColorSwatch__swatch]: C[138] || CT.C138
+      });
+    },
+    get C145() {
+      return C[145] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292933626.0
+      });
+    },
+    get C146() {
+      return C[146] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289915890.0
+      });
+    },
+    get C147() {
+      return C[147] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286635754.0
+      });
+    },
+    get C148() {
+      return C[148] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283289825.0
+      });
+    },
+    get C149() {
+      return C[149] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280731354.0
+      });
+    },
+    get C150() {
+      return C[150] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278238420.0
+      });
+    },
+    get C151() {
+      return C[151] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278234305.0
+      });
+    },
+    get C152() {
+      return C[152] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278228903.0
+      });
+    },
+    get C153() {
+      return C[153] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278223759.0
+      });
+    },
+    get C154() {
+      return C[154] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278214756.0
+      });
+    },
+    get C144() {
+      return C[144] = dart.constMap(core.int, ui.Color, [50, C[145] || CT.C145, 100, C[146] || CT.C146, 200, C[147] || CT.C147, 300, C[148] || CT.C148, 400, C[149] || CT.C149, 500, C[150] || CT.C150, 600, C[151] || CT.C151, 700, C[152] || CT.C152, 800, C[153] || CT.C153, 900, C[154] || CT.C154]);
+    },
+    get C143() {
+      return C[143] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4278238420.0,
+        [ColorSwatch__swatch]: C[144] || CT.C144
+      });
+    },
+    get C157() {
+      return C[157] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286906367.0
+      });
+    },
+    get C158() {
+      return C[158] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4279828479.0
+      });
+    },
+    get C159() {
+      return C[159] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278248959.0
+      });
+    },
+    get C160() {
+      return C[160] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278237396.0
+      });
+    },
+    get C156() {
+      return C[156] = dart.constMap(core.int, ui.Color, [100, C[157] || CT.C157, 200, C[158] || CT.C158, 400, C[159] || CT.C159, 700, C[160] || CT.C160]);
+    },
+    get C155() {
+      return C[155] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4279828479.0,
+        [ColorSwatch__swatch]: C[156] || CT.C156
+      });
+    },
+    get C163() {
+      return C[163] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292932337.0
+      });
+    },
+    get C164() {
+      return C[164] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289912795.0
+      });
+    },
+    get C165() {
+      return C[165] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286630852.0
+      });
+    },
+    get C166() {
+      return C[166] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283283116.0
+      });
+    },
+    get C167() {
+      return C[167] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280723098.0
+      });
+    },
+    get C168() {
+      return C[168] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278228616.0
+      });
+    },
+    get C169() {
+      return C[169] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278225275.0
+      });
+    },
+    get C170() {
+      return C[170] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278221163.0
+      });
+    },
+    get C171() {
+      return C[171] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278217052.0
+      });
+    },
+    get C172() {
+      return C[172] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278209856.0
+      });
+    },
+    get C162() {
+      return C[162] = dart.constMap(core.int, ui.Color, [50, C[163] || CT.C163, 100, C[164] || CT.C164, 200, C[165] || CT.C165, 300, C[166] || CT.C166, 400, C[167] || CT.C167, 500, C[168] || CT.C168, 600, C[169] || CT.C169, 700, C[170] || CT.C170, 800, C[171] || CT.C171, 900, C[172] || CT.C172]);
+    },
+    get C161() {
+      return C[161] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4278228616.0,
+        [ColorSwatch__swatch]: C[162] || CT.C162
+      });
+    },
+    get C175() {
+      return C[175] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289200107.0
+      });
+    },
+    get C176() {
+      return C[176] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284809178.0
+      });
+    },
+    get C177() {
+      return C[177] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280150454.0
+      });
+    },
+    get C178() {
+      return C[178] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278239141.0
+      });
+    },
+    get C174() {
+      return C[174] = dart.constMap(core.int, ui.Color, [100, C[175] || CT.C175, 200, C[176] || CT.C176, 400, C[177] || CT.C177, 700, C[178] || CT.C178]);
+    },
+    get C173() {
+      return C[173] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4284809178.0,
+        [ColorSwatch__swatch]: C[174] || CT.C174
+      });
+    },
+    get C181() {
+      return C[181] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293457385.0
+      });
+    },
+    get C182() {
+      return C[182] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291356361.0
+      });
+    },
+    get C183() {
+      return C[183] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289058471.0
+      });
+    },
+    get C184() {
+      return C[184] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286695300.0
+      });
+    },
+    get C185() {
+      return C[185] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284922730.0
+      });
+    },
+    get C186() {
+      return C[186] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283215696.0
+      });
+    },
+    get C187() {
+      return C[187] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282622023.0
+      });
+    },
+    get C188() {
+      return C[188] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281896508.0
+      });
+    },
+    get C189() {
+      return C[189] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281236786.0
+      });
+    },
+    get C190() {
+      return C[190] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4279983648.0
+      });
+    },
+    get C180() {
+      return C[180] = dart.constMap(core.int, ui.Color, [50, C[181] || CT.C181, 100, C[182] || CT.C182, 200, C[183] || CT.C183, 300, C[184] || CT.C184, 400, C[185] || CT.C185, 500, C[186] || CT.C186, 600, C[187] || CT.C187, 700, C[188] || CT.C188, 800, C[189] || CT.C189, 900, C[190] || CT.C190]);
+    },
+    get C179() {
+      return C[179] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4283215696.0,
+        [ColorSwatch__swatch]: C[180] || CT.C180
+      });
+    },
+    get C193() {
+      return C[193] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290377418.0
+      });
+    },
+    get C194() {
+      return C[194] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285132974.0
+      });
+    },
+    get C195() {
+      return C[195] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278249078.0
+      });
+    },
+    get C196() {
+      return C[196] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4278241363.0
+      });
+    },
+    get C192() {
+      return C[192] = dart.constMap(core.int, ui.Color, [100, C[193] || CT.C193, 200, C[194] || CT.C194, 400, C[195] || CT.C195, 700, C[196] || CT.C196]);
+    },
+    get C191() {
+      return C[191] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4285132974.0,
+        [ColorSwatch__swatch]: C[192] || CT.C192
+      });
+    },
+    get C199() {
+      return C[199] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294047977.0
+      });
+    },
+    get C200() {
+      return C[200] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292668872.0
+      });
+    },
+    get C201() {
+      return C[201] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291158437.0
+      });
+    },
+    get C202() {
+      return C[202] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289648001.0
+      });
+    },
+    get C203() {
+      return C[203] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288466021.0
+      });
+    },
+    get C204() {
+      return C[204] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287349578.0
+      });
+    },
+    get C205() {
+      return C[205] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286362434.0
+      });
+    },
+    get C206() {
+      return C[206] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285046584.0
+      });
+    },
+    get C207() {
+      return C[207] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283796271.0
+      });
+    },
+    get C208() {
+      return C[208] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281559326.0
+      });
+    },
+    get C198() {
+      return C[198] = dart.constMap(core.int, ui.Color, [50, C[199] || CT.C199, 100, C[200] || CT.C200, 200, C[201] || CT.C201, 300, C[202] || CT.C202, 400, C[203] || CT.C203, 500, C[204] || CT.C204, 600, C[205] || CT.C205, 700, C[206] || CT.C206, 800, C[207] || CT.C207, 900, C[208] || CT.C208]);
+    },
+    get C197() {
+      return C[197] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4287349578.0,
+        [ColorSwatch__swatch]: C[198] || CT.C198
+      });
+    },
+    get C211() {
+      return C[211] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291624848.0
+      });
+    },
+    get C212() {
+      return C[212] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289920857.0
+      });
+    },
+    get C213() {
+      return C[213] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285988611.0
+      });
+    },
+    get C214() {
+      return C[214] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284800279.0
+      });
+    },
+    get C210() {
+      return C[210] = dart.constMap(core.int, ui.Color, [100, C[211] || CT.C211, 200, C[212] || CT.C212, 400, C[213] || CT.C213, 700, C[214] || CT.C214]);
+    },
+    get C209() {
+      return C[209] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4289920857.0,
+        [ColorSwatch__swatch]: C[210] || CT.C210
+      });
+    },
+    get C217() {
+      return C[217] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294573031.0
+      });
+    },
+    get C218() {
+      return C[218] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293981379.0
+      });
+    },
+    get C219() {
+      return C[219] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293324444.0
+      });
+    },
+    get C220() {
+      return C[220] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292667253.0
+      });
+    },
+    get C221() {
+      return C[221] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292141399.0
+      });
+    },
+    get C222() {
+      return C[222] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291681337.0
+      });
+    },
+    get C223() {
+      return C[223] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290824755.0
+      });
+    },
+    get C224() {
+      return C[224] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289705003.0
+      });
+    },
+    get C225() {
+      return C[225] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288584996.0
+      });
+    },
+    get C226() {
+      return C[226] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286740247.0
+      });
+    },
+    get C216() {
+      return C[216] = dart.constMap(core.int, ui.Color, [50, C[217] || CT.C217, 100, C[218] || CT.C218, 200, C[219] || CT.C219, 300, C[220] || CT.C220, 400, C[221] || CT.C221, 500, C[222] || CT.C222, 600, C[223] || CT.C223, 700, C[224] || CT.C224, 800, C[225] || CT.C225, 900, C[226] || CT.C226]);
+    },
+    get C215() {
+      return C[215] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4291681337.0,
+        [ColorSwatch__swatch]: C[216] || CT.C216
+      });
+    },
+    get C229() {
+      return C[229] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294246273.0
+      });
+    },
+    get C230() {
+      return C[230] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293852993.0
+      });
+    },
+    get C231() {
+      return C[231] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291231488.0
+      });
+    },
+    get C232() {
+      return C[232] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289653248.0
+      });
+    },
+    get C228() {
+      return C[228] = dart.constMap(core.int, ui.Color, [100, C[229] || CT.C229, 200, C[230] || CT.C230, 400, C[231] || CT.C231, 700, C[232] || CT.C232]);
+    },
+    get C227() {
+      return C[227] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4293852993.0,
+        [ColorSwatch__swatch]: C[228] || CT.C228
+      });
+    },
+    get C235() {
+      return C[235] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294966759.0
+      });
+    },
+    get C236() {
+      return C[236] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294965700.0
+      });
+    },
+    get C237() {
+      return C[237] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294964637.0
+      });
+    },
+    get C238() {
+      return C[238] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294963574.0
+      });
+    },
+    get C239() {
+      return C[239] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294962776.0
+      });
+    },
+    get C240() {
+      return C[240] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294961979.0
+      });
+    },
+    get C241() {
+      return C[241] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294826037.0
+      });
+    },
+    get C242() {
+      return C[242] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294688813.0
+      });
+    },
+    get C243() {
+      return C[243] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294551589.0
+      });
+    },
+    get C244() {
+      return C[244] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294278935.0
+      });
+    },
+    get C234() {
+      return C[234] = dart.constMap(core.int, ui.Color, [50, C[235] || CT.C235, 100, C[236] || CT.C236, 200, C[237] || CT.C237, 300, C[238] || CT.C238, 400, C[239] || CT.C239, 500, C[240] || CT.C240, 600, C[241] || CT.C241, 700, C[242] || CT.C242, 800, C[243] || CT.C243, 900, C[244] || CT.C244]);
+    },
+    get C233() {
+      return C[233] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4294961979.0,
+        [ColorSwatch__swatch]: C[234] || CT.C234
+      });
+    },
+    get C247() {
+      return C[247] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294967181.0
+      });
+    },
+    get C248() {
+      return C[248] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294967040.0
+      });
+    },
+    get C249() {
+      return C[249] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294961664.0
+      });
+    },
+    get C250() {
+      return C[250] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294956544.0
+      });
+    },
+    get C246() {
+      return C[246] = dart.constMap(core.int, ui.Color, [100, C[247] || CT.C247, 200, C[248] || CT.C248, 400, C[249] || CT.C249, 700, C[250] || CT.C250]);
+    },
+    get C245() {
+      return C[245] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4294967040.0,
+        [ColorSwatch__swatch]: C[246] || CT.C246
+      });
+    },
+    get C253() {
+      return C[253] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294965473.0
+      });
+    },
+    get C254() {
+      return C[254] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294962355.0
+      });
+    },
+    get C255() {
+      return C[255] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294959234.0
+      });
+    },
+    get C256() {
+      return C[256] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294956367.0
+      });
+    },
+    get C257() {
+      return C[257] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294953512.0
+      });
+    },
+    get C258() {
+      return C[258] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294951175.0
+      });
+    },
+    get C259() {
+      return C[259] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294947584.0
+      });
+    },
+    get C260() {
+      return C[260] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294942720.0
+      });
+    },
+    get C261() {
+      return C[261] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294938368.0
+      });
+    },
+    get C262() {
+      return C[262] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294930176.0
+      });
+    },
+    get C252() {
+      return C[252] = dart.constMap(core.int, ui.Color, [50, C[253] || CT.C253, 100, C[254] || CT.C254, 200, C[255] || CT.C255, 300, C[256] || CT.C256, 400, C[257] || CT.C257, 500, C[258] || CT.C258, 600, C[259] || CT.C259, 700, C[260] || CT.C260, 800, C[261] || CT.C261, 900, C[262] || CT.C262]);
+    },
+    get C251() {
+      return C[251] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4294951175.0,
+        [ColorSwatch__swatch]: C[252] || CT.C252
+      });
+    },
+    get C265() {
+      return C[265] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294960511.0
+      });
+    },
+    get C266() {
+      return C[266] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294956864.0
+      });
+    },
+    get C267() {
+      return C[267] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294951936.0
+      });
+    },
+    get C268() {
+      return C[268] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294945536.0
+      });
+    },
+    get C264() {
+      return C[264] = dart.constMap(core.int, ui.Color, [100, C[265] || CT.C265, 200, C[266] || CT.C266, 400, C[267] || CT.C267, 700, C[268] || CT.C268]);
+    },
+    get C263() {
+      return C[263] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4294956864.0,
+        [ColorSwatch__swatch]: C[264] || CT.C264
+      });
+    },
+    get C271() {
+      return C[271] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294964192.0
+      });
+    },
+    get C272() {
+      return C[272] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294959282.0
+      });
+    },
+    get C273() {
+      return C[273] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294954112.0
+      });
+    },
+    get C274() {
+      return C[274] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294948685.0
+      });
+    },
+    get C275() {
+      return C[275] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294944550.0
+      });
+    },
+    get C276() {
+      return C[276] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294940672.0
+      });
+    },
+    get C277() {
+      return C[277] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294675456.0
+      });
+    },
+    get C278() {
+      return C[278] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294278144.0
+      });
+    },
+    get C279() {
+      return C[279] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293880832.0
+      });
+    },
+    get C280() {
+      return C[280] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293284096.0
+      });
+    },
+    get C270() {
+      return C[270] = dart.constMap(core.int, ui.Color, [50, C[271] || CT.C271, 100, C[272] || CT.C272, 200, C[273] || CT.C273, 300, C[274] || CT.C274, 400, C[275] || CT.C275, 500, C[276] || CT.C276, 600, C[277] || CT.C277, 700, C[278] || CT.C278, 800, C[279] || CT.C279, 900, C[280] || CT.C280]);
+    },
+    get C269() {
+      return C[269] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4294940672.0,
+        [ColorSwatch__swatch]: C[270] || CT.C270
+      });
+    },
+    get C283() {
+      return C[283] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294955392.0
+      });
+    },
+    get C284() {
+      return C[284] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294945600.0
+      });
+    },
+    get C285() {
+      return C[285] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294938880.0
+      });
+    },
+    get C286() {
+      return C[286] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294929664.0
+      });
+    },
+    get C282() {
+      return C[282] = dart.constMap(core.int, ui.Color, [100, C[283] || CT.C283, 200, C[284] || CT.C284, 400, C[285] || CT.C285, 700, C[286] || CT.C286]);
+    },
+    get C281() {
+      return C[281] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4294945600.0,
+        [ColorSwatch__swatch]: C[282] || CT.C282
+      });
+    },
+    get C289() {
+      return C[289] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294699495.0
+      });
+    },
+    get C290() {
+      return C[290] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294954172.0
+      });
+    },
+    get C291() {
+      return C[291] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294945681.0
+      });
+    },
+    get C292() {
+      return C[292] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294937189.0
+      });
+    },
+    get C293() {
+      return C[293] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294930499.0
+      });
+    },
+    get C294() {
+      return C[294] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294924066.0
+      });
+    },
+    get C295() {
+      return C[295] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294201630.0
+      });
+    },
+    get C296() {
+      return C[296] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293282329.0
+      });
+    },
+    get C297() {
+      return C[297] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292363029.0
+      });
+    },
+    get C298() {
+      return C[298] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290721292.0
+      });
+    },
+    get C288() {
+      return C[288] = dart.constMap(core.int, ui.Color, [50, C[289] || CT.C289, 100, C[290] || CT.C290, 200, C[291] || CT.C291, 300, C[292] || CT.C292, 400, C[293] || CT.C293, 500, C[294] || CT.C294, 600, C[295] || CT.C295, 700, C[296] || CT.C296, 800, C[297] || CT.C297, 900, C[298] || CT.C298]);
+    },
+    get C287() {
+      return C[287] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4294924066.0,
+        [ColorSwatch__swatch]: C[288] || CT.C288
+      });
+    },
+    get C301() {
+      return C[301] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294942336.0
+      });
+    },
+    get C302() {
+      return C[302] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294929984.0
+      });
+    },
+    get C303() {
+      return C[303] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294917376.0
+      });
+    },
+    get C304() {
+      return C[304] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292684800.0
+      });
+    },
+    get C300() {
+      return C[300] = dart.constMap(core.int, ui.Color, [100, C[301] || CT.C301, 200, C[302] || CT.C302, 400, C[303] || CT.C303, 700, C[304] || CT.C304]);
+    },
+    get C299() {
+      return C[299] = dart.const({
+        __proto__: colors$.MaterialAccentColor.prototype,
+        [Color_value]: 4294929984.0,
+        [ColorSwatch__swatch]: C[300] || CT.C300
+      });
+    },
+    get C307() {
+      return C[307] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293913577.0
+      });
+    },
+    get C308() {
+      return C[308] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292332744.0
+      });
+    },
+    get C309() {
+      return C[309] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290554532.0
+      });
+    },
+    get C310() {
+      return C[310] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288776319.0
+      });
+    },
+    get C311() {
+      return C[311] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287458915.0
+      });
+    },
+    get C312() {
+      return C[312] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286141768.0
+      });
+    },
+    get C313() {
+      return C[313] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285353025.0
+      });
+    },
+    get C314() {
+      return C[314] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284301367.0
+      });
+    },
+    get C315() {
+      return C[315] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283315246.0
+      });
+    },
+    get C316() {
+      return C[316] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282263331.0
+      });
+    },
+    get C306() {
+      return C[306] = dart.constMap(core.int, ui.Color, [50, C[307] || CT.C307, 100, C[308] || CT.C308, 200, C[309] || CT.C309, 300, C[310] || CT.C310, 400, C[311] || CT.C311, 500, C[312] || CT.C312, 600, C[313] || CT.C313, 700, C[314] || CT.C314, 800, C[315] || CT.C315, 900, C[316] || CT.C316]);
+    },
+    get C305() {
+      return C[305] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4286141768.0,
+        [ColorSwatch__swatch]: C[306] || CT.C306
+      });
+    },
+    get C319() {
+      return C[319] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294638330.0
+      });
+    },
+    get C320() {
+      return C[320] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294309365.0
+      });
+    },
+    get C321() {
+      return C[321] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293848814.0
+      });
+    },
+    get C322() {
+      return C[322] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292927712.0
+      });
+    },
+    get C323() {
+      return C[323] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4292269782.0
+      });
+    },
+    get C324() {
+      return C[324] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4290624957.0
+      });
+    },
+    get C325() {
+      return C[325] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4288585374.0
+      });
+    },
+    get C326() {
+      return C[326] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4285887861.0
+      });
+    },
+    get C327() {
+      return C[327] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284572001.0
+      });
+    },
+    get C328() {
+      return C[328] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282532418.0
+      });
+    },
+    get C329() {
+      return C[329] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281348144.0
+      });
+    },
+    get C330() {
+      return C[330] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280361249.0
+      });
+    },
+    get C318() {
+      return C[318] = dart.constMap(core.int, ui.Color, [50, C[319] || CT.C319, 100, C[320] || CT.C320, 200, C[321] || CT.C321, 300, C[322] || CT.C322, 350, C[323] || CT.C323, 400, C[324] || CT.C324, 500, C[325] || CT.C325, 600, C[326] || CT.C326, 700, C[327] || CT.C327, 800, C[328] || CT.C328, 850, C[329] || CT.C329, 900, C[330] || CT.C330]);
+    },
+    get C317() {
+      return C[317] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4288585374.0,
+        [ColorSwatch__swatch]: C[318] || CT.C318
+      });
+    },
+    get C333() {
+      return C[333] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4293718001.0
+      });
+    },
+    get C334() {
+      return C[334] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4291811548.0
+      });
+    },
+    get C335() {
+      return C[335] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4289773253.0
+      });
+    },
+    get C336() {
+      return C[336] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4287669422.0
+      });
+    },
+    get C337() {
+      return C[337] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286091420.0
+      });
+    },
+    get C338() {
+      return C[338] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4284513675.0
+      });
+    },
+    get C339() {
+      return C[339] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4283723386.0
+      });
+    },
+    get C340() {
+      return C[340] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4282735204.0
+      });
+    },
+    get C341() {
+      return C[341] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4281812815.0
+      });
+    },
+    get C342() {
+      return C[342] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4280693304.0
+      });
+    },
+    get C332() {
+      return C[332] = dart.constMap(core.int, ui.Color, [50, C[333] || CT.C333, 100, C[334] || CT.C334, 200, C[335] || CT.C335, 300, C[336] || CT.C336, 400, C[337] || CT.C337, 500, C[338] || CT.C338, 600, C[339] || CT.C339, 700, C[340] || CT.C340, 800, C[341] || CT.C341, 900, C[342] || CT.C342]);
+    },
+    get C331() {
+      return C[331] = dart.const({
+        __proto__: colors$.MaterialColor.prototype,
+        [Color_value]: 4284513675.0,
+        [ColorSwatch__swatch]: C[332] || CT.C332
+      });
+    },
+    get C343() {
+      return C[343] = dart.constList([C[17] || CT.C17, C[35] || CT.C35, C[53] || CT.C53, C[71] || CT.C71, C[89] || CT.C89, C[107] || CT.C107, C[125] || CT.C125, C[143] || CT.C143, C[161] || CT.C161, C[179] || CT.C179, C[197] || CT.C197, C[215] || CT.C215, C[233] || CT.C233, C[251] || CT.C251, C[269] || CT.C269, C[287] || CT.C287, C[305] || CT.C305, C[331] || CT.C331], colors$.MaterialColor);
+    },
+    get C344() {
+      return C[344] = dart.constList([C[29] || CT.C29, C[47] || CT.C47, C[65] || CT.C65, C[83] || CT.C83, C[101] || CT.C101, C[119] || CT.C119, C[137] || CT.C137, C[155] || CT.C155, C[173] || CT.C173, C[191] || CT.C191, C[209] || CT.C209, C[227] || CT.C227, C[245] || CT.C245, C[263] || CT.C263, C[281] || CT.C281, C[299] || CT.C299], colors$.MaterialAccentColor);
     }
   }, false);
-  var C = Array(21).fill(void 0);
-  var I = [
-    "package:flutter/src/rendering/paragraph.dart",
-    "file:///U:/src/flutter/packages/flutter/lib/src/rendering/paragraph.dart"
-  ];
-  var _name$ = dart.privateName(paragraph, "_name");
-  paragraph.TextOverflow = class TextOverflow extends core.Object {
-    toString() {
-      return this[_name$];
+  var C = Array(345).fill(void 0);
+  var I = ["package:flutter/src/material/colors.dart"];
+  colors$.MaterialColor = class MaterialColor extends colors.ColorSwatch$(core.int) {
+    get shade50() {
+      return dart.nullCheck(this._get(50));
+    }
+    get shade100() {
+      return dart.nullCheck(this._get(100));
+    }
+    get shade200() {
+      return dart.nullCheck(this._get(200));
+    }
+    get shade300() {
+      return dart.nullCheck(this._get(300));
+    }
+    get shade400() {
+      return dart.nullCheck(this._get(400));
+    }
+    get shade500() {
+      return dart.nullCheck(this._get(500));
+    }
+    get shade600() {
+      return dart.nullCheck(this._get(600));
+    }
+    get shade700() {
+      return dart.nullCheck(this._get(700));
+    }
+    get shade800() {
+      return dart.nullCheck(this._get(800));
+    }
+    get shade900() {
+      return dart.nullCheck(this._get(900));
     }
   };
-  (paragraph.TextOverflow.new = function(index, _name) {
-    this.index = index;
-    this[_name$] = _name;
+  (colors$.MaterialColor.new = function(primary, swatch) {
+    colors$.MaterialColor.__proto__.new.call(this, primary, swatch);
     ;
-  }).prototype = paragraph.TextOverflow.prototype;
-  dart.addTypeTests(paragraph.TextOverflow);
-  dart.addTypeCaches(paragraph.TextOverflow);
-  dart.setLibraryUri(paragraph.TextOverflow, I[0]);
-  dart.setFieldSignature(paragraph.TextOverflow, () => ({
-    __proto__: dart.getFields(paragraph.TextOverflow.__proto__),
-    index: dart.finalFieldType(core.int),
-    [_name$]: dart.finalFieldType(core.String)
+  }).prototype = colors$.MaterialColor.prototype;
+  dart.addTypeTests(colors$.MaterialColor);
+  dart.addTypeCaches(colors$.MaterialColor);
+  dart.setGetterSignature(colors$.MaterialColor, () => ({
+    __proto__: dart.getGetters(colors$.MaterialColor.__proto__),
+    shade50: ui.Color,
+    shade100: ui.Color,
+    shade200: ui.Color,
+    shade300: ui.Color,
+    shade400: ui.Color,
+    shade500: ui.Color,
+    shade600: ui.Color,
+    shade700: ui.Color,
+    shade800: ui.Color,
+    shade900: ui.Color
   }));
-  dart.defineExtensionMethods(paragraph.TextOverflow, ['toString']);
-  paragraph.TextOverflow.clip = C[0] || CT.C0;
-  paragraph.TextOverflow.fade = C[1] || CT.C1;
-  paragraph.TextOverflow.ellipsis = C[2] || CT.C2;
-  paragraph.TextOverflow.visible = C[3] || CT.C3;
-  paragraph.TextOverflow.values = C[4] || CT.C4;
-  var scale = dart.privateName(paragraph, "TextParentData.scale");
-  paragraph.TextParentData = class TextParentData extends box.ContainerBoxParentData$(box.RenderBox) {
-    get scale() {
-      return this[scale];
+  dart.setLibraryUri(colors$.MaterialColor, I[0]);
+  colors$.MaterialAccentColor = class MaterialAccentColor extends colors.ColorSwatch$(core.int) {
+    get shade50() {
+      return dart.nullCheck(this._get(50));
     }
-    set scale(value) {
-      this[scale] = value;
+    get shade100() {
+      return dart.nullCheck(this._get(100));
     }
-    toString() {
-      let values = (() => {
-        let t0 = T.JSArrayOfString().of(["offset=" + dart.str(this.offset)]);
-        if (this.scale != null) t0[$add]("scale=" + dart.str(this.scale));
-        t0[$add](super.toString());
-        return t0;
-      })();
-      return values[$join]("; ");
+    get shade200() {
+      return dart.nullCheck(this._get(200));
+    }
+    get shade400() {
+      return dart.nullCheck(this._get(400));
+    }
+    get shade700() {
+      return dart.nullCheck(this._get(700));
     }
   };
-  (paragraph.TextParentData.new = function() {
-    this[scale] = null;
-    paragraph.TextParentData.__proto__.new.call(this);
+  (colors$.MaterialAccentColor.new = function(primary, swatch) {
+    colors$.MaterialAccentColor.__proto__.new.call(this, primary, swatch);
     ;
-  }).prototype = paragraph.TextParentData.prototype;
-  dart.addTypeTests(paragraph.TextParentData);
-  dart.addTypeCaches(paragraph.TextParentData);
-  dart.setLibraryUri(paragraph.TextParentData, I[0]);
-  dart.setFieldSignature(paragraph.TextParentData, () => ({
-    __proto__: dart.getFields(paragraph.TextParentData.__proto__),
-    scale: dart.fieldType(dart.nullable(core.double))
+  }).prototype = colors$.MaterialAccentColor.prototype;
+  dart.addTypeTests(colors$.MaterialAccentColor);
+  dart.addTypeCaches(colors$.MaterialAccentColor);
+  dart.setGetterSignature(colors$.MaterialAccentColor, () => ({
+    __proto__: dart.getGetters(colors$.MaterialAccentColor.__proto__),
+    shade50: ui.Color,
+    shade100: ui.Color,
+    shade200: ui.Color,
+    shade400: ui.Color,
+    shade700: ui.Color
   }));
-  dart.defineExtensionMethods(paragraph.TextParentData, ['toString']);
-  var index$ = dart.privateName(paragraph, "PlaceholderSpanIndexSemanticsTag.index");
-  paragraph.PlaceholderSpanIndexSemanticsTag = class PlaceholderSpanIndexSemanticsTag extends semantics.SemanticsTag {
-    get index() {
-      return this[index$];
-    }
-    set index(value) {
-      super.index = value;
-    }
-    _equals(other) {
-      if (other == null) return false;
-      return paragraph.PlaceholderSpanIndexSemanticsTag.is(other) && other.index === this.index;
-    }
-    get hashCode() {
-      return ui.hashValues(dart.wrapType(paragraph.PlaceholderSpanIndexSemanticsTag), this.index);
-    }
-  };
-  (paragraph.PlaceholderSpanIndexSemanticsTag.new = function(index) {
-    this[index$] = index;
-    paragraph.PlaceholderSpanIndexSemanticsTag.__proto__.new.call(this, "PlaceholderSpanIndexSemanticsTag(" + dart.str(index) + ")");
-    ;
-  }).prototype = paragraph.PlaceholderSpanIndexSemanticsTag.prototype;
-  dart.addTypeTests(paragraph.PlaceholderSpanIndexSemanticsTag);
-  dart.addTypeCaches(paragraph.PlaceholderSpanIndexSemanticsTag);
-  dart.setLibraryUri(paragraph.PlaceholderSpanIndexSemanticsTag, I[0]);
-  dart.setFieldSignature(paragraph.PlaceholderSpanIndexSemanticsTag, () => ({
-    __proto__: dart.getFields(paragraph.PlaceholderSpanIndexSemanticsTag.__proto__),
-    index: dart.finalFieldType(core.int)
-  }));
-  dart.defineExtensionMethods(paragraph.PlaceholderSpanIndexSemanticsTag, ['_equals']);
-  dart.defineExtensionAccessors(paragraph.PlaceholderSpanIndexSemanticsTag, ['hashCode']);
-  var _name = dart.privateName(ui, "_name");
-  var _name$0 = dart.privateName(text_painter, "_name");
-  var __RenderParagraph__placeholderSpans = dart.privateName(paragraph, "_#RenderParagraph#_placeholderSpans");
-  var _needsClipping = dart.privateName(paragraph, "_needsClipping");
-  var _overflowShader = dart.privateName(paragraph, "_overflowShader");
-  var _placeholderDimensions = dart.privateName(paragraph, "_placeholderDimensions");
-  var _semanticsInfo = dart.privateName(paragraph, "_semanticsInfo");
-  var _cachedChildNodes = dart.privateName(paragraph, "_cachedChildNodes");
-  var _softWrap = dart.privateName(paragraph, "_softWrap");
-  var _overflow = dart.privateName(paragraph, "_overflow");
-  var _textPainter = dart.privateName(paragraph, "_textPainter");
-  var _extractPlaceholderSpans = dart.privateName(paragraph, "_extractPlaceholderSpans");
-  var _name$1 = dart.privateName(basic_types, "_name");
-  var _placeholderSpans = dart.privateName(paragraph, "_placeholderSpans");
-  var _canComputeIntrinsics = dart.privateName(paragraph, "_canComputeIntrinsics");
-  var _computeChildrenWidthWithMinIntrinsics = dart.privateName(paragraph, "_computeChildrenWidthWithMinIntrinsics");
-  var _layoutText = dart.privateName(paragraph, "_layoutText");
-  var _computeChildrenWidthWithMaxIntrinsics = dart.privateName(paragraph, "_computeChildrenWidthWithMaxIntrinsics");
-  var _computeChildrenHeightWithMinIntrinsics = dart.privateName(paragraph, "_computeChildrenHeightWithMinIntrinsics");
-  var _computeIntrinsicHeight = dart.privateName(paragraph, "_computeIntrinsicHeight");
-  var _layoutTextWithConstraints = dart.privateName(paragraph, "_layoutTextWithConstraints");
-  var _layoutChildren = dart.privateName(paragraph, "_layoutChildren");
-  var _setParentData = dart.privateName(paragraph, "_setParentData");
-  var _canComputeDryLayout = dart.privateName(paragraph, "_canComputeDryLayout");
+  dart.setLibraryUri(colors$.MaterialAccentColor, I[0]);
   var Color_value = dart.privateName(ui, "Color.value");
-  const RenderBox_ContainerRenderObjectMixin$36 = class RenderBox_ContainerRenderObjectMixin extends box.RenderBox {};
-  (RenderBox_ContainerRenderObjectMixin$36.new = function() {
-    object.ContainerRenderObjectMixin$(box.RenderBox, paragraph.TextParentData)[dart.mixinNew].call(this);
-    RenderBox_ContainerRenderObjectMixin$36.__proto__.new.call(this);
-  }).prototype = RenderBox_ContainerRenderObjectMixin$36.prototype;
-  dart.applyMixin(RenderBox_ContainerRenderObjectMixin$36, object.ContainerRenderObjectMixin$(box.RenderBox, paragraph.TextParentData));
-  const RenderBox_RenderBoxContainerDefaultsMixin$36 = class RenderBox_RenderBoxContainerDefaultsMixin extends RenderBox_ContainerRenderObjectMixin$36 {};
-  (RenderBox_RenderBoxContainerDefaultsMixin$36.new = function() {
-    RenderBox_RenderBoxContainerDefaultsMixin$36.__proto__.new.call(this);
-  }).prototype = RenderBox_RenderBoxContainerDefaultsMixin$36.prototype;
-  dart.applyMixin(RenderBox_RenderBoxContainerDefaultsMixin$36, box.RenderBoxContainerDefaultsMixin$(box.RenderBox, paragraph.TextParentData));
-  const RenderBox_RelayoutWhenSystemFontsChangeMixin$36 = class RenderBox_RelayoutWhenSystemFontsChangeMixin extends RenderBox_RenderBoxContainerDefaultsMixin$36 {};
-  (RenderBox_RelayoutWhenSystemFontsChangeMixin$36.new = function() {
-    RenderBox_RelayoutWhenSystemFontsChangeMixin$36.__proto__.new.call(this);
-  }).prototype = RenderBox_RelayoutWhenSystemFontsChangeMixin$36.prototype;
-  dart.applyMixin(RenderBox_RelayoutWhenSystemFontsChangeMixin$36, object.RelayoutWhenSystemFontsChangeMixin);
-  paragraph.RenderParagraph = class RenderParagraph extends RenderBox_RelayoutWhenSystemFontsChangeMixin$36 {
-    setupParentData(child) {
-      box.RenderBox.as(child);
-      if (!paragraph.TextParentData.is(child.parentData)) child.parentData = new paragraph.TextParentData.new();
-    }
-    get text() {
-      return dart.nullCheck(this[_textPainter].text);
-    }
-    set text(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 143, 12, "value != null");
-      switch (dart.nullCheck(this[_textPainter].text).compareTo(value)) {
-        case C[7] || CT.C7:
-        case C[8] || CT.C8:
-        {
-          return;
-        }
-        case C[9] || CT.C9:
-        {
-          this[_textPainter].text = value;
-          this[_extractPlaceholderSpans](value);
-          this.markNeedsPaint();
-          this.markNeedsSemanticsUpdate();
-          break;
-        }
-        case C[10] || CT.C10:
-        {
-          this[_textPainter].text = value;
-          this[_overflowShader] = null;
-          this[_extractPlaceholderSpans](value);
-          this.markNeedsLayout();
-          break;
-        }
-      }
-    }
-    get [_placeholderSpans]() {
-      let t1;
-      t1 = this[__RenderParagraph__placeholderSpans];
-      return t1 == null ? dart.throw(new _internal.LateError.fieldNI("_placeholderSpans")) : t1;
-    }
-    set [_placeholderSpans](t1) {
-      this[__RenderParagraph__placeholderSpans] = t1;
-    }
-    [_extractPlaceholderSpans](span) {
-      this[_placeholderSpans] = T.JSArrayOfPlaceholderSpan().of([]);
-      span.visitChildren(dart.fn(span => {
-        if (placeholder_span.PlaceholderSpan.is(span)) {
-          this[_placeholderSpans][$add](span);
-        }
-        return true;
-      }, T.InlineSpanTobool()));
-    }
-    get textAlign() {
-      return this[_textPainter].textAlign;
-    }
-    set textAlign(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 177, 12, "value != null");
-      if (this[_textPainter].textAlign === value) return;
-      this[_textPainter].textAlign = value;
-      this.markNeedsPaint();
-    }
-    get textDirection() {
-      return dart.nullCheck(this[_textPainter].textDirection);
-    }
-    set textDirection(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 199, 12, "value != null");
-      if (this[_textPainter].textDirection === value) return;
-      this[_textPainter].textDirection = value;
-      this.markNeedsLayout();
-    }
-    get softWrap() {
-      return this[_softWrap];
-    }
-    set softWrap(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 216, 12, "value != null");
-      if (this[_softWrap] === value) return;
-      this[_softWrap] = value;
-      this.markNeedsLayout();
-    }
-    get overflow() {
-      return this[_overflow];
-    }
-    set overflow(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 227, 12, "value != null");
-      if (this[_overflow] === value) return;
-      this[_overflow] = value;
-      this[_textPainter].ellipsis = value === paragraph.TextOverflow.ellipsis ? "…" : null;
-      this.markNeedsLayout();
-    }
-    get textScaleFactor() {
-      return this[_textPainter].textScaleFactor;
-    }
-    set textScaleFactor(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 241, 12, "value != null");
-      if (this[_textPainter].textScaleFactor === value) return;
-      this[_textPainter].textScaleFactor = value;
-      this[_overflowShader] = null;
-      this.markNeedsLayout();
-    }
-    get maxLines() {
-      return this[_textPainter].maxLines;
-    }
-    set maxLines(value) {
-      if (!(value == null || dart.notNull(value) > 0)) dart.assertFailed(null, I[1], 256, 12, "value == null || value > 0");
-      if (this[_textPainter].maxLines == value) return;
-      this[_textPainter].maxLines = value;
-      this[_overflowShader] = null;
-      this.markNeedsLayout();
-    }
-    get locale() {
-      return this[_textPainter].locale;
-    }
-    set locale(value) {
-      if (dart.equals(this[_textPainter].locale, value)) return;
-      this[_textPainter].locale = value;
-      this[_overflowShader] = null;
-      this.markNeedsLayout();
-    }
-    get strutStyle() {
-      return this[_textPainter].strutStyle;
-    }
-    set strutStyle(value) {
-      if (dart.equals(this[_textPainter].strutStyle, value)) return;
-      this[_textPainter].strutStyle = value;
-      this[_overflowShader] = null;
-      this.markNeedsLayout();
-    }
-    get textWidthBasis() {
-      return this[_textPainter].textWidthBasis;
-    }
-    set textWidthBasis(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 295, 12, "value != null");
-      if (this[_textPainter].textWidthBasis === value) return;
-      this[_textPainter].textWidthBasis = value;
-      this[_overflowShader] = null;
-      this.markNeedsLayout();
-    }
-    get textHeightBehavior() {
-      return this[_textPainter].textHeightBehavior;
-    }
-    set textHeightBehavior(value) {
-      if (dart.equals(this[_textPainter].textHeightBehavior, value)) return;
-      this[_textPainter].textHeightBehavior = value;
-      this[_overflowShader] = null;
-      this.markNeedsLayout();
-    }
-    computeMinIntrinsicWidth(height) {
-      if (!this[_canComputeIntrinsics]()) {
-        return 0.0;
-      }
-      this[_computeChildrenWidthWithMinIntrinsics](height);
-      this[_layoutText]();
-      return this[_textPainter].minIntrinsicWidth;
-    }
-    computeMaxIntrinsicWidth(height) {
-      if (!this[_canComputeIntrinsics]()) {
-        return 0.0;
-      }
-      this[_computeChildrenWidthWithMaxIntrinsics](height);
-      this[_layoutText]();
-      return this[_textPainter].maxIntrinsicWidth;
-    }
-    [_computeIntrinsicHeight](width) {
-      if (!this[_canComputeIntrinsics]()) {
-        return 0.0;
-      }
-      this[_computeChildrenHeightWithMinIntrinsics](width);
-      this[_layoutText]({minWidth: width, maxWidth: width});
-      return this[_textPainter].height;
-    }
-    computeMinIntrinsicHeight(width) {
-      return this[_computeIntrinsicHeight](width);
-    }
-    computeMaxIntrinsicHeight(width) {
-      return this[_computeIntrinsicHeight](width);
-    }
-    computeDistanceToActualBaseline(baseline) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 354, 12, "!debugNeedsLayout");
-      if (!(this.constraints !== null)) dart.assertFailed(null, I[1], 355, 12, "constraints != null");
-      if (!this.constraints.debugAssertIsValid()) dart.assertFailed(null, I[1], 356, 12, "constraints.debugAssertIsValid()");
-      this[_layoutTextWithConstraints](this.constraints);
-      return this[_textPainter].computeDistanceToActualBaseline(ui.TextBaseline.alphabetic);
-    }
-    [_canComputeIntrinsics]() {
-      for (let span of this[_placeholderSpans]) {
-        switch (span.alignment) {
-          case C[11] || CT.C11:
-          case C[12] || CT.C12:
-          case C[13] || CT.C13:
-          {
-            {
-              if (!object.RenderObject.debugCheckingIntrinsics) dart.assertFailed("Intrinsics are not available for PlaceholderAlignment.baseline, " + "PlaceholderAlignment.aboveBaseline, or PlaceholderAlignment.belowBaseline.", I[1], 377, 13, "RenderObject.debugCheckingIntrinsics");
-              return false;
-            }
-          }
-          case C[14] || CT.C14:
-          case C[15] || CT.C15:
-          case C[16] || CT.C16:
-          {
-            {
-              continue;
-            }
-          }
-        }
-      }
-      return true;
-    }
-    [_computeChildrenWidthWithMaxIntrinsics](height) {
-      let child = this.firstChild;
-      let placeholderDimensions = T.ListOfPlaceholderDimensions().filled(this.childCount, text_painter.PlaceholderDimensions.empty, {growable: false});
-      let childIndex = 0;
-      while (child != null) {
-        placeholderDimensions[$_set](childIndex, new text_painter.PlaceholderDimensions.new({size: new ui.Size.new(child.getMaxIntrinsicWidth(1 / 0), 0.0), alignment: this[_placeholderSpans][$_get](childIndex).alignment, baseline: this[_placeholderSpans][$_get](childIndex).baseline}));
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-      this[_textPainter].setPlaceholderDimensions(placeholderDimensions);
-    }
-    [_computeChildrenWidthWithMinIntrinsics](height) {
-      let child = this.firstChild;
-      let placeholderDimensions = T.ListOfPlaceholderDimensions().filled(this.childCount, text_painter.PlaceholderDimensions.empty, {growable: false});
-      let childIndex = 0;
-      while (child != null) {
-        placeholderDimensions[$_set](childIndex, new text_painter.PlaceholderDimensions.new({size: new ui.Size.new(child.getMinIntrinsicWidth(1 / 0), 0.0), alignment: this[_placeholderSpans][$_get](childIndex).alignment, baseline: this[_placeholderSpans][$_get](childIndex).baseline}));
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-      this[_textPainter].setPlaceholderDimensions(placeholderDimensions);
-    }
-    [_computeChildrenHeightWithMinIntrinsics](width) {
-      let child = this.firstChild;
-      let placeholderDimensions = T.ListOfPlaceholderDimensions().filled(this.childCount, text_painter.PlaceholderDimensions.empty, {growable: false});
-      let childIndex = 0;
-      width = width / this.textScaleFactor;
-      while (child != null) {
-        let size = child.getDryLayout(new box.BoxConstraints.new({maxWidth: width}));
-        placeholderDimensions[$_set](childIndex, new text_painter.PlaceholderDimensions.new({size: size, alignment: this[_placeholderSpans][$_get](childIndex).alignment, baseline: this[_placeholderSpans][$_get](childIndex).baseline}));
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-      this[_textPainter].setPlaceholderDimensions(placeholderDimensions);
-    }
-    hitTestSelf(position) {
-      return true;
-    }
-    hitTestChildren(result, opts) {
-      let t6;
-      let position = opts && 'position' in opts ? opts.position : null;
-      let hitText = null;
-      function hitText$35get() {
-        let t3;
-        t3 = hitText;
-        return t3 == null ? dart.throw(new _internal.LateError.localNI("hitText")) : t3;
-      }
-      dart.fn(hitText$35get, T.VoidTobool());
-      function hitText$35set(t4) {
-        if (hitText == null)
-          return hitText = t4;
-        else
-          dart.throw(new _internal.LateError.localAI("hitText"));
-      }
-      dart.fn(hitText$35set, T.boolTodynamic());
-      let textPosition = this[_textPainter].getPositionForOffset(position);
-      let span = dart.nullCheck(this[_textPainter].text).getSpanForPosition(textPosition);
-      if (span != null && hit_test.HitTestTarget.is(span)) {
-        result.add(new hit_test.HitTestEntry.new(hit_test.HitTestTarget.as(span)));
-        hitText$35set(true);
-      } else {
-        hitText$35set(false);
-      }
-      let child = this.firstChild;
-      let childIndex = 0;
-      while (child != null && childIndex < dart.nullCheck(this[_textPainter].inlinePlaceholderBoxes)[$length]) {
-        let textParentData = paragraph.TextParentData.as(dart.nullCheck(child.parentData));
-        let transform = (t6 = vector_math_64.Matrix4.translationValues(textParentData.offset.dx, textParentData.offset.dy, 0.0), (() => {
-          t6.scale(textParentData.scale, textParentData.scale, textParentData.scale);
-          return t6;
-        })());
-        let isHit = result.addWithPaintTransform({transform: transform, position: position, hitTest: dart.fn((result, transformed) => {
-            if (!dart.fn(() => {
-              let manualPosition = position['-'](textParentData.offset)['/'](dart.nullCheck(textParentData.scale));
-              return (dart.nullCheck(transformed).dx - manualPosition.dx)[$abs]() < 1e-10 && (transformed.dy - manualPosition.dy)[$abs]() < 1e-10;
-            }, T.VoidTobool())()) dart.assertFailed(null, I[1], 483, 18, "() {\r\n            final Offset manualPosition = (position - textParentData.offset) / textParentData.scale!;\r\n            return (transformed!.dx - manualPosition.dx).abs() < precisionErrorTolerance\r\n              && (transformed.dy - manualPosition.dy).abs() < precisionErrorTolerance;\r\n          }()");
-            return dart.nullCheck(child).hitTest(result, {position: dart.nullCheck(transformed)});
-          }, T.BoxHitTestResultAndOffsetNTobool())});
-        if (isHit) {
-          return true;
-        }
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-      return hitText$35get();
-    }
-    get debugHasOverflowShader() {
-      return this[_overflowShader] != null;
-    }
-    [_layoutText](opts) {
-      let minWidth = opts && 'minWidth' in opts ? opts.minWidth : 0;
-      let maxWidth = opts && 'maxWidth' in opts ? opts.maxWidth : 1 / 0;
-      let widthMatters = this.softWrap || this.overflow === paragraph.TextOverflow.ellipsis;
-      this[_textPainter].layout({minWidth: minWidth, maxWidth: widthMatters ? maxWidth : 1 / 0});
-    }
-    systemFontsDidChange() {
-      super.systemFontsDidChange();
-      this[_textPainter].markNeedsLayout();
-    }
-    [_layoutTextWithConstraints](constraints) {
-      this[_textPainter].setPlaceholderDimensions(this[_placeholderDimensions]);
-      this[_layoutText]({minWidth: constraints.minWidth, maxWidth: constraints.maxWidth});
-    }
-    [_layoutChildren](constraints, opts) {
-      let dry = opts && 'dry' in opts ? opts.dry : false;
-      if (this.childCount === 0) {
-        return T.JSArrayOfPlaceholderDimensions().of([]);
-      }
-      let child = this.firstChild;
-      let placeholderDimensions = T.ListOfPlaceholderDimensions().filled(this.childCount, text_painter.PlaceholderDimensions.empty, {growable: false});
-      let childIndex = 0;
-      let boxConstraints = new box.BoxConstraints.new({maxWidth: constraints.maxWidth});
-      boxConstraints = boxConstraints['/'](this.textScaleFactor);
-      while (child != null) {
-        let baselineOffset = null;
-        let childSize = null;
-        if (!dry) {
-          child.layout(boxConstraints, {parentUsesSize: true});
-          childSize = child.size;
-          switch (this[_placeholderSpans][$_get](childIndex).alignment) {
-            case C[11] || CT.C11:
-            {
-              {
-                baselineOffset = child.getDistanceToBaseline(dart.nullCheck(this[_placeholderSpans][$_get](childIndex).baseline));
-                break;
-              }
-            }
-            default:
-            {
-              {
-                baselineOffset = null;
-                break;
-              }
-            }
-          }
-        } else {
-          if (!(this[_placeholderSpans][$_get](childIndex).alignment !== ui.PlaceholderAlignment.baseline)) dart.assertFailed(null, I[1], 578, 16, "_placeholderSpans[childIndex].alignment != ui.PlaceholderAlignment.baseline");
-          childSize = child.getDryLayout(boxConstraints);
-        }
-        placeholderDimensions[$_set](childIndex, new text_painter.PlaceholderDimensions.new({size: childSize, alignment: this[_placeholderSpans][$_get](childIndex).alignment, baseline: this[_placeholderSpans][$_get](childIndex).baseline, baselineOffset: baselineOffset}));
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-      return placeholderDimensions;
-    }
-    [_setParentData]() {
-      let child = this.firstChild;
-      let childIndex = 0;
-      while (child != null && childIndex < dart.nullCheck(this[_textPainter].inlinePlaceholderBoxes)[$length]) {
-        let textParentData = paragraph.TextParentData.as(dart.nullCheck(child.parentData));
-        textParentData.offset = new ui.Offset.new(dart.nullCheck(this[_textPainter].inlinePlaceholderBoxes)[$_get](childIndex).left, dart.nullCheck(this[_textPainter].inlinePlaceholderBoxes)[$_get](childIndex).top);
-        textParentData.scale = dart.nullCheck(this[_textPainter].inlinePlaceholderScales)[$_get](childIndex);
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-    }
-    [_canComputeDryLayout]() {
-      for (let span of this[_placeholderSpans]) {
-        switch (span.alignment) {
-          case C[11] || CT.C11:
-          case C[12] || CT.C12:
-          case C[13] || CT.C13:
-          {
-            {
-              return false;
-            }
-          }
-          case C[14] || CT.C14:
-          case C[15] || CT.C15:
-          case C[16] || CT.C16:
-          {
-            {
-              continue;
-            }
-          }
-        }
-      }
-      return true;
-    }
-    computeDryLayout(constraints) {
-      if (!this[_canComputeDryLayout]()) {
-        if (!this.debugCannotComputeDryLayout({reason: "Dry layout not available for alignments that require baseline."})) dart.assertFailed(null, I[1], 634, 14, "debugCannotComputeDryLayout(\r\n        reason: 'Dry layout not available for alignments that require baseline.',\r\n      )");
-        return ui.Size.zero;
-      }
-      this[_textPainter].setPlaceholderDimensions(this[_layoutChildren](constraints, {dry: true}));
-      this[_layoutText]({minWidth: constraints.minWidth, maxWidth: constraints.maxWidth});
-      return constraints.constrain(this[_textPainter].size);
-    }
-    performLayout() {
-      let t6;
-      let constraints = this.constraints;
-      this[_placeholderDimensions] = this[_layoutChildren](constraints);
-      this[_layoutTextWithConstraints](constraints);
-      this[_setParentData]();
-      let textSize = this[_textPainter].size;
-      let textDidExceedMaxLines = this[_textPainter].didExceedMaxLines;
-      this.size = constraints.constrain(textSize);
-      let didOverflowHeight = this.size.height < textSize.height || textDidExceedMaxLines;
-      let didOverflowWidth = this.size.width < textSize.width;
-      let hasVisualOverflow = didOverflowWidth || didOverflowHeight;
-      if (hasVisualOverflow) {
-        switch (this[_overflow]) {
-          case C[3] || CT.C3:
-          {
-            this[_needsClipping] = false;
-            this[_overflowShader] = null;
-            break;
-          }
-          case C[0] || CT.C0:
-          case C[2] || CT.C2:
-          {
-            this[_needsClipping] = true;
-            this[_overflowShader] = null;
-            break;
-          }
-          case C[1] || CT.C1:
-          {
-            if (!(this.textDirection !== null)) dart.assertFailed(null, I[1], 680, 18, "textDirection != null");
-            this[_needsClipping] = true;
-            let fadeSizePainter = (t6 = new text_painter.TextPainter.new({text: new text_span.TextSpan.new({style: dart.nullCheck(this[_textPainter].text).style, text: "…"}), textDirection: this.textDirection, textScaleFactor: this.textScaleFactor, locale: this.locale}), (() => {
-              t6.layout();
-              return t6;
-            })());
-            if (didOverflowWidth) {
-              let fadeEnd = null;
-              let fadeStart = null;
-              switch (this.textDirection) {
-                case C[17] || CT.C17:
-                {
-                  fadeEnd = 0.0;
-                  fadeStart = fadeSizePainter.width;
-                  break;
-                }
-                case C[18] || CT.C18:
-                {
-                  fadeEnd = this.size.width;
-                  fadeStart = fadeEnd - fadeSizePainter.width;
-                  break;
-                }
-              }
-              this[_overflowShader] = ui.Gradient.linear(new ui.Offset.new(fadeStart, 0.0), new ui.Offset.new(fadeEnd, 0.0), T.JSArrayOfColor().of([C[19] || CT.C19, C[20] || CT.C20]));
-            } else {
-              let fadeEnd = this.size.height;
-              let fadeStart = fadeEnd - fadeSizePainter.height / 2.0;
-              this[_overflowShader] = ui.Gradient.linear(new ui.Offset.new(0.0, fadeStart), new ui.Offset.new(0.0, fadeEnd), T.JSArrayOfColor().of([C[19] || CT.C19, C[20] || CT.C20]));
-            }
-            break;
-          }
-        }
-      } else {
-        this[_needsClipping] = false;
-        this[_overflowShader] = null;
-      }
-    }
-    paint(context, offset) {
-      let t6;
-      this[_layoutTextWithConstraints](this.constraints);
-      if (!dart.fn(() => {
-        let t6;
-        if (debug.debugRepaintTextRainbowEnabled) {
-          let paint = (t6 = ui.Paint.new(), (() => {
-            t6.color = debug.debugCurrentRepaintColor.toColor();
-            return t6;
-          })());
-          context.canvas.drawRect(offset['&'](this.size), paint);
-        }
-        return true;
-      }, T.VoidTobool())()) dart.assertFailed(null, I[1], 736, 12, "() {\r\n      if (debugRepaintTextRainbowEnabled) {\r\n        final Paint paint = Paint()\r\n          ..color = debugCurrentRepaintColor.toColor();\r\n        context.canvas.drawRect(offset & size, paint);\r\n      }\r\n      return true;\r\n    }()");
-      if (this[_needsClipping]) {
-        let bounds = offset['&'](this.size);
-        if (this[_overflowShader] != null) {
-          context.canvas.saveLayer(bounds, ui.Paint.new());
-        } else {
-          context.canvas.save();
-        }
-        context.canvas.clipRect(bounds);
-      }
-      this[_textPainter].paint(context.canvas, offset);
-      let child = this.firstChild;
-      let childIndex = 0;
-      while (child != null && childIndex < dart.nullCheck(this[_textPainter].inlinePlaceholderBoxes)[$length]) {
-        let textParentData = paragraph.TextParentData.as(dart.nullCheck(child.parentData));
-        let scale = dart.nullCheck(textParentData.scale);
-        context.pushTransform(this.needsCompositing, offset['+'](textParentData.offset), vector_math_64.Matrix4.diagonal3Values(scale, scale, scale), dart.fn((context, offset) => {
-          context.paintChild(dart.nullCheck(child), offset);
-        }, T.PaintingContextAndOffsetTovoid()));
-        child = this.childAfter(child);
-        childIndex = childIndex + 1;
-      }
-      if (this[_needsClipping]) {
-        if (this[_overflowShader] != null) {
-          context.canvas.translate(offset.dx, offset.dy);
-          let paint = (t6 = ui.Paint.new(), (() => {
-            t6.blendMode = ui.BlendMode.modulate;
-            t6.shader = this[_overflowShader];
-            return t6;
-          })());
-          context.canvas.drawRect(ui.Offset.zero['&'](this.size), paint);
-        }
-        context.canvas.restore();
-      }
-    }
-    getOffsetForCaret(position, caretPrototype) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 798, 12, "!debugNeedsLayout");
-      this[_layoutTextWithConstraints](this.constraints);
-      return this[_textPainter].getOffsetForCaret(position, caretPrototype);
-    }
-    getFullHeightForCaret(position) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 807, 12, "!debugNeedsLayout");
-      this[_layoutTextWithConstraints](this.constraints);
-      return this[_textPainter].getFullHeightForCaret(position, ui.Rect.zero);
-    }
-    getBoxesForSelection(selection) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 820, 12, "!debugNeedsLayout");
-      this[_layoutTextWithConstraints](this.constraints);
-      return this[_textPainter].getBoxesForSelection(selection);
-    }
-    getPositionForOffset(offset) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 829, 12, "!debugNeedsLayout");
-      this[_layoutTextWithConstraints](this.constraints);
-      return this[_textPainter].getPositionForOffset(offset);
-    }
-    getWordBoundary(position) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 844, 12, "!debugNeedsLayout");
-      this[_layoutTextWithConstraints](this.constraints);
-      return this[_textPainter].getWordBoundary(position);
-    }
-    get textSize() {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 859, 12, "!debugNeedsLayout");
-      return this[_textPainter].size;
-    }
-    describeSemanticsConfiguration(config) {
-      let t6;
-      super.describeSemanticsConfiguration(config);
-      this[_semanticsInfo] = this.text.getSemanticsInformation();
-      if (dart.nullCheck(this[_semanticsInfo])[$any](dart.fn(info => info.recognizer != null, T.InlineSpanSemanticsInformationTobool()))) {
-        config.explicitChildNodes = true;
-        config.isSemanticBoundary = true;
-      } else {
-        let buffer = new core.StringBuffer.new();
-        for (let info of dart.nullCheck(this[_semanticsInfo])) {
-          buffer.write((t6 = info.semanticsLabel, t6 == null ? info.text : t6));
-        }
-        config.label = buffer.toString();
-        config.textDirection = this.textDirection;
-      }
-    }
-    assembleSemanticsNode(node, config, children) {
-      let t7, t7$, t6, t6$, t6$0;
-      if (!(this[_semanticsInfo] != null && dart.nullCheck(this[_semanticsInfo])[$isNotEmpty])) dart.assertFailed(null, I[1], 893, 12, "_semanticsInfo != null && _semanticsInfo!.isNotEmpty");
-      let newChildren = T.JSArrayOfSemanticsNode().of([]);
-      let currentDirection = this.textDirection;
-      let currentRect = null;
-      let ordinal = 0.0;
-      let start = 0;
-      let placeholderIndex = 0;
-      let childIndex = 0;
-      let child = this.firstChild;
-      let newChildCache = new (T.ListQueueOfSemanticsNode()).new();
-      for (let info of inline_span.combineSemanticsInfo(dart.nullCheck(this[_semanticsInfo]))) {
-        let selection = new text_editing.TextSelection.new({baseOffset: start, extentOffset: start + info.text.length});
-        start = start + info.text.length;
-        if (info.isPlaceholder) {
-          while (children[$length] > childIndex && children[$elementAt](childIndex).isTagged(new paragraph.PlaceholderSpanIndexSemanticsTag.new(placeholderIndex))) {
-            let childNode = children[$elementAt](childIndex);
-            let parentData = paragraph.TextParentData.as(dart.nullCheck(dart.nullCheck(child).parentData));
-            childNode.rect = new ui.Rect.fromLTWH(childNode.rect.left, childNode.rect.top, childNode.rect.width * dart.nullCheck(parentData.scale), childNode.rect.height * dart.nullCheck(parentData.scale));
-            newChildren[$add](childNode);
-            childIndex = childIndex + 1;
-          }
-          child = this.childAfter(dart.nullCheck(child));
-          placeholderIndex = placeholderIndex + 1;
-        } else {
-          let initialDirection = currentDirection;
-          let rects = this.getBoxesForSelection(selection);
-          if (rects[$isEmpty]) {
-            continue;
-          }
-          let rect = rects[$first].toRect();
-          currentDirection = rects[$first].direction;
-          for (let textBox of rects[$skip](1)) {
-            rect = rect.expandToInclude(textBox.toRect());
-            currentDirection = textBox.direction;
-          }
-          rect = new ui.Rect.fromLTWH(math.max(core.double, 0.0, rect.left), math.max(core.double, 0.0, rect.top), math.min(core.double, rect.width, this.constraints.maxWidth), math.min(core.double, rect.height, this.constraints.maxHeight));
-          currentRect = new ui.Rect.fromLTRB(rect.left[$floorToDouble]() - 4.0, rect.top[$floorToDouble]() - 4.0, rect.right[$ceilToDouble]() + 4.0, rect.bottom[$ceilToDouble]() + 4.0);
-          let configuration = (t6 = new semantics.SemanticsConfiguration.new(), (() => {
-            t6.sortKey = new semantics.OrdinalSortKey.new((t7 = ordinal, ordinal = t7 + 1, t7));
-            t6.textDirection = initialDirection;
-            t6.label = (t7$ = info.semanticsLabel, t7$ == null ? info.text : t7$);
-            return t6;
-          })());
-          let recognizer = info.recognizer;
-          if (recognizer != null) {
-            if (tap.TapGestureRecognizer.is(recognizer)) {
-              if (recognizer.onTap != null) {
-                configuration.onTap = recognizer.onTap;
-                configuration.isLink = true;
-              }
-            } else if (multitap.DoubleTapGestureRecognizer.is(recognizer)) {
-              if (recognizer.onDoubleTap != null) {
-                configuration.onTap = recognizer.onDoubleTap;
-                configuration.isLink = true;
-              }
-            } else if (long_press.LongPressGestureRecognizer.is(recognizer)) {
-              if (recognizer.onLongPress != null) {
-                configuration.onLongPress = recognizer.onLongPress;
-              }
-            } else {
-              if (!false) dart.assertFailed(dart.str(dart.runtimeType(recognizer)) + " is not supported.", I[1], 977, 20, "false");
-            }
-          }
-          let newChild = (t6$ = this[_cachedChildNodes], t6$ == null ? null : t6$[$isNotEmpty]) === true ? dart.nullCheck(this[_cachedChildNodes]).removeFirst() : new semantics.SemanticsNode.new();
-          t6$0 = newChild;
-          (() => {
-            t6$0.updateWith({config: configuration});
-            t6$0.rect = currentRect;
-            return t6$0;
-          })();
-          newChildCache.addLast(newChild);
-          newChildren[$add](newChild);
-        }
-      }
-      if (!(childIndex === children[$length])) dart.assertFailed(null, I[1], 991, 12, "childIndex == children.length");
-      if (!(child == null)) dart.assertFailed(null, I[1], 992, 12, "child == null");
-      this[_cachedChildNodes] = newChildCache;
-      node.updateWith({config: config, childrenInInversePaintOrder: newChildren});
-    }
-    clearSemantics() {
-      super.clearSemantics();
-      this[_cachedChildNodes] = null;
-    }
-    debugDescribeChildren() {
-      return T.JSArrayOfDiagnosticsNode().of([this.text.toDiagnosticsNode({name: "text", style: diagnostics.DiagnosticsTreeStyle.transition})]);
-    }
-    debugFillProperties(properties) {
-      super.debugFillProperties(properties);
-      properties.add(new (T.EnumPropertyOfTextAlign()).new("textAlign", this.textAlign));
-      properties.add(new (T.EnumPropertyOfTextDirection()).new("textDirection", this.textDirection));
-      properties.add(new diagnostics.FlagProperty.new("softWrap", {value: this.softWrap, ifTrue: "wrapping at box width", ifFalse: "no wrapping except at line break characters", showName: true}));
-      properties.add(new (T.EnumPropertyOfTextOverflow()).new("overflow", this.overflow));
-      properties.add(new diagnostics.DoubleProperty.new("textScaleFactor", this.textScaleFactor, {defaultValue: 1.0}));
-      properties.add(new (T.DiagnosticsPropertyOfLocale()).new("locale", this.locale, {defaultValue: null}));
-      properties.add(new diagnostics.IntProperty.new("maxLines", this.maxLines, {ifNull: "unlimited"}));
-    }
-  };
-  (paragraph.RenderParagraph.new = function(text, opts) {
-    let textAlign = opts && 'textAlign' in opts ? opts.textAlign : C[5] || CT.C5;
-    let textDirection = opts && 'textDirection' in opts ? opts.textDirection : null;
-    let softWrap = opts && 'softWrap' in opts ? opts.softWrap : true;
-    let overflow = opts && 'overflow' in opts ? opts.overflow : C[0] || CT.C0;
-    let textScaleFactor = opts && 'textScaleFactor' in opts ? opts.textScaleFactor : 1;
-    let maxLines = opts && 'maxLines' in opts ? opts.maxLines : null;
-    let locale = opts && 'locale' in opts ? opts.locale : null;
-    let strutStyle = opts && 'strutStyle' in opts ? opts.strutStyle : null;
-    let textWidthBasis = opts && 'textWidthBasis' in opts ? opts.textWidthBasis : C[6] || CT.C6;
-    let textHeightBehavior = opts && 'textHeightBehavior' in opts ? opts.textHeightBehavior : null;
-    let children = opts && 'children' in opts ? opts.children : null;
-    this[__RenderParagraph__placeholderSpans] = null;
-    this[_needsClipping] = false;
-    this[_overflowShader] = null;
-    this[_placeholderDimensions] = null;
-    this[_semanticsInfo] = null;
-    this[_cachedChildNodes] = null;
-    if (!(text !== null)) dart.assertFailed(null, I[1], 105, 15, "text != null");
-    if (!text.debugAssertIsValid()) dart.assertFailed(null, I[1], 106, 15, "text.debugAssertIsValid()");
-    if (!(textAlign !== null)) dart.assertFailed(null, I[1], 107, 15, "textAlign != null");
-    if (!(textDirection !== null)) dart.assertFailed(null, I[1], 108, 15, "textDirection != null");
-    if (!(softWrap !== null)) dart.assertFailed(null, I[1], 109, 15, "softWrap != null");
-    if (!(overflow !== null)) dart.assertFailed(null, I[1], 110, 15, "overflow != null");
-    if (!(textScaleFactor !== null)) dart.assertFailed(null, I[1], 111, 15, "textScaleFactor != null");
-    if (!(maxLines == null || dart.notNull(maxLines) > 0)) dart.assertFailed(null, I[1], 112, 15, "maxLines == null || maxLines > 0");
-    if (!(textWidthBasis !== null)) dart.assertFailed(null, I[1], 113, 15, "textWidthBasis != null");
-    this[_softWrap] = softWrap;
-    this[_overflow] = overflow;
-    this[_textPainter] = new text_painter.TextPainter.new({text: text, textAlign: textAlign, textDirection: textDirection, textScaleFactor: textScaleFactor, maxLines: maxLines, ellipsis: overflow === paragraph.TextOverflow.ellipsis ? "…" : null, locale: locale, strutStyle: strutStyle, textWidthBasis: textWidthBasis, textHeightBehavior: textHeightBehavior});
-    paragraph.RenderParagraph.__proto__.new.call(this);
-    this.addAll(children);
-    this[_extractPlaceholderSpans](text);
-  }).prototype = paragraph.RenderParagraph.prototype;
-  dart.addTypeTests(paragraph.RenderParagraph);
-  dart.addTypeCaches(paragraph.RenderParagraph);
-  dart.setMethodSignature(paragraph.RenderParagraph, () => ({
-    __proto__: dart.getMethods(paragraph.RenderParagraph.__proto__),
-    [_extractPlaceholderSpans]: dart.fnType(dart.void, [inline_span.InlineSpan]),
-    [_computeIntrinsicHeight]: dart.fnType(core.double, [core.double]),
-    computeDistanceToActualBaseline: dart.fnType(core.double, [ui.TextBaseline]),
-    [_canComputeIntrinsics]: dart.fnType(core.bool, []),
-    [_computeChildrenWidthWithMaxIntrinsics]: dart.fnType(dart.void, [core.double]),
-    [_computeChildrenWidthWithMinIntrinsics]: dart.fnType(dart.void, [core.double]),
-    [_computeChildrenHeightWithMinIntrinsics]: dart.fnType(dart.void, [core.double]),
-    [_layoutText]: dart.fnType(dart.void, [], {maxWidth: core.double, minWidth: core.double}, {}),
-    [_layoutTextWithConstraints]: dart.fnType(dart.void, [box.BoxConstraints]),
-    [_layoutChildren]: dart.fnType(core.List$(text_painter.PlaceholderDimensions), [box.BoxConstraints], {dry: core.bool}, {}),
-    [_setParentData]: dart.fnType(dart.void, []),
-    [_canComputeDryLayout]: dart.fnType(core.bool, []),
-    getOffsetForCaret: dart.fnType(ui.Offset, [ui.TextPosition, ui.Rect]),
-    getFullHeightForCaret: dart.fnType(dart.nullable(core.double), [ui.TextPosition]),
-    getBoxesForSelection: dart.fnType(core.List$(ui.TextBox), [text_editing.TextSelection]),
-    getPositionForOffset: dart.fnType(ui.TextPosition, [ui.Offset]),
-    getWordBoundary: dart.fnType(ui.TextRange, [ui.TextPosition])
-  }));
-  dart.setGetterSignature(paragraph.RenderParagraph, () => ({
-    __proto__: dart.getGetters(paragraph.RenderParagraph.__proto__),
-    text: inline_span.InlineSpan,
-    [_placeholderSpans]: core.List$(placeholder_span.PlaceholderSpan),
-    textAlign: ui.TextAlign,
-    textDirection: ui.TextDirection,
-    softWrap: core.bool,
-    overflow: paragraph.TextOverflow,
-    textScaleFactor: core.double,
-    maxLines: dart.nullable(core.int),
-    locale: dart.nullable(ui.Locale),
-    strutStyle: dart.nullable(strut_style.StrutStyle),
-    textWidthBasis: text_painter.TextWidthBasis,
-    textHeightBehavior: dart.nullable(ui.TextHeightBehavior),
-    debugHasOverflowShader: core.bool,
-    textSize: ui.Size
-  }));
-  dart.setSetterSignature(paragraph.RenderParagraph, () => ({
-    __proto__: dart.getSetters(paragraph.RenderParagraph.__proto__),
-    text: inline_span.InlineSpan,
-    [_placeholderSpans]: core.List$(placeholder_span.PlaceholderSpan),
-    textAlign: ui.TextAlign,
-    textDirection: ui.TextDirection,
-    softWrap: core.bool,
-    overflow: paragraph.TextOverflow,
-    textScaleFactor: core.double,
-    maxLines: dart.nullable(core.int),
-    locale: dart.nullable(ui.Locale),
-    strutStyle: dart.nullable(strut_style.StrutStyle),
-    textWidthBasis: text_painter.TextWidthBasis,
-    textHeightBehavior: dart.nullable(ui.TextHeightBehavior)
-  }));
-  dart.setLibraryUri(paragraph.RenderParagraph, I[0]);
-  dart.setFieldSignature(paragraph.RenderParagraph, () => ({
-    __proto__: dart.getFields(paragraph.RenderParagraph.__proto__),
-    [_textPainter]: dart.finalFieldType(text_painter.TextPainter),
-    [__RenderParagraph__placeholderSpans]: dart.fieldType(dart.nullable(core.List$(placeholder_span.PlaceholderSpan))),
-    [_softWrap]: dart.fieldType(core.bool),
-    [_overflow]: dart.fieldType(paragraph.TextOverflow),
-    [_needsClipping]: dart.fieldType(core.bool),
-    [_overflowShader]: dart.fieldType(dart.nullable(ui.Shader)),
-    [_placeholderDimensions]: dart.fieldType(dart.nullable(core.List$(text_painter.PlaceholderDimensions))),
-    [_semanticsInfo]: dart.fieldType(dart.nullable(core.List$(inline_span.InlineSpanSemanticsInformation))),
-    [_cachedChildNodes]: dart.fieldType(dart.nullable(collection.Queue$(semantics.SemanticsNode)))
-  }));
-  dart.defineLazy(paragraph, {
-    /*paragraph._kEllipsis*/get _kEllipsis() {
-      return "…";
+  var ColorSwatch__swatch = dart.privateName(colors, "ColorSwatch._swatch");
+  colors$.Colors = class Colors extends core.Object {};
+  (colors$.Colors.__ = function() {
+    ;
+  }).prototype = colors$.Colors.prototype;
+  dart.addTypeTests(colors$.Colors);
+  dart.addTypeCaches(colors$.Colors);
+  dart.setLibraryUri(colors$.Colors, I[0]);
+  dart.defineLazy(colors$.Colors, {
+    /*colors$.Colors.transparent*/get transparent() {
+      return C[0] || CT.C0;
+    },
+    /*colors$.Colors.black*/get black() {
+      return C[1] || CT.C1;
+    },
+    /*colors$.Colors.black87*/get black87() {
+      return C[2] || CT.C2;
+    },
+    /*colors$.Colors.black54*/get black54() {
+      return C[3] || CT.C3;
+    },
+    /*colors$.Colors.black45*/get black45() {
+      return C[4] || CT.C4;
+    },
+    /*colors$.Colors.black38*/get black38() {
+      return C[5] || CT.C5;
+    },
+    /*colors$.Colors.black26*/get black26() {
+      return C[6] || CT.C6;
+    },
+    /*colors$.Colors.black12*/get black12() {
+      return C[7] || CT.C7;
+    },
+    /*colors$.Colors.white*/get white() {
+      return C[8] || CT.C8;
+    },
+    /*colors$.Colors.white70*/get white70() {
+      return C[9] || CT.C9;
+    },
+    /*colors$.Colors.white60*/get white60() {
+      return C[10] || CT.C10;
+    },
+    /*colors$.Colors.white54*/get white54() {
+      return C[11] || CT.C11;
+    },
+    /*colors$.Colors.white38*/get white38() {
+      return C[12] || CT.C12;
+    },
+    /*colors$.Colors.white30*/get white30() {
+      return C[13] || CT.C13;
+    },
+    /*colors$.Colors.white24*/get white24() {
+      return C[14] || CT.C14;
+    },
+    /*colors$.Colors.white12*/get white12() {
+      return C[15] || CT.C15;
+    },
+    /*colors$.Colors.white10*/get white10() {
+      return C[16] || CT.C16;
+    },
+    /*colors$.Colors.red*/get red() {
+      return C[17] || CT.C17;
+    },
+    /*colors$.Colors._redPrimaryValue*/get _redPrimaryValue() {
+      return 4294198070.0;
+    },
+    /*colors$.Colors.redAccent*/get redAccent() {
+      return C[29] || CT.C29;
+    },
+    /*colors$.Colors._redAccentValue*/get _redAccentValue() {
+      return 4294922834.0;
+    },
+    /*colors$.Colors.pink*/get pink() {
+      return C[35] || CT.C35;
+    },
+    /*colors$.Colors._pinkPrimaryValue*/get _pinkPrimaryValue() {
+      return 4293467747.0;
+    },
+    /*colors$.Colors.pinkAccent*/get pinkAccent() {
+      return C[47] || CT.C47;
+    },
+    /*colors$.Colors._pinkAccentPrimaryValue*/get _pinkAccentPrimaryValue() {
+      return 4294918273.0;
+    },
+    /*colors$.Colors.purple*/get purple() {
+      return C[53] || CT.C53;
+    },
+    /*colors$.Colors._purplePrimaryValue*/get _purplePrimaryValue() {
+      return 4288423856.0;
+    },
+    /*colors$.Colors.purpleAccent*/get purpleAccent() {
+      return C[65] || CT.C65;
+    },
+    /*colors$.Colors._purpleAccentPrimaryValue*/get _purpleAccentPrimaryValue() {
+      return 4292886779.0;
+    },
+    /*colors$.Colors.deepPurple*/get deepPurple() {
+      return C[71] || CT.C71;
+    },
+    /*colors$.Colors._deepPurplePrimaryValue*/get _deepPurplePrimaryValue() {
+      return 4284955319.0;
+    },
+    /*colors$.Colors.deepPurpleAccent*/get deepPurpleAccent() {
+      return C[83] || CT.C83;
+    },
+    /*colors$.Colors._deepPurpleAccentPrimaryValue*/get _deepPurpleAccentPrimaryValue() {
+      return 4286336511.0;
+    },
+    /*colors$.Colors.indigo*/get indigo() {
+      return C[89] || CT.C89;
+    },
+    /*colors$.Colors._indigoPrimaryValue*/get _indigoPrimaryValue() {
+      return 4282339765.0;
+    },
+    /*colors$.Colors.indigoAccent*/get indigoAccent() {
+      return C[101] || CT.C101;
+    },
+    /*colors$.Colors._indigoAccentPrimaryValue*/get _indigoAccentPrimaryValue() {
+      return 4283657726.0;
+    },
+    /*colors$.Colors.blue*/get blue() {
+      return C[107] || CT.C107;
+    },
+    /*colors$.Colors._bluePrimaryValue*/get _bluePrimaryValue() {
+      return 4280391411.0;
+    },
+    /*colors$.Colors.blueAccent*/get blueAccent() {
+      return C[119] || CT.C119;
+    },
+    /*colors$.Colors._blueAccentPrimaryValue*/get _blueAccentPrimaryValue() {
+      return 4282682111.0;
+    },
+    /*colors$.Colors.lightBlue*/get lightBlue() {
+      return C[125] || CT.C125;
+    },
+    /*colors$.Colors._lightBluePrimaryValue*/get _lightBluePrimaryValue() {
+      return 4278430196.0;
+    },
+    /*colors$.Colors.lightBlueAccent*/get lightBlueAccent() {
+      return C[137] || CT.C137;
+    },
+    /*colors$.Colors._lightBlueAccentPrimaryValue*/get _lightBlueAccentPrimaryValue() {
+      return 4282434815.0;
+    },
+    /*colors$.Colors.cyan*/get cyan() {
+      return C[143] || CT.C143;
+    },
+    /*colors$.Colors._cyanPrimaryValue*/get _cyanPrimaryValue() {
+      return 4278238420.0;
+    },
+    /*colors$.Colors.cyanAccent*/get cyanAccent() {
+      return C[155] || CT.C155;
+    },
+    /*colors$.Colors._cyanAccentPrimaryValue*/get _cyanAccentPrimaryValue() {
+      return 4279828479.0;
+    },
+    /*colors$.Colors.teal*/get teal() {
+      return C[161] || CT.C161;
+    },
+    /*colors$.Colors._tealPrimaryValue*/get _tealPrimaryValue() {
+      return 4278228616.0;
+    },
+    /*colors$.Colors.tealAccent*/get tealAccent() {
+      return C[173] || CT.C173;
+    },
+    /*colors$.Colors._tealAccentPrimaryValue*/get _tealAccentPrimaryValue() {
+      return 4284809178.0;
+    },
+    /*colors$.Colors.green*/get green() {
+      return C[179] || CT.C179;
+    },
+    /*colors$.Colors._greenPrimaryValue*/get _greenPrimaryValue() {
+      return 4283215696.0;
+    },
+    /*colors$.Colors.greenAccent*/get greenAccent() {
+      return C[191] || CT.C191;
+    },
+    /*colors$.Colors._greenAccentPrimaryValue*/get _greenAccentPrimaryValue() {
+      return 4285132974.0;
+    },
+    /*colors$.Colors.lightGreen*/get lightGreen() {
+      return C[197] || CT.C197;
+    },
+    /*colors$.Colors._lightGreenPrimaryValue*/get _lightGreenPrimaryValue() {
+      return 4287349578.0;
+    },
+    /*colors$.Colors.lightGreenAccent*/get lightGreenAccent() {
+      return C[209] || CT.C209;
+    },
+    /*colors$.Colors._lightGreenAccentPrimaryValue*/get _lightGreenAccentPrimaryValue() {
+      return 4289920857.0;
+    },
+    /*colors$.Colors.lime*/get lime() {
+      return C[215] || CT.C215;
+    },
+    /*colors$.Colors._limePrimaryValue*/get _limePrimaryValue() {
+      return 4291681337.0;
+    },
+    /*colors$.Colors.limeAccent*/get limeAccent() {
+      return C[227] || CT.C227;
+    },
+    /*colors$.Colors._limeAccentPrimaryValue*/get _limeAccentPrimaryValue() {
+      return 4293852993.0;
+    },
+    /*colors$.Colors.yellow*/get yellow() {
+      return C[233] || CT.C233;
+    },
+    /*colors$.Colors._yellowPrimaryValue*/get _yellowPrimaryValue() {
+      return 4294961979.0;
+    },
+    /*colors$.Colors.yellowAccent*/get yellowAccent() {
+      return C[245] || CT.C245;
+    },
+    /*colors$.Colors._yellowAccentPrimaryValue*/get _yellowAccentPrimaryValue() {
+      return 4294967040.0;
+    },
+    /*colors$.Colors.amber*/get amber() {
+      return C[251] || CT.C251;
+    },
+    /*colors$.Colors._amberPrimaryValue*/get _amberPrimaryValue() {
+      return 4294951175.0;
+    },
+    /*colors$.Colors.amberAccent*/get amberAccent() {
+      return C[263] || CT.C263;
+    },
+    /*colors$.Colors._amberAccentPrimaryValue*/get _amberAccentPrimaryValue() {
+      return 4294956864.0;
+    },
+    /*colors$.Colors.orange*/get orange() {
+      return C[269] || CT.C269;
+    },
+    /*colors$.Colors._orangePrimaryValue*/get _orangePrimaryValue() {
+      return 4294940672.0;
+    },
+    /*colors$.Colors.orangeAccent*/get orangeAccent() {
+      return C[281] || CT.C281;
+    },
+    /*colors$.Colors._orangeAccentPrimaryValue*/get _orangeAccentPrimaryValue() {
+      return 4294945600.0;
+    },
+    /*colors$.Colors.deepOrange*/get deepOrange() {
+      return C[287] || CT.C287;
+    },
+    /*colors$.Colors._deepOrangePrimaryValue*/get _deepOrangePrimaryValue() {
+      return 4294924066.0;
+    },
+    /*colors$.Colors.deepOrangeAccent*/get deepOrangeAccent() {
+      return C[299] || CT.C299;
+    },
+    /*colors$.Colors._deepOrangeAccentPrimaryValue*/get _deepOrangeAccentPrimaryValue() {
+      return 4294929984.0;
+    },
+    /*colors$.Colors.brown*/get brown() {
+      return C[305] || CT.C305;
+    },
+    /*colors$.Colors._brownPrimaryValue*/get _brownPrimaryValue() {
+      return 4286141768.0;
+    },
+    /*colors$.Colors.grey*/get grey() {
+      return C[317] || CT.C317;
+    },
+    /*colors$.Colors._greyPrimaryValue*/get _greyPrimaryValue() {
+      return 4288585374.0;
+    },
+    /*colors$.Colors.blueGrey*/get blueGrey() {
+      return C[331] || CT.C331;
+    },
+    /*colors$.Colors._blueGreyPrimaryValue*/get _blueGreyPrimaryValue() {
+      return 4284513675.0;
+    },
+    /*colors$.Colors.primaries*/get primaries() {
+      return C[343] || CT.C343;
+    },
+    /*colors$.Colors.accents*/get accents() {
+      return C[344] || CT.C344;
     }
   }, false);
-  dart.trackLibraries("packages/flutter/src/rendering/paragraph.dart", {
-    "package:flutter/src/rendering/paragraph.dart": paragraph
+  dart.trackLibraries("packages/flutter/src/material/colors.dart", {
+    "package:flutter/src/material/colors.dart": colors$
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["paragraph.dart"],"names":[],"mappings":"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","file":"../../../../../../../../D:/packages/flutter/src/rendering/paragraph.dart.lib.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["colors.dart"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;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","file":"../../../../../../../../D:/packages/flutter/src/material/colors.dart.lib.js"}');
   // Exports:
   return {
-    src__rendering__paragraph: paragraph
+    src__material__colors: colors$
   };
 }));
 
-//# sourceMappingURL=paragraph.dart.lib.js.map
+//# sourceMappingURL=colors.dart.lib.js.map

@@ -1,1328 +1,1670 @@
-define(['dart_sdk', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/foundation/object.dart', 'packages/flutter/src/foundation/debug.dart', 'packages/flutter/src/painting/_network_image_web.dart', 'packages/flutter/src/painting/decoration.dart', 'packages/flutter/src/rendering/table_border.dart'], (function load__packages__flutter__src__rendering__table_dart(dart_sdk, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__foundation__object$46dart, packages__flutter__src__foundation__debug$46dart, packages__flutter__src__painting___network_image_web$46dart, packages__flutter__src__painting__decoration$46dart, packages__flutter__src__rendering__table_border$46dart) {
+define(['dart_sdk', 'packages/flutter/src/widgets/widget_span.dart', 'packages/flutter/src/painting/box_decoration.dart', 'packages/flutter/src/painting/box_border.dart', 'packages/flutter/src/painting/edge_insets.dart', 'packages/flutter/src/widgets/text_selection_toolbar_layout_delegate.dart', 'packages/flutter/src/rendering/layer.dart', 'packages/flutter/src/rendering/shifted_box.dart', 'packages/flutter/src/animation/listener_helpers.dart', 'packages/flutter/src/animation/animation_controller.dart', 'packages/flutter/src/cupertino/text_selection_toolbar_button.dart', 'packages/flutter/src/foundation/debug.dart'], (function load__packages__flutter__src__cupertino__text_selection_toolbar_dart(dart_sdk, packages__flutter__src__widgets__widget_span$46dart, packages__flutter__src__painting__box_decoration$46dart, packages__flutter__src__painting__box_border$46dart, packages__flutter__src__painting__edge_insets$46dart, packages__flutter__src__widgets__text_selection_toolbar_layout_delegate$46dart, packages__flutter__src__rendering__layer$46dart, packages__flutter__src__rendering__shifted_box$46dart, packages__flutter__src__animation__listener_helpers$46dart, packages__flutter__src__animation__animation_controller$46dart, packages__flutter__src__cupertino__text_selection_toolbar_button$46dart, packages__flutter__src__foundation__debug$46dart) {
   'use strict';
   const core = dart_sdk.core;
-  const math = dart_sdk.math;
-  const _interceptors = dart_sdk._interceptors;
+  const ui = dart_sdk.ui;
+  const _internal = dart_sdk._internal;
   const _js_helper = dart_sdk._js_helper;
   const collection = dart_sdk.collection;
-  const ui = dart_sdk.ui;
+  const _interceptors = dart_sdk._interceptors;
   const dart = dart_sdk.dart;
   const dartx = dart_sdk.dartx;
+  const framework = packages__flutter__src__widgets__widget_span$46dart.src__widgets__framework;
+  const container = packages__flutter__src__widgets__widget_span$46dart.src__widgets__container;
+  const widget_inspector = packages__flutter__src__widgets__widget_span$46dart.src__widgets__widget_inspector;
+  const debug = packages__flutter__src__widgets__widget_span$46dart.src__widgets__debug;
+  const media_query = packages__flutter__src__widgets__widget_span$46dart.src__widgets__media_query;
+  const basic = packages__flutter__src__widgets__widget_span$46dart.src__widgets__basic;
+  const transitions = packages__flutter__src__widgets__widget_span$46dart.src__widgets__transitions;
+  const ticker_provider = packages__flutter__src__widgets__widget_span$46dart.src__widgets__ticker_provider;
+  const text_selection = packages__flutter__src__widgets__widget_span$46dart.src__widgets__text_selection;
+  const box_decoration = packages__flutter__src__painting__box_decoration$46dart.src__painting__box_decoration;
+  const box_border = packages__flutter__src__painting__box_border$46dart.src__painting__box_border;
+  const edge_insets = packages__flutter__src__painting__edge_insets$46dart.src__painting__edge_insets;
+  const text_selection_toolbar_layout_delegate = packages__flutter__src__widgets__text_selection_toolbar_layout_delegate$46dart.src__widgets__text_selection_toolbar_layout_delegate;
   const box = packages__flutter__src__rendering__layer$46dart.src__rendering__box;
   const object = packages__flutter__src__rendering__layer$46dart.src__rendering__object;
-  const object$ = packages__flutter__src__foundation__object$46dart.src__foundation__object;
-  const debug = packages__flutter__src__foundation__debug$46dart.src__foundation__debug;
+  const layer = packages__flutter__src__rendering__layer$46dart.src__rendering__layer;
+  const shifted_box = packages__flutter__src__rendering__shifted_box$46dart.src__rendering__shifted_box;
+  const animation = packages__flutter__src__animation__listener_helpers$46dart.src__animation__animation;
+  const animation_controller = packages__flutter__src__animation__animation_controller$46dart.src__animation__animation_controller;
+  const text_selection_toolbar_button = packages__flutter__src__cupertino__text_selection_toolbar_button$46dart.src__cupertino__text_selection_toolbar_button;
   const diagnostics = packages__flutter__src__foundation__debug$46dart.src__foundation__diagnostics;
-  const image_provider = packages__flutter__src__painting___network_image_web$46dart.src__painting__image_provider;
-  const decoration = packages__flutter__src__painting__decoration$46dart.src__painting__decoration;
-  const table_border = packages__flutter__src__rendering__table_border$46dart.src__rendering__table_border;
-  var table = Object.create(dart.library);
-  var $toStringAsFixed = dartx.toStringAsFixed;
-  var $isFinite = dartx.isFinite;
-  var $isNotEmpty = dartx.isNotEmpty;
+  var text_selection_toolbar = Object.create(dart.library);
   var $length = dartx.length;
-  var $first = dartx.first;
+  var $_equals = dartx._equals;
+  var $isNotEmpty = dartx.isNotEmpty;
+  var $containsKey = dartx.containsKey;
+  var $values = dartx.values;
   var $forEach = dartx.forEach;
+  var $containsValue = dartx.containsValue;
+  var $contains = dartx.contains;
+  var $remove = dartx.remove;
   var $_get = dartx._get;
   var $_set = dartx._set;
-  var $_equals = dartx._equals;
-  var $isEmpty = dartx.isEmpty;
-  var $clear = dartx.clear;
-  var $modulo = dartx['%'];
-  var $truncate = dartx.truncate;
-  var $addAll = dartx.addAll;
-  var $fold = dartx.fold;
-  var $reversed = dartx.reversed;
-  var $last = dartx.last;
+  var $where = dartx.where;
   var $add = dartx.add;
-  var $getRange = dartx.getRange;
-  var $skip = dartx.skip;
-  var $map = dartx.map;
   dart._checkModuleNullSafetyMode(true);
   var T = {
+    BuildContextAndOffsetAndbool__ToWidget: () => (T.BuildContextAndOffsetAndbool__ToWidget = dart.constFn(dart.fnType(framework.Widget, [framework.BuildContext, ui.Offset, core.bool, framework.Widget])))(),
+    PaintingContextAndOffsetTovoid: () => (T.PaintingContextAndOffsetTovoid = dart.constFn(dart.fnType(dart.void, [object.PaintingContext, ui.Offset])))(),
+    VoidTobool: () => (T.VoidTobool = dart.constFn(dart.fnType(core.bool, [])))(),
+    VoidTovoid: () => (T.VoidTovoid = dart.constFn(dart.fnType(dart.void, [])))(),
+    LinkedMapOf_CupertinoTextSelectionToolbarItemsSlot$Element: () => (T.LinkedMapOf_CupertinoTextSelectionToolbarItemsSlot$Element = dart.constFn(_js_helper.LinkedMap$(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, framework.Element)))(),
+    _HashSetOfElement: () => (T._HashSetOfElement = dart.constFn(collection._HashSet$(framework.Element)))(),
     RenderBoxN: () => (T.RenderBoxN = dart.constFn(dart.nullable(box.RenderBox)))(),
-    JSArrayOfdouble: () => (T.JSArrayOfdouble = dart.constFn(_interceptors.JSArray$(core.double)))(),
-    IdentityMapOfint$TableColumnWidth: () => (T.IdentityMapOfint$TableColumnWidth = dart.constFn(_js_helper.IdentityMap$(core.int, table.TableColumnWidth)))(),
-    JSArrayOfRenderBoxN: () => (T.JSArrayOfRenderBoxN = dart.constFn(_interceptors.JSArray$(T.RenderBoxN())))(),
-    ListOfRenderBoxN: () => (T.ListOfRenderBoxN = dart.constFn(core.List$(T.RenderBoxN())))(),
-    MapOfint$TableColumnWidth: () => (T.MapOfint$TableColumnWidth = dart.constFn(core.Map$(core.int, table.TableColumnWidth)))(),
-    ListOfDecoration: () => (T.ListOfDecoration = dart.constFn(core.List$(decoration.Decoration)))(),
-    BoxPainterN: () => (T.BoxPainterN = dart.constFn(dart.nullable(decoration.BoxPainter)))(),
-    ListOfBoxPainterN: () => (T.ListOfBoxPainterN = dart.constFn(core.List$(T.BoxPainterN())))(),
-    _HashSetOfRenderBox: () => (T._HashSetOfRenderBox = dart.constFn(collection._HashSet$(box.RenderBox)))(),
-    SyncIterableOfRenderBox: () => (T.SyncIterableOfRenderBox = dart.constFn(_js_helper.SyncIterable$(box.RenderBox)))(),
-    ListOfdouble: () => (T.ListOfdouble = dart.constFn(core.List$(core.double)))(),
-    doubleN: () => (T.doubleN = dart.constFn(dart.nullable(core.double)))(),
-    ListOfdoubleN: () => (T.ListOfdoubleN = dart.constFn(core.List$(T.doubleN())))(),
-    doubleAnddoubleTodouble: () => (T.doubleAnddoubleTodouble = dart.constFn(dart.fnType(core.double, [core.double, core.double])))(),
-    OffsetN: () => (T.OffsetN = dart.constFn(dart.nullable(ui.Offset)))(),
-    BoxHitTestResultAndOffsetNTobool: () => (T.BoxHitTestResultAndOffsetNTobool = dart.constFn(dart.fnType(core.bool, [box.BoxHitTestResult, T.OffsetN()])))(),
-    DiagnosticsPropertyOfTableBorder: () => (T.DiagnosticsPropertyOfTableBorder = dart.constFn(diagnostics.DiagnosticsProperty$(table_border.TableBorder)))(),
-    DiagnosticsPropertyOfMapOfint$TableColumnWidth: () => (T.DiagnosticsPropertyOfMapOfint$TableColumnWidth = dart.constFn(diagnostics.DiagnosticsProperty$(T.MapOfint$TableColumnWidth())))(),
-    DiagnosticsPropertyOfTableColumnWidth: () => (T.DiagnosticsPropertyOfTableColumnWidth = dart.constFn(diagnostics.DiagnosticsProperty$(table.TableColumnWidth)))(),
-    IterablePropertyOfString: () => (T.IterablePropertyOfString = dart.constFn(diagnostics.IterableProperty$(core.String)))(),
-    doubleNToString: () => (T.doubleNToString = dart.constFn(dart.fnType(core.String, [T.doubleN()])))(),
-    JSArrayOfDiagnosticsNode: () => (T.JSArrayOfDiagnosticsNode = dart.constFn(_interceptors.JSArray$(diagnostics.DiagnosticsNode)))(),
-    DiagnosticsPropertyOfObject: () => (T.DiagnosticsPropertyOfObject = dart.constFn(diagnostics.DiagnosticsProperty$(core.Object)))()
+    IndexedSlotOfElement: () => (T.IndexedSlotOfElement = dart.constFn(framework.IndexedSlot$(framework.Element)))(),
+    ListOfElement: () => (T.ListOfElement = dart.constFn(core.List$(framework.Element)))(),
+    ElementN: () => (T.ElementN = dart.constFn(dart.nullable(framework.Element)))(),
+    IndexedSlotOfElementN: () => (T.IndexedSlotOfElementN = dart.constFn(framework.IndexedSlot$(T.ElementN())))(),
+    ElementTobool: () => (T.ElementTobool = dart.constFn(dart.fnType(core.bool, [framework.Element])))(),
+    LinkedMapOf_CupertinoTextSelectionToolbarItemsSlot$RenderBox: () => (T.LinkedMapOf_CupertinoTextSelectionToolbarItemsSlot$RenderBox = dart.constFn(_js_helper.LinkedMap$(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, box.RenderBox)))(),
+    VoidTodouble: () => (T.VoidTodouble = dart.constFn(dart.fnType(core.double, [])))(),
+    doubleTodynamic: () => (T.doubleTodynamic = dart.constFn(dart.fnType(dart.dynamic, [core.double])))(),
+    RenderObjectTovoid: () => (T.RenderObjectTovoid = dart.constFn(dart.fnType(dart.void, [object.RenderObject])))(),
+    BoxHitTestResultAndOffsetTobool: () => (T.BoxHitTestResultAndOffsetTobool = dart.constFn(dart.fnType(core.bool, [box.BoxHitTestResult, ui.Offset])))(),
+    JSArrayOfDiagnosticsNode: () => (T.JSArrayOfDiagnosticsNode = dart.constFn(_interceptors.JSArray$(diagnostics.DiagnosticsNode)))()
   };
   const CT = Object.create({
     _: () => (C, CT)
   });
   dart.defineLazy(CT, {
     get C0() {
-      return C[0] = dart.const({
-        __proto__: table.TableCellVerticalAlignment.prototype,
-        [_name$]: "TableCellVerticalAlignment.top",
-        index: 0
-      });
-    },
-    get C1() {
-      return C[1] = dart.const({
-        __proto__: table.TableCellVerticalAlignment.prototype,
-        [_name$]: "TableCellVerticalAlignment.middle",
-        index: 1
-      });
+      return C[0] = dart.fn(text_selection_toolbar.CupertinoTextSelectionToolbar._defaultToolbarBuilder, T.BuildContextAndOffsetAndbool__ToWidget());
     },
     get C2() {
       return C[2] = dart.const({
-        __proto__: table.TableCellVerticalAlignment.prototype,
-        [_name$]: "TableCellVerticalAlignment.bottom",
-        index: 2
+        __proto__: box_border.BoxShape.prototype,
+        [_name]: "BoxShape.rectangle",
+        index: 0
       });
     },
     get C3() {
       return C[3] = dart.const({
-        __proto__: table.TableCellVerticalAlignment.prototype,
-        [_name$]: "TableCellVerticalAlignment.baseline",
-        index: 3
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4286611584.0
       });
     },
-    get C4() {
-      return C[4] = dart.const({
-        __proto__: table.TableCellVerticalAlignment.prototype,
-        [_name$]: "TableCellVerticalAlignment.fill",
-        index: 4
+    get C1() {
+      return C[1] = dart.const({
+        __proto__: box_decoration.BoxDecoration.prototype,
+        [BoxDecoration_shape]: C[2] || CT.C2,
+        [BoxDecoration_backgroundBlendMode]: null,
+        [BoxDecoration_gradient]: null,
+        [BoxDecoration_boxShadow]: null,
+        [BoxDecoration_borderRadius]: null,
+        [BoxDecoration_border]: null,
+        [BoxDecoration_image]: null,
+        [BoxDecoration_color]: C[3] || CT.C3
       });
-    },
-    get C5() {
-      return C[5] = dart.constList([C[0] || CT.C0, C[1] || CT.C1, C[2] || CT.C2, C[3] || CT.C3, C[4] || CT.C4], table.TableCellVerticalAlignment);
     },
     get C6() {
       return C[6] = dart.const({
-        __proto__: table.FlexColumnWidth.prototype,
-        [value$1]: 1
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "decoration",
+        [_Location_column]: 9,
+        [_Location_line]: 102,
+        [_Location_file]: null
       });
     },
     get C7() {
       return C[7] = dart.const({
-        __proto__: image_provider.ImageConfiguration.prototype,
-        [ImageConfiguration_platform]: null,
-        [ImageConfiguration_size]: null,
-        [ImageConfiguration_textDirection]: null,
-        [ImageConfiguration_locale]: null,
-        [ImageConfiguration_devicePixelRatio]: null,
-        [ImageConfiguration_bundle]: null
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 103,
+        [_Location_file]: null
       });
     },
-    get C8() {
-      return C[8] = dart.constList([], T.RenderBoxN());
+    get C5() {
+      return C[5] = dart.constList([C[6] || CT.C6, C[7] || CT.C7], widget_inspector._Location);
     },
-    get C9() {
-      return C[9] = dart.constList([], decoration.Decoration);
+    get C4() {
+      return C[4] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[5] || CT.C5,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 101,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
     },
     get C10() {
       return C[10] = dart.const({
-        __proto__: ui.TextDirection.prototype,
-        [_name]: "TextDirection.rtl",
-        index: 0
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "anchor",
+        [_Location_column]: 7,
+        [_Location_line]: 99,
+        [_Location_file]: null
       });
     },
     get C11() {
       return C[11] = dart.const({
-        __proto__: ui.TextDirection.prototype,
-        [_name]: "TextDirection.ltr",
-        index: 1
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "isAbove",
+        [_Location_column]: 7,
+        [_Location_line]: 100,
+        [_Location_file]: null
       });
     },
     get C12() {
-      return C[12] = dart.constList([], core.double);
+      return C[12] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 101,
+        [_Location_file]: null
+      });
+    },
+    get C9() {
+      return C[9] = dart.constList([C[10] || CT.C10, C[11] || CT.C11, C[12] || CT.C12], widget_inspector._Location);
+    },
+    get C8() {
+      return C[8] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[9] || CT.C9,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 98,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
     },
     get C13() {
-      return C[13] = dart.fn(debug.debugFormatDouble, T.doubleNToString());
+      return C[13] = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 8,
+        [OffsetBase__dx]: 0
+      });
+    },
+    get C16() {
+      return C[16] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "anchor",
+        [_Location_column]: 11,
+        [_Location_line]: 135,
+        [_Location_file]: null
+      });
+    },
+    get C17() {
+      return C[17] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "isAbove",
+        [_Location_column]: 11,
+        [_Location_line]: 136,
+        [_Location_file]: null
+      });
+    },
+    get C18() {
+      return C[18] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "toolbarBuilder",
+        [_Location_column]: 11,
+        [_Location_line]: 137,
+        [_Location_file]: null
+      });
+    },
+    get C19() {
+      return C[19] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 11,
+        [_Location_line]: 138,
+        [_Location_file]: null
+      });
+    },
+    get C15() {
+      return C[15] = dart.constList([C[16] || CT.C16, C[17] || CT.C17, C[18] || CT.C18, C[19] || CT.C19], widget_inspector._Location);
+    },
+    get C14() {
+      return C[14] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[15] || CT.C15,
+        [_Location_name]: null,
+        [_Location_column]: 16,
+        [_Location_line]: 134,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C22() {
+      return C[22] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "delegate",
+        [_Location_column]: 9,
+        [_Location_line]: 130,
+        [_Location_file]: null
+      });
+    },
+    get C23() {
+      return C[23] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 9,
+        [_Location_line]: 134,
+        [_Location_file]: null
+      });
+    },
+    get C21() {
+      return C[21] = dart.constList([C[22] || CT.C22, C[23] || CT.C23], widget_inspector._Location);
+    },
+    get C20() {
+      return C[20] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[21] || CT.C21,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 129,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C26() {
+      return C[26] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "padding",
+        [_Location_column]: 7,
+        [_Location_line]: 123,
+        [_Location_file]: null
+      });
+    },
+    get C27() {
+      return C[27] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 129,
+        [_Location_file]: null
+      });
+    },
+    get C25() {
+      return C[25] = dart.constList([C[26] || CT.C26, C[27] || CT.C27], widget_inspector._Location);
+    },
+    get C24() {
+      return C[24] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[25] || CT.C25,
+        [_Location_name]: null,
+        [_Location_column]: 12,
+        [_Location_line]: 122,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C28() {
+      return C[28] = dart.const({
+        __proto__: ui.Offset.prototype,
+        [OffsetBase__dy]: 10,
+        [OffsetBase__dx]: 10
+      });
+    },
+    get C30() {
+      return C[30] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 0
+      });
+    },
+    get C31() {
+      return C[31] = dart.const({
+        __proto__: ui.Color.prototype,
+        [Color_value]: 4294902015.0
+      });
+    },
+    get C29() {
+      return C[29] = dart.constList([C[30] || CT.C30, C[31] || CT.C31, C[31] || CT.C31, C[30] || CT.C30], ui.Color);
+    },
+    get C32() {
+      return C[32] = dart.constList([0.25, 0.25, 0.75, 0.75], core.double);
+    },
+    get C33() {
+      return C[33] = dart.const({
+        __proto__: core.Duration.prototype,
+        [Duration__duration]: 150000
+      });
+    },
+    get C36() {
+      return C[36] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 11,
+        [_Location_line]: 440,
+        [_Location_file]: null
+      });
+    },
+    get C37() {
+      return C[37] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "text",
+        [_Location_column]: 11,
+        [_Location_line]: 441,
+        [_Location_file]: null
+      });
+    },
+    get C35() {
+      return C[35] = dart.constList([C[36] || CT.C36, C[37] || CT.C37], widget_inspector._Location);
+    },
+    get C34() {
+      return C[34] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[35] || CT.C35,
+        [_Location_name]: null,
+        [_Location_column]: 57,
+        [_Location_line]: 439,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C40() {
+      return C[40] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "onPressed",
+        [_Location_column]: 11,
+        [_Location_line]: 445,
+        [_Location_file]: null
+      });
+    },
+    get C41() {
+      return C[41] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "text",
+        [_Location_column]: 11,
+        [_Location_line]: 446,
+        [_Location_file]: null
+      });
+    },
+    get C39() {
+      return C[39] = dart.constList([C[40] || CT.C40, C[41] || CT.C41], widget_inspector._Location);
+    },
+    get C38() {
+      return C[38] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[39] || CT.C39,
+        [_Location_name]: null,
+        [_Location_column]: 57,
+        [_Location_line]: 444,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C44() {
+      return C[44] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "text",
+        [_Location_column]: 11,
+        [_Location_line]: 449,
+        [_Location_file]: null
+      });
+    },
+    get C43() {
+      return C[43] = dart.constList([C[44] || CT.C44], widget_inspector._Location);
+    },
+    get C42() {
+      return C[42] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[43] || CT.C43,
+        [_Location_name]: null,
+        [_Location_column]: 65,
+        [_Location_line]: 448,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C47() {
+      return C[47] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "page",
+        [_Location_column]: 9,
+        [_Location_line]: 438,
+        [_Location_file]: null
+      });
+    },
+    get C48() {
+      return C[48] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "backButton",
+        [_Location_column]: 9,
+        [_Location_line]: 439,
+        [_Location_file]: null
+      });
+    },
+    get C49() {
+      return C[49] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "dividerWidth",
+        [_Location_column]: 9,
+        [_Location_line]: 443,
+        [_Location_file]: null
+      });
+    },
+    get C50() {
+      return C[50] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "nextButton",
+        [_Location_column]: 9,
+        [_Location_line]: 444,
+        [_Location_file]: null
+      });
+    },
+    get C51() {
+      return C[51] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "nextButtonDisabled",
+        [_Location_column]: 9,
+        [_Location_line]: 448,
+        [_Location_file]: null
+      });
+    },
+    get C52() {
+      return C[52] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "children",
+        [_Location_column]: 9,
+        [_Location_line]: 451,
+        [_Location_file]: null
+      });
+    },
+    get C46() {
+      return C[46] = dart.constList([C[47] || CT.C47, C[48] || CT.C48, C[49] || CT.C49, C[50] || CT.C50, C[51] || CT.C51, C[52] || CT.C52], widget_inspector._Location);
+    },
+    get C45() {
+      return C[45] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[46] || CT.C46,
+        [_Location_name]: null,
+        [_Location_column]: 14,
+        [_Location_line]: 437,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C55() {
+      return C[55] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "opacity",
+        [_Location_column]: 7,
+        [_Location_line]: 436,
+        [_Location_file]: null
+      });
+    },
+    get C56() {
+      return C[56] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: null,
+        [_Location_name]: "child",
+        [_Location_column]: 7,
+        [_Location_line]: 437,
+        [_Location_file]: null
+      });
+    },
+    get C54() {
+      return C[54] = dart.constList([C[55] || CT.C55, C[56] || CT.C56], widget_inspector._Location);
+    },
+    get C53() {
+      return C[53] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[54] || CT.C54,
+        [_Location_name]: null,
+        [_Location_column]: 74,
+        [_Location_line]: 435,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C57() {
+      return C[57] = dart.const({
+        __proto__: text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.prototype,
+        [_name$]: "_CupertinoTextSelectionToolbarItemsSlot.backButton",
+        index: 0
+      });
+    },
+    get C58() {
+      return C[58] = dart.const({
+        __proto__: text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.prototype,
+        [_name$]: "_CupertinoTextSelectionToolbarItemsSlot.nextButton",
+        index: 1
+      });
+    },
+    get C59() {
+      return C[59] = dart.const({
+        __proto__: text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.prototype,
+        [_name$]: "_CupertinoTextSelectionToolbarItemsSlot.nextButtonDisabled",
+        index: 2
+      });
+    },
+    get C60() {
+      return C[60] = dart.constList([C[57] || CT.C57, C[58] || CT.C58, C[59] || CT.C59], text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot);
+    },
+    get C62() {
+      return C[62] = dart.constList([], widget_inspector._Location);
+    },
+    get C61() {
+      return C[61] = dart.const({
+        __proto__: widget_inspector._Location.prototype,
+        [_Location_parameterLocations]: C[62] || CT.C62,
+        [_Location_name]: null,
+        [_Location_column]: 26,
+        [_Location_line]: 1012,
+        [_Location_file]: "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart"
+      });
+    },
+    get C63() {
+      return C[63] = dart.const({
+        __proto__: ui.Size.prototype,
+        [OffsetBase__dy]: 7,
+        [OffsetBase__dx]: 14
+      });
+    },
+    get C64() {
+      return C[64] = dart.const({
+        __proto__: ui.Radius.prototype,
+        [Radius_y]: 8,
+        [Radius_x]: 8
+      });
     }
   }, false);
-  var C = Array(14).fill(void 0);
+  var C = Array(65).fill(void 0);
   var I = [
-    "package:flutter/src/rendering/table.dart",
-    "file:///U:/src/flutter/packages/flutter/lib/src/rendering/table.dart"
+    "file:///U:/src/flutter/packages/flutter/lib/src/cupertino/text_selection_toolbar.dart",
+    "package:flutter/src/cupertino/text_selection_toolbar.dart"
   ];
-  var verticalAlignment = dart.privateName(table, "TableCellParentData.verticalAlignment");
-  var x = dart.privateName(table, "TableCellParentData.x");
-  var y = dart.privateName(table, "TableCellParentData.y");
-  table.TableCellParentData = class TableCellParentData extends box.BoxParentData {
-    get verticalAlignment() {
-      return this[verticalAlignment];
+  var anchorAbove$ = dart.privateName(text_selection_toolbar, "CupertinoTextSelectionToolbar.anchorAbove");
+  var anchorBelow$ = dart.privateName(text_selection_toolbar, "CupertinoTextSelectionToolbar.anchorBelow");
+  var children$ = dart.privateName(text_selection_toolbar, "CupertinoTextSelectionToolbar.children");
+  var toolbarBuilder$ = dart.privateName(text_selection_toolbar, "CupertinoTextSelectionToolbar.toolbarBuilder");
+  var _name = dart.privateName(box_border, "_name");
+  var BoxDecoration_shape = dart.privateName(box_decoration, "BoxDecoration.shape");
+  var BoxDecoration_backgroundBlendMode = dart.privateName(box_decoration, "BoxDecoration.backgroundBlendMode");
+  var BoxDecoration_gradient = dart.privateName(box_decoration, "BoxDecoration.gradient");
+  var BoxDecoration_boxShadow = dart.privateName(box_decoration, "BoxDecoration.boxShadow");
+  var BoxDecoration_borderRadius = dart.privateName(box_decoration, "BoxDecoration.borderRadius");
+  var BoxDecoration_border = dart.privateName(box_decoration, "BoxDecoration.border");
+  var BoxDecoration_image = dart.privateName(box_decoration, "BoxDecoration.image");
+  var Color_value = dart.privateName(ui, "Color.value");
+  var BoxDecoration_color = dart.privateName(box_decoration, "BoxDecoration.color");
+  var _Location_parameterLocations = dart.privateName(widget_inspector, "_Location.parameterLocations");
+  var _Location_name = dart.privateName(widget_inspector, "_Location.name");
+  var _Location_column = dart.privateName(widget_inspector, "_Location.column");
+  var _Location_line = dart.privateName(widget_inspector, "_Location.line");
+  var _Location_file = dart.privateName(widget_inspector, "_Location.file");
+  var OffsetBase__dy = dart.privateName(ui, "OffsetBase._dy");
+  var OffsetBase__dx = dart.privateName(ui, "OffsetBase._dx");
+  text_selection_toolbar.CupertinoTextSelectionToolbar = class CupertinoTextSelectionToolbar extends framework.StatelessWidget {
+    get anchorAbove() {
+      return this[anchorAbove$];
     }
-    set verticalAlignment(value) {
-      this[verticalAlignment] = value;
+    set anchorAbove(value) {
+      super.anchorAbove = value;
     }
-    get x() {
-      return this[x];
+    get anchorBelow() {
+      return this[anchorBelow$];
     }
-    set x(value) {
-      this[x] = value;
+    set anchorBelow(value) {
+      super.anchorBelow = value;
     }
-    get y() {
-      return this[y];
+    get children() {
+      return this[children$];
     }
-    set y(value) {
-      this[y] = value;
+    set children(value) {
+      super.children = value;
     }
-    toString() {
-      return super.toString() + "; " + (this.verticalAlignment == null ? "default vertical alignment" : dart.str(this.verticalAlignment));
+    get toolbarBuilder() {
+      return this[toolbarBuilder$];
+    }
+    set toolbarBuilder(value) {
+      super.toolbarBuilder = value;
+    }
+    static _defaultToolbarBuilder(context, anchor, isAbove, child) {
+      return new text_selection_toolbar._CupertinoTextSelectionToolbarShape.new({anchor: anchor, isAbove: isAbove, child: new container.DecoratedBox.new({decoration: C[1] || CT.C1, child: child, $creationLocationd_0dea112b090073317d4: C[4] || CT.C4}), $creationLocationd_0dea112b090073317d4: C[8] || CT.C8});
+    }
+    build(context) {
+      if (!debug.debugCheckHasMediaQuery(context)) dart.assertFailed(null, I[0], 110, 12, "debugCheckHasMediaQuery(context)");
+      let mediaQuery = media_query.MediaQuery.of(context);
+      let paddingAbove = mediaQuery.padding.top + 8;
+      let toolbarHeightNeeded = paddingAbove + 8 + 43;
+      let fitsAbove = this.anchorAbove.dy >= toolbarHeightNeeded;
+      let contentPaddingAdjustment = C[13] || CT.C13;
+      let localAdjustment = new ui.Offset.new(8, paddingAbove);
+      return new basic.Padding.new({padding: new edge_insets.EdgeInsets.fromLTRB(8, paddingAbove, 8, 8), child: new basic.CustomSingleChildLayout.new({delegate: new text_selection_toolbar_layout_delegate.TextSelectionToolbarLayoutDelegate.new({anchorAbove: this.anchorAbove['-'](localAdjustment)['-'](contentPaddingAdjustment), anchorBelow: this.anchorBelow['-'](localAdjustment)['+'](contentPaddingAdjustment)}), child: new text_selection_toolbar._CupertinoTextSelectionToolbarContent.new({anchor: fitsAbove ? this.anchorAbove : this.anchorBelow, isAbove: fitsAbove, toolbarBuilder: this.toolbarBuilder, children: this.children, $creationLocationd_0dea112b090073317d4: C[14] || CT.C14}), $creationLocationd_0dea112b090073317d4: C[20] || CT.C20}), $creationLocationd_0dea112b090073317d4: C[24] || CT.C24});
     }
   };
-  (table.TableCellParentData.new = function() {
-    this[verticalAlignment] = null;
-    this[x] = null;
-    this[y] = null;
-    table.TableCellParentData.__proto__.new.call(this);
+  (text_selection_toolbar.CupertinoTextSelectionToolbar.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let anchorAbove = opts && 'anchorAbove' in opts ? opts.anchorAbove : null;
+    let anchorBelow = opts && 'anchorBelow' in opts ? opts.anchorBelow : null;
+    let children = opts && 'children' in opts ? opts.children : null;
+    let toolbarBuilder = opts && 'toolbarBuilder' in opts ? opts.toolbarBuilder : C[0] || CT.C0;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[anchorAbove$] = anchorAbove;
+    this[anchorBelow$] = anchorBelow;
+    this[children$] = children;
+    this[toolbarBuilder$] = toolbarBuilder;
+    if (!(children[$length] > 0)) dart.assertFailed(null, I[0], 73, 15, "children.length > 0");
+    text_selection_toolbar.CupertinoTextSelectionToolbar.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
     ;
-  }).prototype = table.TableCellParentData.prototype;
-  dart.addTypeTests(table.TableCellParentData);
-  dart.addTypeCaches(table.TableCellParentData);
-  dart.setLibraryUri(table.TableCellParentData, I[0]);
-  dart.setFieldSignature(table.TableCellParentData, () => ({
-    __proto__: dart.getFields(table.TableCellParentData.__proto__),
-    verticalAlignment: dart.fieldType(dart.nullable(table.TableCellVerticalAlignment)),
-    x: dart.fieldType(dart.nullable(core.int)),
-    y: dart.fieldType(dart.nullable(core.int))
+  }).prototype = text_selection_toolbar.CupertinoTextSelectionToolbar.prototype;
+  dart.addTypeTests(text_selection_toolbar.CupertinoTextSelectionToolbar);
+  dart.addTypeCaches(text_selection_toolbar.CupertinoTextSelectionToolbar);
+  dart.setMethodSignature(text_selection_toolbar.CupertinoTextSelectionToolbar, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar.CupertinoTextSelectionToolbar.__proto__),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
   }));
-  dart.defineExtensionMethods(table.TableCellParentData, ['toString']);
-  table.TableColumnWidth = class TableColumnWidth extends core.Object {
-    flex(cells) {
-      return null;
-    }
-    toString() {
-      return object$.objectRuntimeType(this, "TableColumnWidth");
-    }
-  };
-  (table.TableColumnWidth.new = function() {
-    ;
-  }).prototype = table.TableColumnWidth.prototype;
-  dart.addTypeTests(table.TableColumnWidth);
-  dart.addTypeCaches(table.TableColumnWidth);
-  dart.setMethodSignature(table.TableColumnWidth, () => ({
-    __proto__: dart.getMethods(table.TableColumnWidth.__proto__),
-    flex: dart.fnType(dart.nullable(core.double), [core.Iterable$(box.RenderBox)])
+  dart.setLibraryUri(text_selection_toolbar.CupertinoTextSelectionToolbar, I[1]);
+  dart.setFieldSignature(text_selection_toolbar.CupertinoTextSelectionToolbar, () => ({
+    __proto__: dart.getFields(text_selection_toolbar.CupertinoTextSelectionToolbar.__proto__),
+    anchorAbove: dart.finalFieldType(ui.Offset),
+    anchorBelow: dart.finalFieldType(ui.Offset),
+    children: dart.finalFieldType(core.List$(framework.Widget)),
+    toolbarBuilder: dart.finalFieldType(dart.fnType(framework.Widget, [framework.BuildContext, ui.Offset, core.bool, framework.Widget]))
   }));
-  dart.setLibraryUri(table.TableColumnWidth, I[0]);
-  dart.defineExtensionMethods(table.TableColumnWidth, ['toString']);
-  var _flex = dart.privateName(table, "IntrinsicColumnWidth._flex");
-  var _flex$ = dart.privateName(table, "_flex");
-  table.IntrinsicColumnWidth = class IntrinsicColumnWidth extends table.TableColumnWidth {
-    get [_flex$]() {
-      return this[_flex];
+  var _anchor = dart.privateName(text_selection_toolbar, "_CupertinoTextSelectionToolbarShape._anchor");
+  var _isAbove = dart.privateName(text_selection_toolbar, "_CupertinoTextSelectionToolbarShape._isAbove");
+  var _anchor$ = dart.privateName(text_selection_toolbar, "_anchor");
+  var _isAbove$ = dart.privateName(text_selection_toolbar, "_isAbove");
+  text_selection_toolbar._CupertinoTextSelectionToolbarShape = class _CupertinoTextSelectionToolbarShape extends framework.SingleChildRenderObjectWidget {
+    get [_anchor$]() {
+      return this[_anchor];
     }
-    set [_flex$](value) {
-      super[_flex$] = value;
+    set [_anchor$](value) {
+      super[_anchor$] = value;
     }
-    minIntrinsicWidth(cells, containerWidth) {
-      let result = 0.0;
-      for (let cell of cells)
-        result = math.max(core.double, result, cell.getMinIntrinsicWidth(1 / 0));
-      return result;
+    get [_isAbove$]() {
+      return this[_isAbove];
     }
-    maxIntrinsicWidth(cells, containerWidth) {
-      let result = 0.0;
-      for (let cell of cells)
-        result = math.max(core.double, result, cell.getMaxIntrinsicWidth(1 / 0));
-      return result;
+    set [_isAbove$](value) {
+      super[_isAbove$] = value;
     }
-    flex(cells) {
-      return this[_flex$];
+    createRenderObject(context) {
+      return new text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.new(this[_anchor$], this[_isAbove$], null);
     }
-    toString() {
+    updateRenderObject(context, renderObject) {
       let t0;
-      return object$.objectRuntimeType(this, "IntrinsicColumnWidth") + "(flex: " + dart.str((t0 = this[_flex$], t0 == null ? null : t0[$toStringAsFixed](1))) + ")";
+      text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.as(renderObject);
+      t0 = renderObject;
+      (() => {
+        t0.anchor = this[_anchor$];
+        t0.isAbove = this[_isAbove$];
+        return t0;
+      })();
     }
   };
-  (table.IntrinsicColumnWidth.new = function(opts) {
-    let flex = opts && 'flex' in opts ? opts.flex : null;
-    this[_flex] = flex;
-    table.IntrinsicColumnWidth.__proto__.new.call(this);
+  (text_selection_toolbar._CupertinoTextSelectionToolbarShape.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let anchor = opts && 'anchor' in opts ? opts.anchor : null;
+    let isAbove = opts && 'isAbove' in opts ? opts.isAbove : null;
+    let child = opts && 'child' in opts ? opts.child : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[_anchor] = anchor;
+    this[_isAbove] = isAbove;
+    text_selection_toolbar._CupertinoTextSelectionToolbarShape.__proto__.new.call(this, {key: key, child: child, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
     ;
-  }).prototype = table.IntrinsicColumnWidth.prototype;
-  dart.addTypeTests(table.IntrinsicColumnWidth);
-  dart.addTypeCaches(table.IntrinsicColumnWidth);
-  dart.setMethodSignature(table.IntrinsicColumnWidth, () => ({
-    __proto__: dart.getMethods(table.IntrinsicColumnWidth.__proto__),
-    minIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    maxIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double])
+  }).prototype = text_selection_toolbar._CupertinoTextSelectionToolbarShape.prototype;
+  dart.addTypeTests(text_selection_toolbar._CupertinoTextSelectionToolbarShape);
+  dart.addTypeCaches(text_selection_toolbar._CupertinoTextSelectionToolbarShape);
+  dart.setMethodSignature(text_selection_toolbar._CupertinoTextSelectionToolbarShape, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._CupertinoTextSelectionToolbarShape.__proto__),
+    createRenderObject: dart.fnType(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape, [framework.BuildContext])
   }));
-  dart.setLibraryUri(table.IntrinsicColumnWidth, I[0]);
-  dart.setFieldSignature(table.IntrinsicColumnWidth, () => ({
-    __proto__: dart.getFields(table.IntrinsicColumnWidth.__proto__),
-    [_flex$]: dart.finalFieldType(dart.nullable(core.double))
+  dart.setLibraryUri(text_selection_toolbar._CupertinoTextSelectionToolbarShape, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._CupertinoTextSelectionToolbarShape, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._CupertinoTextSelectionToolbarShape.__proto__),
+    [_anchor$]: dart.finalFieldType(ui.Offset),
+    [_isAbove$]: dart.finalFieldType(core.bool)
   }));
-  dart.defineExtensionMethods(table.IntrinsicColumnWidth, ['toString']);
-  var value$ = dart.privateName(table, "FixedColumnWidth.value");
-  table.FixedColumnWidth = class FixedColumnWidth extends table.TableColumnWidth {
-    get value() {
-      return this[value$];
+  var _heightConstraint = dart.privateName(text_selection_toolbar, "_heightConstraint");
+  var _clipPathLayer = dart.privateName(text_selection_toolbar, "_clipPathLayer");
+  var _debugPaint = dart.privateName(text_selection_toolbar, "_debugPaint");
+  var _clipPath = dart.privateName(text_selection_toolbar, "_clipPath");
+  text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape = class _RenderCupertinoTextSelectionToolbarShape extends shifted_box.RenderShiftedBox {
+    get isRepaintBoundary() {
+      return true;
     }
-    set value(value) {
-      super.value = value;
+    set anchor(value) {
+      if (value._equals(this[_anchor$])) {
+        return;
+      }
+      this[_anchor$] = value;
+      this.markNeedsLayout();
     }
-    minIntrinsicWidth(cells, containerWidth) {
-      return this.value;
+    set isAbove(value) {
+      if (this[_isAbove$] === value) {
+        return;
+      }
+      this[_isAbove$] = value;
+      this.markNeedsLayout();
     }
-    maxIntrinsicWidth(cells, containerWidth) {
-      return this.value;
+    performLayout() {
+      if (this.child == null) {
+        return;
+      }
+      let enforcedConstraint = this.constraints.loosen();
+      dart.nullCheck(this.child).layout(this[_heightConstraint].enforce(enforcedConstraint), {parentUsesSize: true});
+      let childParentData = box.BoxParentData.as(dart.nullCheck(dart.nullCheck(this.child).parentData));
+      childParentData.offset = new ui.Offset.new(0.0, this[_isAbove$] ? -text_selection_toolbar._kToolbarArrowSize.height : 0.0);
+      this.size = new ui.Size.new(dart.nullCheck(this.child).size.width, dart.nullCheck(this.child).size.height - text_selection_toolbar._kToolbarArrowSize.height);
     }
-    toString() {
-      return object$.objectRuntimeType(this, "FixedColumnWidth") + "(" + debug.debugFormatDouble(this.value) + ")";
+    [_clipPath]() {
+      let t0, t0$;
+      let childParentData = box.BoxParentData.as(dart.nullCheck(dart.nullCheck(this.child).parentData));
+      let rrect = (t0 = ui.Path.new(), (() => {
+        t0.addRRect(new ui.RRect.fromRectAndRadius(new ui.Offset.new(0.0, text_selection_toolbar._kToolbarArrowSize.height)['&'](new ui.Size.new(dart.nullCheck(this.child).size.width, dart.nullCheck(this.child).size.height - text_selection_toolbar._kToolbarArrowSize.height * 2)), text_selection_toolbar._kToolbarBorderRadius));
+        return t0;
+      })());
+      let localAnchor = this.globalToLocal(this[_anchor$]);
+      let centerX = childParentData.offset.dx + dart.nullCheck(this.child).size.width / 2;
+      let arrowXOffsetFromCenter = localAnchor.dx - centerX;
+      let arrowTipX = dart.nullCheck(this.child).size.width / 2 + arrowXOffsetFromCenter;
+      let arrowBaseY = this[_isAbove$] ? dart.nullCheck(this.child).size.height - text_selection_toolbar._kToolbarArrowSize.height : text_selection_toolbar._kToolbarArrowSize.height;
+      let arrowTipY = this[_isAbove$] ? dart.nullCheck(this.child).size.height : 0.0;
+      let arrow = (t0$ = ui.Path.new(), (() => {
+        t0$.moveTo(arrowTipX, arrowTipY);
+        t0$.lineTo(arrowTipX - text_selection_toolbar._kToolbarArrowSize.width / 2, arrowBaseY);
+        t0$.lineTo(arrowTipX + text_selection_toolbar._kToolbarArrowSize.width / 2, arrowBaseY);
+        t0$.close();
+        return t0$;
+      })());
+      return ui.Path.combine(ui.PathOperation.union, rrect, arrow);
+    }
+    paint(context, offset) {
+      if (this.child == null) {
+        return;
+      }
+      let childParentData = box.BoxParentData.as(dart.nullCheck(dart.nullCheck(this.child).parentData));
+      this[_clipPathLayer] = context.pushClipPath(this.needsCompositing, offset['+'](childParentData.offset), ui.Offset.zero['&'](dart.nullCheck(this.child).size), this[_clipPath](), dart.fn((innerContext, innerOffset) => innerContext.paintChild(dart.nullCheck(this.child), innerOffset), T.PaintingContextAndOffsetTovoid()), {oldLayer: this[_clipPathLayer]});
+    }
+    debugPaintSize(context, offset) {
+      if (!dart.fn(() => {
+        let t0;
+        if (this.child == null) {
+          return true;
+        }
+        this[_debugPaint] == null ? this[_debugPaint] = (t0 = ui.Paint.new(), (() => {
+          t0.shader = ui.Gradient.linear(ui.Offset.zero, C[28] || CT.C28, C[29] || CT.C29, C[32] || CT.C32, ui.TileMode.repeated);
+          t0.strokeWidth = 2.0;
+          t0.style = ui.PaintingStyle.stroke;
+          return t0;
+        })()) : null;
+        let childParentData = box.BoxParentData.as(dart.nullCheck(dart.nullCheck(this.child).parentData));
+        context.canvas.drawPath(this[_clipPath]().shift(offset['+'](childParentData.offset)), dart.nullCheck(this[_debugPaint]));
+        return true;
+      }, T.VoidTobool())()) dart.assertFailed(null, I[0], 307, 12, "() {\r\n      if (child == null) {\r\n        return true;\r\n      }\r\n\r\n      _debugPaint ??= Paint()\r\n        ..shader = ui.Gradient.linear(\r\n          Offset.zero,\r\n          const Offset(10.0, 10.0),\r\n          const <Color>[Color(0x00000000), Color(0xFFFF00FF), Color(0xFFFF00FF), Color(0x00000000)],\r\n          const <double>[0.25, 0.25, 0.75, 0.75],\r\n          TileMode.repeated,\r\n        )\r\n        ..strokeWidth = 2.0\r\n        ..style = PaintingStyle.stroke;\r\n\r\n      final BoxParentData childParentData = child!.parentData! as BoxParentData;\r\n      context.canvas.drawPath(_clipPath().shift(offset + childParentData.offset), _debugPaint!);\r\n      return true;\r\n    }()");
+    }
+    hitTestChildren(result, opts) {
+      let position = opts && 'position' in opts ? opts.position : null;
+      let childParentData = box.BoxParentData.as(dart.nullCheck(dart.nullCheck(this.child).parentData));
+      let hitBox = new ui.Rect.fromLTWH(childParentData.offset.dx, childParentData.offset.dy + text_selection_toolbar._kToolbarArrowSize.height, dart.nullCheck(this.child).size.width, dart.nullCheck(this.child).size.height - text_selection_toolbar._kToolbarArrowSize.height * 2);
+      if (!hitBox.contains(position)) {
+        return false;
+      }
+      return super.hitTestChildren(result, {position: position});
     }
   };
-  (table.FixedColumnWidth.new = function(value) {
-    this[value$] = value;
-    if (!(value !== null)) dart.assertFailed(null, I[1], 135, 47, "value != null");
-    table.FixedColumnWidth.__proto__.new.call(this);
+  (text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.new = function(_anchor, _isAbove, child) {
+    this[_heightConstraint] = new box.BoxConstraints.tightFor({height: 43 + text_selection_toolbar._kToolbarArrowSize.height});
+    this[_clipPathLayer] = null;
+    this[_debugPaint] = null;
+    this[_anchor$] = _anchor;
+    this[_isAbove$] = _isAbove;
+    text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.__proto__.new.call(this, child);
     ;
-  }).prototype = table.FixedColumnWidth.prototype;
-  dart.addTypeTests(table.FixedColumnWidth);
-  dart.addTypeCaches(table.FixedColumnWidth);
-  dart.setMethodSignature(table.FixedColumnWidth, () => ({
-    __proto__: dart.getMethods(table.FixedColumnWidth.__proto__),
-    minIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    maxIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double])
+  }).prototype = text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.prototype;
+  dart.addTypeTests(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape);
+  dart.addTypeCaches(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape);
+  dart.setMethodSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.__proto__),
+    [_clipPath]: dart.fnType(ui.Path, [])
   }));
-  dart.setLibraryUri(table.FixedColumnWidth, I[0]);
-  dart.setFieldSignature(table.FixedColumnWidth, () => ({
-    __proto__: dart.getFields(table.FixedColumnWidth.__proto__),
-    value: dart.finalFieldType(core.double)
+  dart.setSetterSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape, () => ({
+    __proto__: dart.getSetters(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.__proto__),
+    anchor: ui.Offset,
+    isAbove: core.bool
   }));
-  dart.defineExtensionMethods(table.FixedColumnWidth, ['toString']);
-  var value$0 = dart.privateName(table, "FractionColumnWidth.value");
-  table.FractionColumnWidth = class FractionColumnWidth extends table.TableColumnWidth {
-    get value() {
-      return this[value$0];
+  dart.setLibraryUri(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._RenderCupertinoTextSelectionToolbarShape.__proto__),
+    [_anchor$]: dart.fieldType(ui.Offset),
+    [_isAbove$]: dart.fieldType(core.bool),
+    [_heightConstraint]: dart.finalFieldType(box.BoxConstraints),
+    [_clipPathLayer]: dart.fieldType(dart.nullable(layer.ClipPathLayer)),
+    [_debugPaint]: dart.fieldType(dart.nullable(ui.Paint))
+  }));
+  var anchor$ = dart.privateName(text_selection_toolbar, "_CupertinoTextSelectionToolbarContent.anchor");
+  var children$0 = dart.privateName(text_selection_toolbar, "_CupertinoTextSelectionToolbarContent.children");
+  var isAbove$ = dart.privateName(text_selection_toolbar, "_CupertinoTextSelectionToolbarContent.isAbove");
+  var toolbarBuilder$0 = dart.privateName(text_selection_toolbar, "_CupertinoTextSelectionToolbarContent.toolbarBuilder");
+  text_selection_toolbar._CupertinoTextSelectionToolbarContent = class _CupertinoTextSelectionToolbarContent extends framework.StatefulWidget {
+    get anchor() {
+      return this[anchor$];
     }
-    set value(value) {
-      super.value = value;
+    set anchor(value) {
+      super.anchor = value;
     }
-    minIntrinsicWidth(cells, containerWidth) {
-      if (!containerWidth[$isFinite]) return 0.0;
-      return this.value * containerWidth;
+    get children() {
+      return this[children$0];
     }
-    maxIntrinsicWidth(cells, containerWidth) {
-      if (!containerWidth[$isFinite]) return 0.0;
-      return this.value * containerWidth;
+    set children(value) {
+      super.children = value;
     }
-    toString() {
-      return object$.objectRuntimeType(this, "FractionColumnWidth") + "(" + dart.str(this.value) + ")";
+    get isAbove() {
+      return this[isAbove$];
+    }
+    set isAbove(value) {
+      super.isAbove = value;
+    }
+    get toolbarBuilder() {
+      return this[toolbarBuilder$0];
+    }
+    set toolbarBuilder(value) {
+      super.toolbarBuilder = value;
+    }
+    createState() {
+      return new text_selection_toolbar._CupertinoTextSelectionToolbarContentState.new();
     }
   };
-  (table.FractionColumnWidth.new = function(value) {
-    this[value$0] = value;
-    if (!(value !== null)) dart.assertFailed(null, I[1], 162, 50, "value != null");
-    table.FractionColumnWidth.__proto__.new.call(this);
+  (text_selection_toolbar._CupertinoTextSelectionToolbarContent.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let anchor = opts && 'anchor' in opts ? opts.anchor : null;
+    let isAbove = opts && 'isAbove' in opts ? opts.isAbove : null;
+    let toolbarBuilder = opts && 'toolbarBuilder' in opts ? opts.toolbarBuilder : null;
+    let children = opts && 'children' in opts ? opts.children : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this[anchor$] = anchor;
+    this[isAbove$] = isAbove;
+    this[toolbarBuilder$0] = toolbarBuilder;
+    this[children$0] = children;
+    if (!(children !== null)) dart.assertFailed(null, I[0], 360, 15, "children != null");
+    if (!(children[$length] > 0)) dart.assertFailed(null, I[0], 361, 15, "children.length > 0");
+    text_selection_toolbar._CupertinoTextSelectionToolbarContent.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
     ;
-  }).prototype = table.FractionColumnWidth.prototype;
-  dart.addTypeTests(table.FractionColumnWidth);
-  dart.addTypeCaches(table.FractionColumnWidth);
-  dart.setMethodSignature(table.FractionColumnWidth, () => ({
-    __proto__: dart.getMethods(table.FractionColumnWidth.__proto__),
-    minIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    maxIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double])
+  }).prototype = text_selection_toolbar._CupertinoTextSelectionToolbarContent.prototype;
+  dart.addTypeTests(text_selection_toolbar._CupertinoTextSelectionToolbarContent);
+  dart.addTypeCaches(text_selection_toolbar._CupertinoTextSelectionToolbarContent);
+  dart.setMethodSignature(text_selection_toolbar._CupertinoTextSelectionToolbarContent, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._CupertinoTextSelectionToolbarContent.__proto__),
+    createState: dart.fnType(text_selection_toolbar._CupertinoTextSelectionToolbarContentState, [])
   }));
-  dart.setLibraryUri(table.FractionColumnWidth, I[0]);
-  dart.setFieldSignature(table.FractionColumnWidth, () => ({
-    __proto__: dart.getFields(table.FractionColumnWidth.__proto__),
-    value: dart.finalFieldType(core.double)
+  dart.setLibraryUri(text_selection_toolbar._CupertinoTextSelectionToolbarContent, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._CupertinoTextSelectionToolbarContent, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._CupertinoTextSelectionToolbarContent.__proto__),
+    anchor: dart.finalFieldType(ui.Offset),
+    children: dart.finalFieldType(core.List$(framework.Widget)),
+    isAbove: dart.finalFieldType(core.bool),
+    toolbarBuilder: dart.finalFieldType(dart.fnType(framework.Widget, [framework.BuildContext, ui.Offset, core.bool, framework.Widget]))
   }));
-  dart.defineExtensionMethods(table.FractionColumnWidth, ['toString']);
-  var value$1 = dart.privateName(table, "FlexColumnWidth.value");
-  table.FlexColumnWidth = class FlexColumnWidth extends table.TableColumnWidth {
-    get value() {
-      return this[value$1];
+  var ___CupertinoTextSelectionToolbarContentState__controller = dart.privateName(text_selection_toolbar, "_#_CupertinoTextSelectionToolbarContentState#_controller");
+  var _page = dart.privateName(text_selection_toolbar, "_page");
+  var _nextPage = dart.privateName(text_selection_toolbar, "_nextPage");
+  var _controller = dart.privateName(text_selection_toolbar, "_controller");
+  var _statusListener = dart.privateName(text_selection_toolbar, "_statusListener");
+  var _handleNextPage = dart.privateName(text_selection_toolbar, "_handleNextPage");
+  var _handlePreviousPage = dart.privateName(text_selection_toolbar, "_handlePreviousPage");
+  var Duration__duration = dart.privateName(core, "Duration._duration");
+  const State_TickerProviderStateMixin$36 = class State_TickerProviderStateMixin extends framework.State$(text_selection_toolbar._CupertinoTextSelectionToolbarContent) {};
+  (State_TickerProviderStateMixin$36.new = function() {
+    ticker_provider.TickerProviderStateMixin$(text_selection_toolbar._CupertinoTextSelectionToolbarContent)[dart.mixinNew].call(this);
+    State_TickerProviderStateMixin$36.__proto__.new.call(this);
+  }).prototype = State_TickerProviderStateMixin$36.prototype;
+  dart.applyMixin(State_TickerProviderStateMixin$36, ticker_provider.TickerProviderStateMixin$(text_selection_toolbar._CupertinoTextSelectionToolbarContent));
+  text_selection_toolbar._CupertinoTextSelectionToolbarContentState = class _CupertinoTextSelectionToolbarContentState extends State_TickerProviderStateMixin$36 {
+    get [_controller]() {
+      let t0;
+      t0 = this[___CupertinoTextSelectionToolbarContentState__controller];
+      return t0 == null ? dart.throw(new _internal.LateError.fieldNI("_controller")) : t0;
     }
-    set value(value) {
-      super.value = value;
+    set [_controller](t0) {
+      this[___CupertinoTextSelectionToolbarContentState__controller] = t0;
     }
-    minIntrinsicWidth(cells, containerWidth) {
-      return 0.0;
+    [_handleNextPage]() {
+      this[_controller].reverse();
+      this[_controller].addStatusListener(dart.bind(this, _statusListener));
+      this[_nextPage] = this[_page] + 1;
     }
-    maxIntrinsicWidth(cells, containerWidth) {
-      return 0.0;
+    [_handlePreviousPage]() {
+      this[_controller].reverse();
+      this[_controller].addStatusListener(dart.bind(this, _statusListener));
+      this[_nextPage] = this[_page] - 1;
     }
-    flex(cells) {
-      return this.value;
+    [_statusListener](status) {
+      if (status !== animation.AnimationStatus.dismissed) {
+        return;
+      }
+      this.setState(dart.fn(() => {
+        this[_page] = dart.nullCheck(this[_nextPage]);
+        this[_nextPage] = null;
+      }, T.VoidTovoid()));
+      this[_controller].forward();
+      this[_controller].removeStatusListener(dart.bind(this, _statusListener));
     }
-    toString() {
-      return object$.objectRuntimeType(this, "FlexColumnWidth") + "(" + debug.debugFormatDouble(this.value) + ")";
+    initState() {
+      super.initState();
+      this[_controller] = new animation_controller.AnimationController.new({value: 1.0, vsync: this, duration: C[33] || CT.C33});
+    }
+    didUpdateWidget(oldWidget) {
+      text_selection_toolbar._CupertinoTextSelectionToolbarContent.as(oldWidget);
+      if (!this.widget.children[$_equals](oldWidget.children)) {
+        this[_page] = 0;
+        this[_nextPage] = null;
+        this[_controller].forward();
+        this[_controller].removeStatusListener(dart.bind(this, _statusListener));
+      }
+      super.didUpdateWidget(oldWidget);
+    }
+    dispose() {
+      this[_controller].dispose();
+      super.dispose();
+    }
+    build(context) {
+      let t5, t4, t3, t2, t1;
+      t1 = this.widget;
+      t2 = context;
+      t3 = this.widget.anchor;
+      t4 = this.widget.isAbove;
+      t5 = new transitions.FadeTransition.new({opacity: this[_controller], child: new text_selection_toolbar._CupertinoTextSelectionToolbarItems.new({page: this[_page], backButton: new text_selection_toolbar_button.CupertinoTextSelectionToolbarButton.text({onPressed: dart.bind(this, _handlePreviousPage), text: "◀", $creationLocationd_0dea112b090073317d4: C[34] || CT.C34}), dividerWidth: 1.0 / media_query.MediaQuery.of(context).devicePixelRatio, nextButton: new text_selection_toolbar_button.CupertinoTextSelectionToolbarButton.text({onPressed: dart.bind(this, _handleNextPage), text: "▶", $creationLocationd_0dea112b090073317d4: C[38] || CT.C38}), nextButtonDisabled: new text_selection_toolbar_button.CupertinoTextSelectionToolbarButton.text({text: "▶", $creationLocationd_0dea112b090073317d4: C[42] || CT.C42}), children: this.widget.children, $creationLocationd_0dea112b090073317d4: C[45] || CT.C45}), $creationLocationd_0dea112b090073317d4: C[53] || CT.C53});
+      return t1.toolbarBuilder(t2, t3, t4, t5);
     }
   };
-  (table.FlexColumnWidth.new = function(value = 1) {
-    this[value$1] = value;
-    if (!(value !== null)) dart.assertFailed(null, I[1], 198, 54, "value != null");
-    table.FlexColumnWidth.__proto__.new.call(this);
+  (text_selection_toolbar._CupertinoTextSelectionToolbarContentState.new = function() {
+    this[___CupertinoTextSelectionToolbarContentState__controller] = null;
+    this[_page] = 0;
+    this[_nextPage] = null;
+    text_selection_toolbar._CupertinoTextSelectionToolbarContentState.__proto__.new.call(this);
     ;
-  }).prototype = table.FlexColumnWidth.prototype;
-  dart.addTypeTests(table.FlexColumnWidth);
-  dart.addTypeCaches(table.FlexColumnWidth);
-  dart.setMethodSignature(table.FlexColumnWidth, () => ({
-    __proto__: dart.getMethods(table.FlexColumnWidth.__proto__),
-    minIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    maxIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    flex: dart.fnType(core.double, [core.Iterable$(box.RenderBox)])
+  }).prototype = text_selection_toolbar._CupertinoTextSelectionToolbarContentState.prototype;
+  dart.addTypeTests(text_selection_toolbar._CupertinoTextSelectionToolbarContentState);
+  dart.addTypeCaches(text_selection_toolbar._CupertinoTextSelectionToolbarContentState);
+  dart.setMethodSignature(text_selection_toolbar._CupertinoTextSelectionToolbarContentState, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._CupertinoTextSelectionToolbarContentState.__proto__),
+    [_handleNextPage]: dart.fnType(dart.void, []),
+    [_handlePreviousPage]: dart.fnType(dart.void, []),
+    [_statusListener]: dart.fnType(dart.void, [animation.AnimationStatus]),
+    build: dart.fnType(framework.Widget, [framework.BuildContext])
   }));
-  dart.setLibraryUri(table.FlexColumnWidth, I[0]);
-  dart.setFieldSignature(table.FlexColumnWidth, () => ({
-    __proto__: dart.getFields(table.FlexColumnWidth.__proto__),
-    value: dart.finalFieldType(core.double)
+  dart.setGetterSignature(text_selection_toolbar._CupertinoTextSelectionToolbarContentState, () => ({
+    __proto__: dart.getGetters(text_selection_toolbar._CupertinoTextSelectionToolbarContentState.__proto__),
+    [_controller]: animation_controller.AnimationController
   }));
-  dart.defineExtensionMethods(table.FlexColumnWidth, ['toString']);
-  var a$ = dart.privateName(table, "MaxColumnWidth.a");
-  var b$ = dart.privateName(table, "MaxColumnWidth.b");
-  table.MaxColumnWidth = class MaxColumnWidth extends table.TableColumnWidth {
-    get a() {
-      return this[a$];
+  dart.setSetterSignature(text_selection_toolbar._CupertinoTextSelectionToolbarContentState, () => ({
+    __proto__: dart.getSetters(text_selection_toolbar._CupertinoTextSelectionToolbarContentState.__proto__),
+    [_controller]: animation_controller.AnimationController
+  }));
+  dart.setLibraryUri(text_selection_toolbar._CupertinoTextSelectionToolbarContentState, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._CupertinoTextSelectionToolbarContentState, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._CupertinoTextSelectionToolbarContentState.__proto__),
+    [___CupertinoTextSelectionToolbarContentState__controller]: dart.fieldType(dart.nullable(animation_controller.AnimationController)),
+    [_page]: dart.fieldType(core.int),
+    [_nextPage]: dart.fieldType(dart.nullable(core.int))
+  }));
+  text_selection_toolbar._CupertinoTextSelectionToolbarItems = class _CupertinoTextSelectionToolbarItems extends framework.RenderObjectWidget {
+    createRenderObject(context) {
+      return new text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.new({dividerWidth: this.dividerWidth, page: this.page});
     }
-    set a(value) {
-      super.a = value;
+    updateRenderObject(context, renderObject) {
+      let t1;
+      text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.as(renderObject);
+      t1 = renderObject;
+      (() => {
+        t1.page = this.page;
+        t1.dividerWidth = this.dividerWidth;
+        return t1;
+      })();
     }
-    get b() {
-      return this[b$];
-    }
-    set b(value) {
-      super.b = value;
-    }
-    minIntrinsicWidth(cells, containerWidth) {
-      return math.max(core.double, this.a.minIntrinsicWidth(cells, containerWidth), this.b.minIntrinsicWidth(cells, containerWidth));
-    }
-    maxIntrinsicWidth(cells, containerWidth) {
-      return math.max(core.double, this.a.maxIntrinsicWidth(cells, containerWidth), this.b.maxIntrinsicWidth(cells, containerWidth));
-    }
-    flex(cells) {
-      let aFlex = this.a.flex(cells);
-      if (aFlex == null) return this.b.flex(cells);
-      let bFlex = this.b.flex(cells);
-      if (bFlex == null) return null;
-      return math.max(core.double, aFlex, bFlex);
-    }
-    toString() {
-      return object$.objectRuntimeType(this, "MaxColumnWidth") + "(" + dart.str(this.a) + ", " + dart.str(this.b) + ")";
+    createElement() {
+      return new text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.new(this);
     }
   };
-  (table.MaxColumnWidth.new = function(a, b) {
-    this[a$] = a;
-    this[b$] = b;
-    table.MaxColumnWidth.__proto__.new.call(this);
+  (text_selection_toolbar._CupertinoTextSelectionToolbarItems.new = function(opts) {
+    let key = opts && 'key' in opts ? opts.key : null;
+    let page = opts && 'page' in opts ? opts.page : null;
+    let children = opts && 'children' in opts ? opts.children : null;
+    let backButton = opts && 'backButton' in opts ? opts.backButton : null;
+    let dividerWidth = opts && 'dividerWidth' in opts ? opts.dividerWidth : null;
+    let nextButton = opts && 'nextButton' in opts ? opts.nextButton : null;
+    let nextButtonDisabled = opts && 'nextButtonDisabled' in opts ? opts.nextButtonDisabled : null;
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    this.page = page;
+    this.children = children;
+    this.backButton = backButton;
+    this.dividerWidth = dividerWidth;
+    this.nextButton = nextButton;
+    this.nextButtonDisabled = nextButtonDisabled;
+    if (!(children !== null)) dart.assertFailed(null, I[0], 469, 15, "children != null");
+    if (!children[$isNotEmpty]) dart.assertFailed(null, I[0], 470, 15, "children.isNotEmpty");
+    if (!(backButton !== null)) dart.assertFailed(null, I[0], 471, 15, "backButton != null");
+    if (!(dividerWidth !== null)) dart.assertFailed(null, I[0], 472, 15, "dividerWidth != null");
+    if (!(nextButton !== null)) dart.assertFailed(null, I[0], 473, 15, "nextButton != null");
+    if (!(nextButtonDisabled !== null)) dart.assertFailed(null, I[0], 474, 15, "nextButtonDisabled != null");
+    if (!(page !== null)) dart.assertFailed(null, I[0], 475, 15, "page != null");
+    text_selection_toolbar._CupertinoTextSelectionToolbarItems.__proto__.new.call(this, {key: key, $creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
     ;
-  }).prototype = table.MaxColumnWidth.prototype;
-  dart.addTypeTests(table.MaxColumnWidth);
-  dart.addTypeCaches(table.MaxColumnWidth);
-  dart.setMethodSignature(table.MaxColumnWidth, () => ({
-    __proto__: dart.getMethods(table.MaxColumnWidth.__proto__),
-    minIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    maxIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double])
+  }).prototype = text_selection_toolbar._CupertinoTextSelectionToolbarItems.prototype;
+  dart.addTypeTests(text_selection_toolbar._CupertinoTextSelectionToolbarItems);
+  dart.addTypeCaches(text_selection_toolbar._CupertinoTextSelectionToolbarItems);
+  dart.setMethodSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItems, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._CupertinoTextSelectionToolbarItems.__proto__),
+    createRenderObject: dart.fnType(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems, [framework.BuildContext]),
+    createElement: dart.fnType(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement, [])
   }));
-  dart.setLibraryUri(table.MaxColumnWidth, I[0]);
-  dart.setFieldSignature(table.MaxColumnWidth, () => ({
-    __proto__: dart.getFields(table.MaxColumnWidth.__proto__),
-    a: dart.finalFieldType(table.TableColumnWidth),
-    b: dart.finalFieldType(table.TableColumnWidth)
+  dart.setLibraryUri(text_selection_toolbar._CupertinoTextSelectionToolbarItems, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItems, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._CupertinoTextSelectionToolbarItems.__proto__),
+    backButton: dart.finalFieldType(framework.Widget),
+    children: dart.finalFieldType(core.List$(framework.Widget)),
+    dividerWidth: dart.finalFieldType(core.double),
+    nextButton: dart.finalFieldType(framework.Widget),
+    nextButtonDisabled: dart.finalFieldType(framework.Widget),
+    page: dart.finalFieldType(core.int)
   }));
-  dart.defineExtensionMethods(table.MaxColumnWidth, ['toString']);
-  var a$0 = dart.privateName(table, "MinColumnWidth.a");
-  var b$0 = dart.privateName(table, "MinColumnWidth.b");
-  table.MinColumnWidth = class MinColumnWidth extends table.TableColumnWidth {
-    get a() {
-      return this[a$0];
+  var ___CupertinoTextSelectionToolbarItemsElement__children = dart.privateName(text_selection_toolbar, "_#_CupertinoTextSelectionToolbarItemsElement#_children");
+  var _forgottenChildren = dart.privateName(text_selection_toolbar, "_forgottenChildren");
+  var _children = dart.privateName(text_selection_toolbar, "_children");
+  var _name$ = dart.privateName(text_selection_toolbar, "_name");
+  var _updateRenderObject = dart.privateName(text_selection_toolbar, "_updateRenderObject");
+  var _mountChild = dart.privateName(text_selection_toolbar, "_mountChild");
+  text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement = class _CupertinoTextSelectionToolbarItemsElement extends framework.RenderObjectElement {
+    get [_children]() {
+      let t1;
+      t1 = this[___CupertinoTextSelectionToolbarItemsElement__children];
+      return t1 == null ? dart.throw(new _internal.LateError.fieldNI("_children")) : t1;
     }
-    set a(value) {
-      super.a = value;
+    set [_children](t1) {
+      this[___CupertinoTextSelectionToolbarItemsElement__children] = t1;
     }
-    get b() {
-      return this[b$0];
+    get widget() {
+      return text_selection_toolbar._CupertinoTextSelectionToolbarItems.as(super.widget);
     }
-    set b(value) {
-      super.b = value;
+    get renderObject() {
+      return text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.as(super.renderObject);
     }
-    minIntrinsicWidth(cells, containerWidth) {
-      return math.min(core.double, this.a.minIntrinsicWidth(cells, containerWidth), this.b.minIntrinsicWidth(cells, containerWidth));
+    [_updateRenderObject](child, slot) {
+      switch (slot) {
+        case C[57] || CT.C57:
+        {
+          this.renderObject.backButton = child;
+          break;
+        }
+        case C[58] || CT.C58:
+        {
+          this.renderObject.nextButton = child;
+          break;
+        }
+        case C[59] || CT.C59:
+        {
+          this.renderObject.nextButtonDisabled = child;
+          break;
+        }
+      }
     }
-    maxIntrinsicWidth(cells, containerWidth) {
-      return math.min(core.double, this.a.maxIntrinsicWidth(cells, containerWidth), this.b.maxIntrinsicWidth(cells, containerWidth));
+    insertRenderObjectChild(child, slot) {
+      let t2;
+      object.RenderObject.as(child);
+      if (text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.is(slot)) {
+        if (!box.RenderBox.is(child)) dart.assertFailed(null, I[0], 540, 14, "child is RenderBox");
+        this[_updateRenderObject](box.RenderBox.as(child), slot);
+        if (!this.renderObject.slottedChildren[$containsKey](slot)) dart.assertFailed(null, I[0], 542, 14, "renderObject.slottedChildren.containsKey(slot)");
+        return;
+      }
+      if (framework.IndexedSlot.is(slot)) {
+        if (!this.renderObject.debugValidateChild(child)) dart.assertFailed(null, I[0], 546, 14, "renderObject.debugValidateChild(child)");
+        this.renderObject.insert(box.RenderBox.as(child), {after: T.RenderBoxN().as((t2 = slot.value, t2 == null ? null : dart.dload(t2, 'renderObject')))});
+        return;
+      }
+      if (!false) dart.assertFailed("slot must be _CupertinoTextSelectionToolbarItemsSlot or IndexedSlot", I[0], 550, 12, "false");
     }
-    flex(cells) {
-      let aFlex = this.a.flex(cells);
-      if (aFlex == null) return this.b.flex(cells);
-      let bFlex = this.b.flex(cells);
-      if (bFlex == null) return null;
-      return math.min(core.double, aFlex, bFlex);
+    moveRenderObjectChild(child, oldSlot, newSlot) {
+      object.RenderObject.as(child);
+      T.IndexedSlotOfElement().as(oldSlot);
+      T.IndexedSlotOfElement().as(newSlot);
+      if (!dart.equals(child.parent, this.renderObject)) dart.assertFailed(null, I[0], 556, 12, "child.parent == renderObject");
+      this.renderObject.move(box.RenderBox.as(child), {after: T.RenderBoxN().as(newSlot.value.renderObject)});
     }
-    toString() {
-      return object$.objectRuntimeType(this, "MinColumnWidth") + "(" + dart.str(this.a) + ", " + dart.str(this.b) + ")";
+    static _shouldPaint(child) {
+      return text_selection.ToolbarItemsParentData.as(dart.nullCheck(dart.nullCheck(child.renderObject).parentData)).shouldPaint;
+    }
+    removeRenderObjectChild(child, slot) {
+      object.RenderObject.as(child);
+      if (text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.is(slot)) {
+        if (!box.RenderBox.is(child)) dart.assertFailed(null, I[0], 568, 14, "child is RenderBox");
+        if (!this.renderObject.slottedChildren[$containsKey](slot)) dart.assertFailed(null, I[0], 569, 14, "renderObject.slottedChildren.containsKey(slot)");
+        this[_updateRenderObject](null, slot);
+        if (!!this.renderObject.slottedChildren[$containsKey](slot)) dart.assertFailed(null, I[0], 571, 14, "!renderObject.slottedChildren.containsKey(slot)");
+        return;
+      }
+      if (!framework.IndexedSlot.is(slot)) dart.assertFailed(null, I[0], 576, 12, "slot is IndexedSlot");
+      if (!dart.equals(child.parent, this.renderObject)) dart.assertFailed(null, I[0], 577, 12, "child.parent == renderObject");
+      this.renderObject.remove(box.RenderBox.as(child));
+    }
+    visitChildren(visitor) {
+      this.slotToChild[$values][$forEach](visitor);
+      for (let child of this[_children]) {
+        if (!this[_forgottenChildren].contains(child)) visitor(child);
+      }
+    }
+    forgetChild(child) {
+      if (!(this.slotToChild[$containsValue](child) || this[_children][$contains](child))) dart.assertFailed(null, I[0], 592, 12, "slotToChild.containsValue(child) || _children.contains(child)");
+      if (!!this[_forgottenChildren].contains(child)) dart.assertFailed(null, I[0], 593, 12, "!_forgottenChildren.contains(child)");
+      if (this.slotToChild[$containsKey](child.slot)) {
+        let slot = text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.as(dart.nullCheck(child.slot));
+        this.slotToChild[$remove](slot);
+      } else {
+        this[_forgottenChildren].add(child);
+      }
+      super.forgetChild(child);
+    }
+    [_mountChild](widget, slot) {
+      let oldChild = this.slotToChild[$_get](slot);
+      let newChild = this.updateChild(oldChild, widget, slot);
+      if (oldChild != null) {
+        this.slotToChild[$remove](slot);
+      }
+      if (newChild != null) {
+        this.slotToChild[$_set](slot, newChild);
+      }
+    }
+    mount(parent, newSlot) {
+      super.mount(parent, newSlot);
+      this[_mountChild](this.widget.backButton, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.backButton);
+      this[_mountChild](this.widget.nextButton, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButton);
+      this[_mountChild](this.widget.nextButtonDisabled, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButtonDisabled);
+      this[_children] = T.ListOfElement().filled(this.widget.children[$length], text_selection_toolbar._NullElement.instance);
+      let previousChild = null;
+      for (let i = 0; i < this[_children][$length]; i = i + 1) {
+        let newChild = this.inflateWidget(this.widget.children[$_get](i), new (T.IndexedSlotOfElementN()).new(i, previousChild));
+        this[_children][$_set](i, newChild);
+        previousChild = newChild;
+      }
+    }
+    debugVisitOnstageChildren(visitor) {
+      for (let child of this.slotToChild[$values]) {
+        if (text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement._shouldPaint(child) && !this[_forgottenChildren].contains(child)) {
+          visitor(child);
+        }
+      }
+      this[_children][$where](dart.fn(child => !this[_forgottenChildren].contains(child) && text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement._shouldPaint(child), T.ElementTobool()))[$forEach](visitor);
+    }
+    update(newWidget) {
+      text_selection_toolbar._CupertinoTextSelectionToolbarItems.as(newWidget);
+      super.update(newWidget);
+      if (!this.widget._equals(newWidget)) dart.assertFailed(null, I[0], 651, 12, "widget == newWidget");
+      this[_mountChild](this.widget.backButton, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.backButton);
+      this[_mountChild](this.widget.nextButton, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButton);
+      this[_mountChild](this.widget.nextButtonDisabled, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButtonDisabled);
+      this[_children] = this.updateChildren(this[_children], this.widget.children, {forgottenChildren: this[_forgottenChildren]});
+      this[_forgottenChildren].clear();
     }
   };
-  (table.MinColumnWidth.new = function(a, b) {
-    this[a$0] = a;
-    this[b$0] = b;
-    table.MinColumnWidth.__proto__.new.call(this);
+  (text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.new = function(widget) {
+    this[___CupertinoTextSelectionToolbarItemsElement__children] = null;
+    this.slotToChild = new (T.LinkedMapOf_CupertinoTextSelectionToolbarItemsSlot$Element()).new();
+    this[_forgottenChildren] = new (T._HashSetOfElement()).new();
+    text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.__proto__.new.call(this, widget);
     ;
-  }).prototype = table.MinColumnWidth.prototype;
-  dart.addTypeTests(table.MinColumnWidth);
-  dart.addTypeCaches(table.MinColumnWidth);
-  dart.setMethodSignature(table.MinColumnWidth, () => ({
-    __proto__: dart.getMethods(table.MinColumnWidth.__proto__),
-    minIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double]),
-    maxIntrinsicWidth: dart.fnType(core.double, [core.Iterable$(box.RenderBox), core.double])
+  }).prototype = text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.prototype;
+  dart.addTypeTests(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement);
+  dart.addTypeCaches(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement);
+  dart.setMethodSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.__proto__),
+    [_updateRenderObject]: dart.fnType(dart.void, [dart.nullable(box.RenderBox), text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot]),
+    [_mountChild]: dart.fnType(dart.void, [framework.Widget, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot])
   }));
-  dart.setLibraryUri(table.MinColumnWidth, I[0]);
-  dart.setFieldSignature(table.MinColumnWidth, () => ({
-    __proto__: dart.getFields(table.MinColumnWidth.__proto__),
-    a: dart.finalFieldType(table.TableColumnWidth),
-    b: dart.finalFieldType(table.TableColumnWidth)
+  dart.setGetterSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement, () => ({
+    __proto__: dart.getGetters(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.__proto__),
+    [_children]: core.List$(framework.Element),
+    widget: text_selection_toolbar._CupertinoTextSelectionToolbarItems,
+    renderObject: text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems
   }));
-  dart.defineExtensionMethods(table.MinColumnWidth, ['toString']);
-  var _name$ = dart.privateName(table, "_name");
-  table.TableCellVerticalAlignment = class TableCellVerticalAlignment extends core.Object {
+  dart.setSetterSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement, () => ({
+    __proto__: dart.getSetters(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.__proto__),
+    [_children]: core.List$(framework.Element)
+  }));
+  dart.setLibraryUri(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._CupertinoTextSelectionToolbarItemsElement.__proto__),
+    [___CupertinoTextSelectionToolbarItemsElement__children]: dart.fieldType(dart.nullable(core.List$(framework.Element))),
+    slotToChild: dart.finalFieldType(core.Map$(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, framework.Element)),
+    [_forgottenChildren]: dart.finalFieldType(core.Set$(framework.Element))
+  }));
+  var _backButton = dart.privateName(text_selection_toolbar, "_backButton");
+  var _nextButton = dart.privateName(text_selection_toolbar, "_nextButton");
+  var _nextButtonDisabled = dart.privateName(text_selection_toolbar, "_nextButtonDisabled");
+  var _dividerWidth = dart.privateName(text_selection_toolbar, "_dividerWidth");
+  var _updateChild = dart.privateName(text_selection_toolbar, "_updateChild");
+  var _isSlottedChild = dart.privateName(text_selection_toolbar, "_isSlottedChild");
+  const RenderBox_ContainerRenderObjectMixin$36 = class RenderBox_ContainerRenderObjectMixin extends box.RenderBox {};
+  (RenderBox_ContainerRenderObjectMixin$36.new = function() {
+    object.ContainerRenderObjectMixin$(box.RenderBox, text_selection.ToolbarItemsParentData)[dart.mixinNew].call(this);
+    RenderBox_ContainerRenderObjectMixin$36.__proto__.new.call(this);
+  }).prototype = RenderBox_ContainerRenderObjectMixin$36.prototype;
+  dart.applyMixin(RenderBox_ContainerRenderObjectMixin$36, object.ContainerRenderObjectMixin$(box.RenderBox, text_selection.ToolbarItemsParentData));
+  const RenderBox_RenderBoxContainerDefaultsMixin$36 = class RenderBox_RenderBoxContainerDefaultsMixin extends RenderBox_ContainerRenderObjectMixin$36 {};
+  (RenderBox_RenderBoxContainerDefaultsMixin$36.new = function() {
+    RenderBox_RenderBoxContainerDefaultsMixin$36.__proto__.new.call(this);
+  }).prototype = RenderBox_RenderBoxContainerDefaultsMixin$36.prototype;
+  dart.applyMixin(RenderBox_RenderBoxContainerDefaultsMixin$36, box.RenderBoxContainerDefaultsMixin$(box.RenderBox, text_selection.ToolbarItemsParentData));
+  text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems = class _RenderCupertinoTextSelectionToolbarItems extends RenderBox_RenderBoxContainerDefaultsMixin$36 {
+    [_updateChild](oldChild, newChild, slot) {
+      if (oldChild != null) {
+        this.dropChild(oldChild);
+        this.slottedChildren[$remove](slot);
+      }
+      if (newChild != null) {
+        this.slottedChildren[$_set](slot, newChild);
+        this.adoptChild(newChild);
+      }
+      return newChild;
+    }
+    [_isSlottedChild](child) {
+      return child[$_equals](this[_backButton]) || child[$_equals](this[_nextButton]) || child[$_equals](this[_nextButtonDisabled]);
+    }
+    get page() {
+      return this[_page];
+    }
+    set page(value) {
+      if (value === this[_page]) {
+        return;
+      }
+      this[_page] = value;
+      this.markNeedsLayout();
+    }
+    get dividerWidth() {
+      return this[_dividerWidth];
+    }
+    set dividerWidth(value) {
+      if (value === this[_dividerWidth]) {
+        return;
+      }
+      this[_dividerWidth] = value;
+      this.markNeedsLayout();
+    }
+    get backButton() {
+      return this[_backButton];
+    }
+    set backButton(value) {
+      this[_backButton] = this[_updateChild](this[_backButton], value, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.backButton);
+    }
+    get nextButton() {
+      return this[_nextButton];
+    }
+    set nextButton(value) {
+      this[_nextButton] = this[_updateChild](this[_nextButton], value, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButton);
+    }
+    get nextButtonDisabled() {
+      return this[_nextButtonDisabled];
+    }
+    set nextButtonDisabled(value) {
+      this[_nextButtonDisabled] = this[_updateChild](this[_nextButtonDisabled], value, text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButtonDisabled);
+    }
+    performLayout() {
+      if (this.firstChild == null) {
+        this.size = this.constraints.smallest;
+        return;
+      }
+      dart.nullCheck(this[_backButton]).layout(this.constraints.loosen(), {parentUsesSize: true});
+      dart.nullCheck(this[_nextButton]).layout(this.constraints.loosen(), {parentUsesSize: true});
+      dart.nullCheck(this[_nextButtonDisabled]).layout(this.constraints.loosen(), {parentUsesSize: true});
+      let subsequentPageButtonsWidth = dart.nullCheck(this[_backButton]).size.width + dart.nullCheck(this[_nextButton]).size.width;
+      let currentButtonPosition = 0.0;
+      let toolbarWidth = null;
+      function toolbarWidth$35get() {
+        let t3;
+        t3 = toolbarWidth;
+        return t3 == null ? dart.throw(new _internal.LateError.localNI("toolbarWidth")) : t3;
+      }
+      dart.fn(toolbarWidth$35get, T.VoidTodouble());
+      function toolbarWidth$35set(t4) {
+        return toolbarWidth = t4;
+      }
+      dart.fn(toolbarWidth$35set, T.doubleTodynamic());
+      let greatestHeight = null;
+      function greatestHeight$35get() {
+        let t7;
+        t7 = greatestHeight;
+        return t7 == null ? greatestHeight = 0.0 : t7;
+      }
+      dart.fn(greatestHeight$35get, T.VoidTodouble());
+      function greatestHeight$35set(t8) {
+        return greatestHeight = t8;
+      }
+      dart.fn(greatestHeight$35set, T.doubleTodynamic());
+      let firstPageWidth = null;
+      function firstPageWidth$35get() {
+        let t11;
+        t11 = firstPageWidth;
+        return t11 == null ? dart.throw(new _internal.LateError.localNI("firstPageWidth")) : t11;
+      }
+      dart.fn(firstPageWidth$35get, T.VoidTodouble());
+      function firstPageWidth$35set(t12) {
+        return firstPageWidth = t12;
+      }
+      dart.fn(firstPageWidth$35set, T.doubleTodynamic());
+      let currentPage = 0;
+      let i = -1;
+      this.visitChildren(dart.fn(renderObjectChild => {
+        i = i + 1;
+        let child = box.RenderBox.as(renderObjectChild);
+        let childParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(child.parentData));
+        childParentData.shouldPaint = false;
+        if (this[_isSlottedChild](child) || currentPage > this[_page]) {
+          return;
+        }
+        let paginationButtonsWidth = 0.0;
+        if (currentPage === 0) {
+          paginationButtonsWidth = i === this.childCount - 1 ? 0.0 : dart.nullCheck(this[_nextButton]).size.width;
+        } else {
+          paginationButtonsWidth = subsequentPageButtonsWidth;
+        }
+        child.layout(new box.BoxConstraints.loose(new ui.Size.new((currentPage === 0 ? this.constraints.maxWidth : firstPageWidth$35get()) - paginationButtonsWidth, this.constraints.maxHeight)), {parentUsesSize: true});
+        greatestHeight$35set(child.size.height > greatestHeight$35get() ? child.size.height : greatestHeight$35get());
+        let currentWidth = currentButtonPosition + paginationButtonsWidth + child.size.width;
+        if (currentWidth > this.constraints.maxWidth) {
+          currentPage = currentPage + 1;
+          currentButtonPosition = dart.nullCheck(this[_backButton]).size.width + this.dividerWidth;
+          paginationButtonsWidth = dart.nullCheck(this[_backButton]).size.width + dart.nullCheck(this[_nextButton]).size.width;
+          child.layout(new box.BoxConstraints.loose(new ui.Size.new(firstPageWidth$35get() - paginationButtonsWidth, this.constraints.maxHeight)), {parentUsesSize: true});
+        }
+        childParentData.offset = new ui.Offset.new(currentButtonPosition, 0.0);
+        currentButtonPosition = currentButtonPosition + (child.size.width + this.dividerWidth);
+        childParentData.shouldPaint = currentPage === this.page;
+        if (currentPage === 0) {
+          firstPageWidth$35set(currentButtonPosition + dart.nullCheck(this[_nextButton]).size.width);
+        }
+        if (currentPage === this.page) {
+          toolbarWidth$35set(currentButtonPosition);
+        }
+      }, T.RenderObjectTovoid()));
+      if (!(this.page <= currentPage)) dart.assertFailed(null, I[0], 814, 12, "page <= currentPage");
+      if (currentPage > 0) {
+        let nextButtonParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(dart.nullCheck(this[_nextButton]).parentData));
+        let nextButtonDisabledParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(dart.nullCheck(this[_nextButtonDisabled]).parentData));
+        let backButtonParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(dart.nullCheck(this[_backButton]).parentData));
+        if (this.page === currentPage) {
+          nextButtonDisabledParentData.offset = new ui.Offset.new(toolbarWidth$35get(), 0.0);
+          nextButtonDisabledParentData.shouldPaint = true;
+          toolbarWidth$35set(toolbarWidth$35get() + dart.nullCheck(this.nextButtonDisabled).size.width);
+        } else {
+          nextButtonParentData.offset = new ui.Offset.new(toolbarWidth$35get(), 0.0);
+          nextButtonParentData.shouldPaint = true;
+          toolbarWidth$35set(toolbarWidth$35get() + dart.nullCheck(this.nextButton).size.width);
+        }
+        if (this.page > 0) {
+          backButtonParentData.offset = ui.Offset.zero;
+          backButtonParentData.shouldPaint = true;
+        }
+      } else {
+        toolbarWidth$35set(toolbarWidth$35get() - this.dividerWidth);
+      }
+      this.size = this.constraints.constrain(new ui.Size.new(toolbarWidth$35get(), greatestHeight$35get()));
+    }
+    paint(context, offset) {
+      this.visitChildren(dart.fn(renderObjectChild => {
+        let child = box.RenderBox.as(renderObjectChild);
+        let childParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(child.parentData));
+        if (childParentData.shouldPaint) {
+          let childOffset = childParentData.offset['+'](offset);
+          context.paintChild(child, childOffset);
+        }
+      }, T.RenderObjectTovoid()));
+    }
+    setupParentData(child) {
+      box.RenderBox.as(child);
+      if (!text_selection.ToolbarItemsParentData.is(child.parentData)) {
+        child.parentData = new text_selection.ToolbarItemsParentData.new();
+      }
+    }
+    static hitTestChild(child, result, opts) {
+      let position = opts && 'position' in opts ? opts.position : null;
+      if (child == null) {
+        return false;
+      }
+      let childParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(child.parentData));
+      if (!childParentData.shouldPaint) {
+        return false;
+      }
+      return result.addWithPaintOffset({offset: childParentData.offset, position: position, hitTest: dart.fn((result, transformed) => {
+          if (!transformed._equals(position['-'](childParentData.offset))) dart.assertFailed(null, I[0], 884, 16, "transformed == position - childParentData.offset");
+          return child.hitTest(result, {position: transformed});
+        }, T.BoxHitTestResultAndOffsetTobool())});
+    }
+    hitTestChildren(result, opts) {
+      let position = opts && 'position' in opts ? opts.position : null;
+      let child = this.lastChild;
+      while (child != null) {
+        let childParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(child.parentData));
+        if (!childParentData.shouldPaint) {
+          child = childParentData.previousSibling;
+          continue;
+        }
+        if (text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.hitTestChild(child, result, {position: position})) {
+          return true;
+        }
+        child = childParentData.previousSibling;
+      }
+      if (text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.hitTestChild(this.backButton, result, {position: position})) {
+        return true;
+      }
+      if (text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.hitTestChild(this.nextButton, result, {position: position})) {
+        return true;
+      }
+      if (text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.hitTestChild(this.nextButtonDisabled, result, {position: position})) {
+        return true;
+      }
+      return false;
+    }
+    attach(owner) {
+      object.PipelineOwner.as(owner);
+      super.attach(owner);
+      for (let child of this.slottedChildren[$values]) {
+        child.attach(owner);
+      }
+    }
+    detach() {
+      super.detach();
+      for (let child of this.slottedChildren[$values]) {
+        child.detach();
+      }
+    }
+    redepthChildren() {
+      this.visitChildren(dart.fn(renderObjectChild => {
+        let child = box.RenderBox.as(renderObjectChild);
+        this.redepthChild(child);
+      }, T.RenderObjectTovoid()));
+    }
+    visitChildren(visitor) {
+      if (this[_backButton] != null) {
+        visitor(dart.nullCheck(this[_backButton]));
+      }
+      if (this[_nextButton] != null) {
+        visitor(dart.nullCheck(this[_nextButton]));
+      }
+      if (this[_nextButtonDisabled] != null) {
+        visitor(dart.nullCheck(this[_nextButtonDisabled]));
+      }
+      super.visitChildren(visitor);
+    }
+    visitChildrenForSemantics(visitor) {
+      this.visitChildren(dart.fn(renderObjectChild => {
+        let child = box.RenderBox.as(renderObjectChild);
+        let childParentData = text_selection.ToolbarItemsParentData.as(dart.nullCheck(child.parentData));
+        if (childParentData.shouldPaint) {
+          visitor(renderObjectChild);
+        }
+      }, T.RenderObjectTovoid()));
+    }
+    debugDescribeChildren() {
+      let value = T.JSArrayOfDiagnosticsNode().of([]);
+      this.visitChildren(dart.fn(renderObjectChild => {
+        let child = box.RenderBox.as(renderObjectChild);
+        if (child[$_equals](this.backButton)) {
+          value[$add](child.toDiagnosticsNode({name: "back button"}));
+        } else if (child[$_equals](this.nextButton)) {
+          value[$add](child.toDiagnosticsNode({name: "next button"}));
+        } else if (child[$_equals](this.nextButtonDisabled)) {
+          value[$add](child.toDiagnosticsNode({name: "next button disabled"}));
+        } else {
+          value[$add](child.toDiagnosticsNode({name: "menu item"}));
+        }
+      }, T.RenderObjectTovoid()));
+      return value;
+    }
+  };
+  (text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.new = function(opts) {
+    let dividerWidth = opts && 'dividerWidth' in opts ? opts.dividerWidth : null;
+    let page = opts && 'page' in opts ? opts.page : null;
+    this.slottedChildren = new (T.LinkedMapOf_CupertinoTextSelectionToolbarItemsSlot$RenderBox()).new();
+    this[_backButton] = null;
+    this[_nextButton] = null;
+    this[_nextButtonDisabled] = null;
+    if (!(dividerWidth !== null)) dart.assertFailed(null, I[0], 669, 15, "dividerWidth != null");
+    if (!(page !== null)) dart.assertFailed(null, I[0], 670, 15, "page != null");
+    this[_dividerWidth] = dividerWidth;
+    this[_page] = page;
+    text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.__proto__.new.call(this);
+    ;
+  }).prototype = text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.prototype;
+  dart.addTypeTests(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems);
+  dart.addTypeCaches(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems);
+  dart.setMethodSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.__proto__),
+    [_updateChild]: dart.fnType(dart.nullable(box.RenderBox), [dart.nullable(box.RenderBox), dart.nullable(box.RenderBox), text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot]),
+    [_isSlottedChild]: dart.fnType(core.bool, [box.RenderBox])
+  }));
+  dart.setGetterSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems, () => ({
+    __proto__: dart.getGetters(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.__proto__),
+    page: core.int,
+    dividerWidth: core.double,
+    backButton: dart.nullable(box.RenderBox),
+    nextButton: dart.nullable(box.RenderBox),
+    nextButtonDisabled: dart.nullable(box.RenderBox)
+  }));
+  dart.setSetterSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems, () => ({
+    __proto__: dart.getSetters(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.__proto__),
+    page: core.int,
+    dividerWidth: core.double,
+    backButton: dart.nullable(box.RenderBox),
+    nextButton: dart.nullable(box.RenderBox),
+    nextButtonDisabled: dart.nullable(box.RenderBox)
+  }));
+  dart.setLibraryUri(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._RenderCupertinoTextSelectionToolbarItems.__proto__),
+    slottedChildren: dart.finalFieldType(core.Map$(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, box.RenderBox)),
+    [_page]: dart.fieldType(core.int),
+    [_dividerWidth]: dart.fieldType(core.double),
+    [_backButton]: dart.fieldType(dart.nullable(box.RenderBox)),
+    [_nextButton]: dart.fieldType(dart.nullable(box.RenderBox)),
+    [_nextButtonDisabled]: dart.fieldType(dart.nullable(box.RenderBox))
+  }));
+  text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot = class _CupertinoTextSelectionToolbarItemsSlot extends core.Object {
     toString() {
       return this[_name$];
     }
   };
-  (table.TableCellVerticalAlignment.new = function(index, _name) {
+  (text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.new = function(index, _name) {
     this.index = index;
     this[_name$] = _name;
     ;
-  }).prototype = table.TableCellVerticalAlignment.prototype;
-  dart.addTypeTests(table.TableCellVerticalAlignment);
-  dart.addTypeCaches(table.TableCellVerticalAlignment);
-  dart.setLibraryUri(table.TableCellVerticalAlignment, I[0]);
-  dart.setFieldSignature(table.TableCellVerticalAlignment, () => ({
-    __proto__: dart.getFields(table.TableCellVerticalAlignment.__proto__),
+  }).prototype = text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.prototype;
+  dart.addTypeTests(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot);
+  dart.addTypeCaches(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot);
+  dart.setLibraryUri(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, I[1]);
+  dart.setFieldSignature(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, () => ({
+    __proto__: dart.getFields(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.__proto__),
     index: dart.finalFieldType(core.int),
     [_name$]: dart.finalFieldType(core.String)
   }));
-  dart.defineExtensionMethods(table.TableCellVerticalAlignment, ['toString']);
-  table.TableCellVerticalAlignment.top = C[0] || CT.C0;
-  table.TableCellVerticalAlignment.middle = C[1] || CT.C1;
-  table.TableCellVerticalAlignment.bottom = C[2] || CT.C2;
-  table.TableCellVerticalAlignment.baseline = C[3] || CT.C3;
-  table.TableCellVerticalAlignment.fill = C[4] || CT.C4;
-  table.TableCellVerticalAlignment.values = C[5] || CT.C5;
-  var ImageConfiguration_platform = dart.privateName(image_provider, "ImageConfiguration.platform");
-  var ImageConfiguration_size = dart.privateName(image_provider, "ImageConfiguration.size");
-  var ImageConfiguration_textDirection = dart.privateName(image_provider, "ImageConfiguration.textDirection");
-  var ImageConfiguration_locale = dart.privateName(image_provider, "ImageConfiguration.locale");
-  var ImageConfiguration_devicePixelRatio = dart.privateName(image_provider, "ImageConfiguration.devicePixelRatio");
-  var ImageConfiguration_bundle = dart.privateName(image_provider, "ImageConfiguration.bundle");
-  var _children = dart.privateName(table, "_children");
-  var _rowDecorations = dart.privateName(table, "_rowDecorations");
-  var _rowDecorationPainters = dart.privateName(table, "_rowDecorationPainters");
-  var _baselineDistance = dart.privateName(table, "_baselineDistance");
-  var _rowTops = dart.privateName(table, "_rowTops");
-  var _columnLefts = dart.privateName(table, "_columnLefts");
-  var _textDirection = dart.privateName(table, "_textDirection");
-  var _columns = dart.privateName(table, "_columns");
-  var _rows = dart.privateName(table, "_rows");
-  var _columnWidths = dart.privateName(table, "_columnWidths");
-  var _defaultColumnWidth = dart.privateName(table, "_defaultColumnWidth");
-  var _border = dart.privateName(table, "_border");
-  var _textBaseline = dart.privateName(table, "_textBaseline");
-  var _defaultVerticalAlignment = dart.privateName(table, "_defaultVerticalAlignment");
-  var _configuration = dart.privateName(table, "_configuration");
-  var _computeColumnWidths = dart.privateName(table, "_computeColumnWidths");
-  var _name = dart.privateName(ui, "_name");
-  table.RenderTable = class RenderTable extends box.RenderBox {
-    get columns() {
-      return this[_columns];
+  dart.defineExtensionMethods(text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot, ['toString']);
+  text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.backButton = C[57] || CT.C57;
+  text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButton = C[58] || CT.C58;
+  text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.nextButtonDisabled = C[59] || CT.C59;
+  text_selection_toolbar._CupertinoTextSelectionToolbarItemsSlot.values = C[60] || CT.C60;
+  text_selection_toolbar._NullElement = class _NullElement extends framework.Element {
+    get debugDoingBuild() {
+      return dart.throw(new core.UnimplementedError.new());
     }
-    set columns(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 414, 12, "value != null");
-      if (!(value >= 0)) dart.assertFailed(null, I[1], 415, 12, "value >= 0");
-      if (value === this.columns) return;
-      let oldColumns = this.columns;
-      let oldChildren = this[_children];
-      this[_columns] = value;
-      this[_children] = T.ListOfRenderBoxN().filled(this.columns * this.rows, null, {growable: false});
-      let columnsToCopy = math.min(core.int, this.columns, oldColumns);
-      for (let y = 0; y < this.rows; y = y + 1) {
-        for (let x = 0; x < columnsToCopy; x = x + 1)
-          this[_children][$_set](x + y * this.columns, oldChildren[$_get](x + y * oldColumns));
-      }
-      if (oldColumns > this.columns) {
-        for (let y = 0; y < this.rows; y = y + 1) {
-          for (let x = this.columns; x < oldColumns; x = x + 1) {
-            let xy = x + y * oldColumns;
-            if (oldChildren[$_get](xy) != null) this.dropChild(dart.nullCheck(oldChildren[$_get](xy)));
-          }
-        }
-      }
-      this.markNeedsLayout();
-    }
-    get rows() {
-      return this[_rows];
-    }
-    set rows(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 446, 12, "value != null");
-      if (!(value >= 0)) dart.assertFailed(null, I[1], 447, 12, "value >= 0");
-      if (value === this.rows) return;
-      if (this[_rows] > value) {
-        for (let xy = this.columns * value; xy < this[_children][$length]; xy = xy + 1) {
-          if (this[_children][$_get](xy) != null) this.dropChild(dart.nullCheck(this[_children][$_get](xy)));
-        }
-      }
-      this[_rows] = value;
-      this[_children][$length] = this.columns * this.rows;
-      this.markNeedsLayout();
-    }
-    get columnWidths() {
-      return T.MapOfint$TableColumnWidth().unmodifiable(this[_columnWidths]);
-    }
-    set columnWidths(value) {
-      let t0;
-      if (this[_columnWidths][$_equals](value)) return;
-      if (this[_columnWidths][$isEmpty] && value == null) return;
-      this[_columnWidths] = (t0 = value, t0 == null ? new (T.IdentityMapOfint$TableColumnWidth()).new() : t0);
-      this.markNeedsLayout();
-    }
-    setColumnWidth(column, value) {
-      if (dart.equals(this[_columnWidths][$_get](column), value)) return;
-      this[_columnWidths][$_set](column, value);
-      this.markNeedsLayout();
-    }
-    get defaultColumnWidth() {
-      return this[_defaultColumnWidth];
-    }
-    set defaultColumnWidth(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 500, 12, "value != null");
-      if (this.defaultColumnWidth[$_equals](value)) return;
-      this[_defaultColumnWidth] = value;
-      this.markNeedsLayout();
-    }
-    get textDirection() {
-      return this[_textDirection];
-    }
-    set textDirection(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 511, 12, "value != null");
-      if (this[_textDirection] === value) return;
-      this[_textDirection] = value;
-      this.markNeedsLayout();
-    }
-    get border() {
-      return this[_border];
-    }
-    set border(value) {
-      if (dart.equals(this.border, value)) return;
-      this[_border] = value;
-      this.markNeedsPaint();
-    }
-    get rowDecorations() {
-      let t0;
-      return T.ListOfDecoration().unmodifiable((t0 = this[_rowDecorations], t0 == null ? C[9] || CT.C9 : t0));
-    }
-    set rowDecorations(value) {
-      let t0;
-      if (dart.equals(this[_rowDecorations], value)) return;
-      this[_rowDecorations] = value;
-      if (this[_rowDecorationPainters] != null) {
-        for (let painter of dart.nullCheck(this[_rowDecorationPainters])) {
-          t0 = painter;
-          t0 == null ? null : t0.dispose();
-        }
-      }
-      this[_rowDecorationPainters] = this[_rowDecorations] != null ? T.ListOfBoxPainterN().filled(dart.nullCheck(this[_rowDecorations])[$length], null, {growable: false}) : null;
-    }
-    get configuration() {
-      return this[_configuration];
-    }
-    set configuration(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 555, 12, "value != null");
-      if (value._equals(this[_configuration])) return;
-      this[_configuration] = value;
-      this.markNeedsPaint();
-    }
-    get defaultVerticalAlignment() {
-      return this[_defaultVerticalAlignment];
-    }
-    set defaultVerticalAlignment(value) {
-      if (!(value !== null)) dart.assertFailed(null, I[1], 566, 12, "value != null");
-      if (this[_defaultVerticalAlignment] === value) return;
-      this[_defaultVerticalAlignment] = value;
-      this.markNeedsLayout();
-    }
-    get textBaseline() {
-      return this[_textBaseline];
-    }
-    set textBaseline(value) {
-      if (this[_textBaseline] == value) return;
-      this[_textBaseline] = value;
-      this.markNeedsLayout();
-    }
-    setupParentData(child) {
-      object.RenderObject.as(child);
-      if (!table.TableCellParentData.is(child.parentData)) child.parentData = new table.TableCellParentData.new();
-    }
-    setFlatChildren(columns, cells) {
-      if (cells[$_equals](this[_children]) && columns === this[_columns]) return;
-      if (!(columns >= 0)) dart.assertFailed(null, I[1], 600, 12, "columns >= 0");
-      if (columns === 0 || cells[$isEmpty]) {
-        if (!(cells === null || cells[$isEmpty])) dart.assertFailed(null, I[1], 603, 14, "cells == null || cells.isEmpty");
-        this[_columns] = columns;
-        if (this[_children][$isEmpty]) {
-          if (!(this[_rows] === 0)) dart.assertFailed(null, I[1], 606, 16, "_rows == 0");
-          return;
-        }
-        for (let oldChild of this[_children]) {
-          if (oldChild != null) this.dropChild(oldChild);
-        }
-        this[_rows] = 0;
-        this[_children][$clear]();
-        this.markNeedsLayout();
-        return;
-      }
-      if (!(cells !== null)) dart.assertFailed(null, I[1], 618, 12, "cells != null");
-      if (!(cells[$length][$modulo](columns) === 0)) dart.assertFailed(null, I[1], 619, 12, "cells.length % columns == 0");
-      let lostChildren = new (T._HashSetOfRenderBox()).new();
-      for (let y = 0; y < this[_rows]; y = y + 1) {
-        for (let x = 0; x < this[_columns]; x = x + 1) {
-          let xyOld = x + y * this[_columns];
-          let xyNew = x + y * columns;
-          if (this[_children][$_get](xyOld) != null && (x >= columns || xyNew >= cells[$length] || !dart.equals(this[_children][$_get](xyOld), cells[$_get](xyNew)))) lostChildren.add(dart.nullCheck(this[_children][$_get](xyOld)));
-        }
-      }
-      let y = 0;
-      while (y * columns < cells[$length]) {
-        for (let x = 0; x < columns; x = x + 1) {
-          let xyNew = x + y * columns;
-          let xyOld = x + y * this[_columns];
-          if (cells[$_get](xyNew) != null && (x >= this[_columns] || y >= this[_rows] || !dart.equals(this[_children][$_get](xyOld), cells[$_get](xyNew)))) {
-            if (!lostChildren.remove(cells[$_get](xyNew))) this.adoptChild(dart.nullCheck(cells[$_get](xyNew)));
-          }
-        }
-        y = y + 1;
-      }
-      lostChildren[$forEach](dart.bind(this, 'dropChild'));
-      this[_columns] = columns;
-      this[_rows] = (cells[$length] / columns)[$truncate]();
-      this[_children] = T.ListOfRenderBoxN().from(cells);
-      if (!(this[_children][$length] === this.rows * columns)) dart.assertFailed(null, I[1], 651, 12, "_children.length == rows * columns");
-      this.markNeedsLayout();
-    }
-    setChildren(cells) {
-      if (cells == null) {
-        this.setFlatChildren(0, C[8] || CT.C8);
-        return;
-      }
-      for (let oldChild of this[_children]) {
-        if (oldChild != null) this.dropChild(oldChild);
-      }
-      this[_children][$clear]();
-      this[_columns] = cells[$isNotEmpty] ? cells[$first][$length] : 0;
-      this[_rows] = 0;
-      cells[$forEach](dart.bind(this, 'addRow'));
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 670, 12, "_children.length == rows * columns");
-    }
-    addRow(cells) {
-      if (!(cells[$length] === this.columns)) dart.assertFailed(null, I[1], 677, 12, "cells.length == columns");
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 678, 12, "_children.length == rows * columns");
-      this[_rows] = this[_rows] + 1;
-      this[_children][$addAll](cells);
-      for (let cell of cells) {
-        if (cell != null) this.adoptChild(cell);
-      }
-      this.markNeedsLayout();
-    }
-    setChild(x, y, value) {
-      if (!(x !== null)) dart.assertFailed(null, I[1], 694, 12, "x != null");
-      if (!(y !== null)) dart.assertFailed(null, I[1], 695, 12, "y != null");
-      if (!(x >= 0 && x < this.columns && y >= 0 && y < this.rows)) dart.assertFailed(null, I[1], 696, 12, "x >= 0 && x < columns && y >= 0 && y < rows");
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 697, 12, "_children.length == rows * columns");
-      let xy = x + y * this.columns;
-      let oldChild = this[_children][$_get](xy);
-      if (dart.equals(oldChild, value)) return;
-      if (oldChild != null) this.dropChild(oldChild);
-      this[_children][$_set](xy, value);
-      if (value != null) this.adoptChild(value);
-    }
-    attach(owner) {
-      let t0;
-      object.PipelineOwner.as(owner);
-      super.attach(owner);
-      for (let child of this[_children]) {
-        t0 = child;
-        t0 == null ? null : t0.attach(owner);
-      }
-    }
-    detach() {
-      let t0, t0$;
-      super.detach();
-      if (this[_rowDecorationPainters] != null) {
-        for (let painter of dart.nullCheck(this[_rowDecorationPainters])) {
-          t0 = painter;
-          t0 == null ? null : t0.dispose();
-        }
-        this[_rowDecorationPainters] = T.ListOfBoxPainterN().filled(dart.nullCheck(this[_rowDecorations])[$length], null, {growable: false});
-      }
-      for (let child of this[_children]) {
-        t0$ = child;
-        t0$ == null ? null : t0$.detach();
-      }
-    }
-    visitChildren(visitor) {
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 730, 12, "_children.length == rows * columns");
-      for (let child of this[_children]) {
-        if (child != null) visitor(child);
-      }
-    }
-    computeMinIntrinsicWidth(height) {
-      let t0;
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 739, 12, "_children.length == rows * columns");
-      let totalMinWidth = 0.0;
-      for (let x = 0; x < this.columns; x = x + 1) {
-        let columnWidth = (t0 = this[_columnWidths][$_get](x), t0 == null ? this.defaultColumnWidth : t0);
-        let columnCells = this.column(x);
-        totalMinWidth = totalMinWidth + columnWidth.minIntrinsicWidth(columnCells, 1 / 0);
-      }
-      return totalMinWidth;
-    }
-    computeMaxIntrinsicWidth(height) {
-      let t0;
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 751, 12, "_children.length == rows * columns");
-      let totalMaxWidth = 0.0;
-      for (let x = 0; x < this.columns; x = x + 1) {
-        let columnWidth = (t0 = this[_columnWidths][$_get](x), t0 == null ? this.defaultColumnWidth : t0);
-        let columnCells = this.column(x);
-        totalMaxWidth = totalMaxWidth + columnWidth.maxIntrinsicWidth(columnCells, 1 / 0);
-      }
-      return totalMaxWidth;
-    }
-    computeMinIntrinsicHeight(width) {
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 765, 12, "_children.length == rows * columns");
-      let widths = this[_computeColumnWidths](new box.BoxConstraints.tightForFinite({width: width}));
-      let rowTop = 0.0;
-      for (let y = 0; y < this.rows; y = y + 1) {
-        let rowHeight = 0.0;
-        for (let x = 0; x < this.columns; x = x + 1) {
-          let xy = x + y * this.columns;
-          let child = this[_children][$_get](xy);
-          if (child != null) rowHeight = math.max(core.double, rowHeight, child.getMaxIntrinsicHeight(widths[$_get](x)));
-        }
-        rowTop = rowTop + rowHeight;
-      }
-      return rowTop;
-    }
-    computeMaxIntrinsicHeight(width) {
-      return this.computeMinIntrinsicHeight(width);
-    }
-    computeDistanceToActualBaseline(baseline) {
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 790, 12, "!debugNeedsLayout");
-      return this[_baselineDistance];
-    }
-    column(x) {
-      return new (T.SyncIterableOfRenderBox()).new((function* column() {
-        for (let y = 0; y < this.rows; y = y + 1) {
-          let xy = x + y * this.columns;
-          let child = this[_children][$_get](xy);
-          if (child != null) yield child;
-        }
-      }).bind(this));
-    }
-    row(y) {
-      return new (T.SyncIterableOfRenderBox()).new((function* row() {
-        let start = y * this.columns;
-        let end = (y + 1) * this.columns;
-        for (let xy = start; xy < end; xy = xy + 1) {
-          let child = this[_children][$_get](xy);
-          if (child != null) yield child;
-        }
-      }).bind(this));
-    }
-    [_computeColumnWidths](constraints) {
-      let t0;
-      if (!(constraints !== null)) dart.assertFailed(null, I[1], 822, 12, "constraints != null");
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 823, 12, "_children.length == rows * columns");
-      let widths = T.ListOfdouble().filled(this.columns, 0.0, {growable: false});
-      let minWidths = T.ListOfdouble().filled(this.columns, 0.0, {growable: false});
-      let flexes = T.ListOfdoubleN().filled(this.columns, null, {growable: false});
-      let tableWidth = 0.0;
-      let unflexedTableWidth = 0.0;
-      let totalFlex = 0.0;
-      for (let x = 0; x < this.columns; x = x + 1) {
-        let columnWidth = (t0 = this[_columnWidths][$_get](x), t0 == null ? this.defaultColumnWidth : t0);
-        let columnCells = this.column(x);
-        let maxIntrinsicWidth = columnWidth.maxIntrinsicWidth(columnCells, constraints.maxWidth);
-        if (!maxIntrinsicWidth[$isFinite]) dart.assertFailed(null, I[1], 846, 14, "maxIntrinsicWidth.isFinite");
-        if (!(maxIntrinsicWidth >= 0.0)) dart.assertFailed(null, I[1], 847, 14, "maxIntrinsicWidth >= 0.0");
-        widths[$_set](x, maxIntrinsicWidth);
-        tableWidth = tableWidth + maxIntrinsicWidth;
-        let minIntrinsicWidth = columnWidth.minIntrinsicWidth(columnCells, constraints.maxWidth);
-        if (!minIntrinsicWidth[$isFinite]) dart.assertFailed(null, I[1], 852, 14, "minIntrinsicWidth.isFinite");
-        if (!(minIntrinsicWidth >= 0.0)) dart.assertFailed(null, I[1], 853, 14, "minIntrinsicWidth >= 0.0");
-        minWidths[$_set](x, minIntrinsicWidth);
-        if (!(maxIntrinsicWidth >= minIntrinsicWidth)) dart.assertFailed(null, I[1], 855, 14, "maxIntrinsicWidth >= minIntrinsicWidth");
-        let flex = columnWidth.flex(columnCells);
-        if (flex != null) {
-          if (!flex[$isFinite]) dart.assertFailed(null, I[1], 859, 16, "flex.isFinite");
-          if (!(dart.notNull(flex) > 0.0)) dart.assertFailed(null, I[1], 860, 16, "flex > 0.0");
-          flexes[$_set](x, flex);
-          totalFlex = totalFlex + dart.notNull(flex);
-        } else {
-          unflexedTableWidth = unflexedTableWidth + maxIntrinsicWidth;
-        }
-      }
-      let maxWidthConstraint = constraints.maxWidth;
-      let minWidthConstraint = constraints.minWidth;
-      if (totalFlex > 0.0) {
-        let targetWidth = null;
-        if (maxWidthConstraint[$isFinite]) {
-          targetWidth = maxWidthConstraint;
-        } else {
-          targetWidth = minWidthConstraint;
-        }
-        if (tableWidth < targetWidth) {
-          let remainingWidth = targetWidth - unflexedTableWidth;
-          if (!remainingWidth[$isFinite]) dart.assertFailed(null, I[1], 883, 16, "remainingWidth.isFinite");
-          if (!(remainingWidth >= 0.0)) dart.assertFailed(null, I[1], 884, 16, "remainingWidth >= 0.0");
-          for (let x = 0; x < this.columns; x = x + 1) {
-            if (flexes[$_get](x) != null) {
-              let flexedWidth = remainingWidth * dart.nullCheck(flexes[$_get](x)) / totalFlex;
-              if (!flexedWidth[$isFinite]) dart.assertFailed(null, I[1], 888, 20, "flexedWidth.isFinite");
-              if (!(flexedWidth >= 0.0)) dart.assertFailed(null, I[1], 889, 20, "flexedWidth >= 0.0");
-              if (widths[$_get](x) < flexedWidth) {
-                let delta = flexedWidth - widths[$_get](x);
-                tableWidth = tableWidth + delta;
-                widths[$_set](x, flexedWidth);
-              }
-            }
-          }
-          if (!(tableWidth + 1e-10 >= targetWidth)) dart.assertFailed(null, I[1], 897, 16, "tableWidth + precisionErrorTolerance >= targetWidth");
-        }
-      } else if (tableWidth < minWidthConstraint) {
-        let delta = (minWidthConstraint - tableWidth) / this.columns;
-        for (let x = 0; x < this.columns; x = x + 1)
-          widths[$_set](x, widths[$_get](x) + delta);
-        tableWidth = minWidthConstraint;
-      }
-      if (tableWidth > maxWidthConstraint) {
-        let deficit = tableWidth - maxWidthConstraint;
-        let availableColumns = this.columns;
-        while (deficit > 1e-10 && totalFlex > 1e-10) {
-          let newTotalFlex = 0.0;
-          for (let x = 0; x < this.columns; x = x + 1) {
-            if (flexes[$_get](x) != null) {
-              let newWidth = widths[$_get](x) - deficit * dart.nullCheck(flexes[$_get](x)) / totalFlex;
-              if (!newWidth[$isFinite]) dart.assertFailed(null, I[1], 938, 20, "newWidth.isFinite");
-              if (newWidth <= minWidths[$_get](x)) {
-                deficit = deficit - (widths[$_get](x) - minWidths[$_get](x));
-                widths[$_set](x, minWidths[$_get](x));
-                flexes[$_set](x, null);
-                availableColumns = availableColumns - 1;
-              } else {
-                deficit = deficit - (widths[$_get](x) - newWidth);
-                widths[$_set](x, newWidth);
-                newTotalFlex = newTotalFlex + dart.nullCheck(flexes[$_get](x));
-              }
-              if (!(widths[$_get](x) >= 0.0)) dart.assertFailed(null, I[1], 950, 20, "widths[x] >= 0.0");
-            }
-          }
-          totalFlex = newTotalFlex;
-        }
-        while (deficit > 1e-10 && availableColumns > 0) {
-          let delta = deficit / availableColumns;
-          if (!(delta !== 0)) dart.assertFailed(null, I[1], 962, 16, "delta != 0");
-          let newAvailableColumns = 0;
-          for (let x = 0; x < this.columns; x = x + 1) {
-            let availableDelta = widths[$_get](x) - minWidths[$_get](x);
-            if (availableDelta > 0.0) {
-              if (availableDelta <= delta) {
-                deficit = deficit - (widths[$_get](x) - minWidths[$_get](x));
-                widths[$_set](x, minWidths[$_get](x));
-              } else {
-                deficit = deficit - delta;
-                widths[$_set](x, widths[$_get](x) - delta);
-                newAvailableColumns = newAvailableColumns + 1;
-              }
-            }
-          }
-          availableColumns = newAvailableColumns;
-        }
-      }
-      return widths;
-    }
-    getRowBox(row) {
-      if (!(row >= 0)) dart.assertFailed(null, I[1], 996, 12, "row >= 0");
-      if (!(row < this.rows)) dart.assertFailed(null, I[1], 997, 12, "row < rows");
-      if (!!this.debugNeedsLayout) dart.assertFailed(null, I[1], 998, 12, "!debugNeedsLayout");
-      return new ui.Rect.fromLTRB(0.0, this[_rowTops][$_get](row), this.size.width, this[_rowTops][$_get](row + 1));
-    }
-    computeDryLayout(constraints) {
-      let t0;
-      if (this.rows * this.columns === 0) {
-        return constraints.constrain(ui.Size.zero);
-      }
-      let widths = this[_computeColumnWidths](constraints);
-      let tableWidth = widths[$fold](core.double, 0.0, dart.fn((a, b) => a + b, T.doubleAnddoubleTodouble()));
-      let rowTop = 0.0;
-      for (let y = 0; y < this.rows; y = y + 1) {
-        let rowHeight = 0.0;
-        for (let x = 0; x < this.columns; x = x + 1) {
-          let xy = x + y * this.columns;
-          let child = this[_children][$_get](xy);
-          if (child != null) {
-            let childParentData = table.TableCellParentData.as(dart.nullCheck(child.parentData));
-            if (!(childParentData !== null)) dart.assertFailed(null, I[1], 1017, 18, "childParentData != null");
-            switch (t0 = childParentData.verticalAlignment, t0 == null ? this.defaultVerticalAlignment : t0) {
-              case C[3] || CT.C3:
-              {
-                if (!this.debugCannotComputeDryLayout({reason: "TableCellVerticalAlignment.baseline requires a full layout for baseline metrics to be available."})) dart.assertFailed(null, I[1], 1020, 22, "debugCannotComputeDryLayout(\r\n                reason: 'TableCellVerticalAlignment.baseline requires a full layout for baseline metrics to be available.',\r\n              )");
-                return ui.Size.zero;
-              }
-              case C[0] || CT.C0:
-              case C[1] || CT.C1:
-              case C[2] || CT.C2:
-              {
-                let childSize = child.getDryLayout(new box.BoxConstraints.tightFor({width: widths[$_get](x)}));
-                rowHeight = math.max(core.double, rowHeight, childSize.height);
-                break;
-              }
-              case C[4] || CT.C4:
-              {
-                break;
-              }
-            }
-          }
-        }
-        rowTop = rowTop + rowHeight;
-      }
-      return constraints.constrain(new ui.Size.new(tableWidth, rowTop));
-    }
-    performLayout() {
-      let t0, t0$;
-      let constraints = this.constraints;
-      let rows = this.rows;
-      let columns = this.columns;
-      if (!(this[_children][$length] === rows * columns)) dart.assertFailed(null, I[1], 1045, 12, "_children.length == rows * columns");
-      if (rows * columns === 0) {
-        this.size = constraints.constrain(ui.Size.zero);
-        return;
-      }
-      let widths = this[_computeColumnWidths](constraints);
-      let positions = T.ListOfdouble().filled(columns, 0.0, {growable: false});
-      let tableWidth = null;
-      switch (this.textDirection) {
-        case C[10] || CT.C10:
-        {
-          positions[$_set](columns - 1, 0.0);
-          for (let x = columns - 2; x >= 0; x = x - 1)
-            positions[$_set](x, positions[$_get](x + 1) + widths[$_get](x + 1));
-          this[_columnLefts] = positions[$reversed];
-          tableWidth = positions[$first] + widths[$first];
-          break;
-        }
-        case C[11] || CT.C11:
-        {
-          positions[$_set](0, 0.0);
-          for (let x = 1; x < columns; x = x + 1)
-            positions[$_set](x, positions[$_get](x - 1) + widths[$_get](x - 1));
-          this[_columnLefts] = positions;
-          tableWidth = positions[$last] + widths[$last];
-          break;
-        }
-      }
-      this[_rowTops][$clear]();
-      this[_baselineDistance] = null;
-      let rowTop = 0.0;
-      for (let y = 0; y < rows; y = y + 1) {
-        this[_rowTops][$add](rowTop);
-        let rowHeight = 0.0;
-        let haveBaseline = false;
-        let beforeBaselineDistance = 0.0;
-        let afterBaselineDistance = 0.0;
-        let baselines = T.ListOfdouble().filled(columns, 0.0, {growable: false});
-        for (let x = 0; x < columns; x = x + 1) {
-          let xy = x + y * columns;
-          let child = this[_children][$_get](xy);
-          if (child != null) {
-            let childParentData = table.TableCellParentData.as(dart.nullCheck(child.parentData));
-            if (!(childParentData !== null)) dart.assertFailed(null, I[1], 1087, 18, "childParentData != null");
-            childParentData.x = x;
-            childParentData.y = y;
-            switch (t0 = childParentData.verticalAlignment, t0 == null ? this.defaultVerticalAlignment : t0) {
-              case C[3] || CT.C3:
-              {
-                if (!(this.textBaseline != null)) dart.assertFailed("An explicit textBaseline is required when using baseline alignment.", I[1], 1092, 22, "textBaseline != null");
-                child.layout(new box.BoxConstraints.tightFor({width: widths[$_get](x)}), {parentUsesSize: true});
-                let childBaseline = child.getDistanceToBaseline(dart.nullCheck(this.textBaseline), {onlyReal: true});
-                if (childBaseline != null) {
-                  beforeBaselineDistance = math.max(core.double, beforeBaselineDistance, childBaseline);
-                  afterBaselineDistance = math.max(core.double, afterBaselineDistance, child.size.height - dart.notNull(childBaseline));
-                  baselines[$_set](x, childBaseline);
-                  haveBaseline = true;
-                } else {
-                  rowHeight = math.max(core.double, rowHeight, child.size.height);
-                  childParentData.offset = new ui.Offset.new(positions[$_get](x), rowTop);
-                }
-                break;
-              }
-              case C[0] || CT.C0:
-              case C[1] || CT.C1:
-              case C[2] || CT.C2:
-              {
-                child.layout(new box.BoxConstraints.tightFor({width: widths[$_get](x)}), {parentUsesSize: true});
-                rowHeight = math.max(core.double, rowHeight, child.size.height);
-                break;
-              }
-              case C[4] || CT.C4:
-              {
-                break;
-              }
-            }
-          }
-        }
-        if (haveBaseline) {
-          if (y === 0) this[_baselineDistance] = beforeBaselineDistance;
-          rowHeight = math.max(core.double, rowHeight, beforeBaselineDistance + afterBaselineDistance);
-        }
-        for (let x = 0; x < columns; x = x + 1) {
-          let xy = x + y * columns;
-          let child = this[_children][$_get](xy);
-          if (child != null) {
-            let childParentData = table.TableCellParentData.as(dart.nullCheck(child.parentData));
-            switch (t0$ = childParentData.verticalAlignment, t0$ == null ? this.defaultVerticalAlignment : t0$) {
-              case C[3] || CT.C3:
-              {
-                childParentData.offset = new ui.Offset.new(positions[$_get](x), rowTop + beforeBaselineDistance - baselines[$_get](x));
-                break;
-              }
-              case C[0] || CT.C0:
-              {
-                childParentData.offset = new ui.Offset.new(positions[$_get](x), rowTop);
-                break;
-              }
-              case C[1] || CT.C1:
-              {
-                childParentData.offset = new ui.Offset.new(positions[$_get](x), rowTop + (rowHeight - child.size.height) / 2.0);
-                break;
-              }
-              case C[2] || CT.C2:
-              {
-                childParentData.offset = new ui.Offset.new(positions[$_get](x), rowTop + rowHeight - child.size.height);
-                break;
-              }
-              case C[4] || CT.C4:
-              {
-                child.layout(new box.BoxConstraints.tightFor({width: widths[$_get](x), height: rowHeight}));
-                childParentData.offset = new ui.Offset.new(positions[$_get](x), rowTop);
-                break;
-              }
-            }
-          }
-        }
-        rowTop = rowTop + rowHeight;
-      }
-      this[_rowTops][$add](rowTop);
-      this.size = constraints.constrain(new ui.Size.new(tableWidth, rowTop));
-      if (!(this[_rowTops][$length] === rows + 1)) dart.assertFailed(null, I[1], 1150, 12, "_rowTops.length == rows + 1");
-    }
-    hitTestChildren(result, opts) {
-      let position = opts && 'position' in opts ? opts.position : null;
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 1155, 12, "_children.length == rows * columns");
-      for (let index = this[_children][$length] - 1; index >= 0; index = index - 1) {
-        let child = this[_children][$_get](index);
-        if (child != null) {
-          let childParentData = box.BoxParentData.as(dart.nullCheck(child.parentData));
-          let isHit = result.addWithPaintOffset({offset: childParentData.offset, position: position, hitTest: dart.fn((result, transformed) => {
-              if (!dart.equals(transformed, position['-'](childParentData.offset))) dart.assertFailed(null, I[1], 1164, 20, "transformed == position - childParentData.offset");
-              return child.hitTest(result, {position: dart.nullCheck(transformed)});
-            }, T.BoxHitTestResultAndOffsetNTobool())});
-          if (isHit) return true;
-        }
-      }
-      return false;
-    }
-    paint(context, offset) {
-      let t1, t0;
-      if (!(this[_children][$length] === this.rows * this.columns)) dart.assertFailed(null, I[1], 1177, 12, "_children.length == rows * columns");
-      if (this.rows * this.columns === 0) {
-        if (this.border != null) {
-          let borderRect = new ui.Rect.fromLTWH(offset.dx, offset.dy, this.size.width, 0.0);
-          dart.nullCheck(this.border).paint(context.canvas, borderRect, {rows: C[12] || CT.C12, columns: C[12] || CT.C12});
-        }
-        return;
-      }
-      if (!(this[_rowTops][$length] === this.rows + 1)) dart.assertFailed(null, I[1], 1185, 12, "_rowTops.length == rows + 1");
-      if (this[_rowDecorations] != null) {
-        if (!(dart.nullCheck(this[_rowDecorations])[$length] === dart.nullCheck(this[_rowDecorationPainters])[$length])) dart.assertFailed(null, I[1], 1187, 14, "_rowDecorations!.length == _rowDecorationPainters!.length");
-        let canvas = context.canvas;
-        for (let y = 0; y < this.rows; y = y + 1) {
-          if (dart.nullCheck(this[_rowDecorations])[$length] <= y) break;
-          if (dart.nullCheck(this[_rowDecorations])[$_get](y) != null) {
-            t0 = dart.nullCheck(this[_rowDecorationPainters]);
-            t1 = y;
-            t0[$_get](t1) == null ? t0[$_set](t1, dart.nullCheck(dart.nullCheck(this[_rowDecorations])[$_get](y)).createBoxPainter(dart.bind(this, 'markNeedsPaint'))) : null;
-            dart.nullCheck(dart.nullCheck(this[_rowDecorationPainters])[$_get](y)).paint(canvas, new ui.Offset.new(offset.dx, offset.dy + this[_rowTops][$_get](y)), this.configuration.copyWith({size: new ui.Size.new(this.size.width, this[_rowTops][$_get](y + 1) - this[_rowTops][$_get](y))}));
-          }
-        }
-      }
-      for (let index = 0; index < this[_children][$length]; index = index + 1) {
-        let child = this[_children][$_get](index);
-        if (child != null) {
-          let childParentData = box.BoxParentData.as(dart.nullCheck(child.parentData));
-          context.paintChild(child, childParentData.offset['+'](offset));
-        }
-      }
-      if (!(this[_rows] === this[_rowTops][$length] - 1)) dart.assertFailed(null, I[1], 1209, 12, "_rows == _rowTops.length - 1");
-      if (!(this[_columns] === dart.nullCheck(this[_columnLefts])[$length])) dart.assertFailed(null, I[1], 1210, 12, "_columns == _columnLefts!.length");
-      if (this.border != null) {
-        let borderRect = new ui.Rect.fromLTWH(offset.dx, offset.dy, this.size.width, this[_rowTops][$last]);
-        let rows = this[_rowTops][$getRange](1, this[_rowTops][$length] - 1);
-        let columns = dart.nullCheck(this[_columnLefts])[$skip](1);
-        dart.nullCheck(this.border).paint(context.canvas, borderRect, {rows: rows, columns: columns});
-      }
-    }
-    debugFillProperties(properties) {
-      let t0;
-      super.debugFillProperties(properties);
-      properties.add(new (T.DiagnosticsPropertyOfTableBorder()).new("border", this.border, {defaultValue: null}));
-      properties.add(new (T.DiagnosticsPropertyOfMapOfint$TableColumnWidth()).new("specified column widths", this[_columnWidths], {level: this[_columnWidths][$isEmpty] ? diagnostics.DiagnosticLevel.hidden : diagnostics.DiagnosticLevel.info}));
-      properties.add(new (T.DiagnosticsPropertyOfTableColumnWidth()).new("default column width", this.defaultColumnWidth));
-      properties.add(new diagnostics.MessageProperty.new("table size", dart.str(this.columns) + "×" + dart.str(this.rows)));
-      properties.add(new (T.IterablePropertyOfString()).new("column offsets", (t0 = this[_columnLefts], t0 == null ? null : t0[$map](core.String, C[13] || CT.C13)), {ifNull: "unknown"}));
-      properties.add(new (T.IterablePropertyOfString()).new("row offsets", this[_rowTops][$map](core.String, C[13] || CT.C13), {ifNull: "unknown"}));
-    }
-    debugDescribeChildren() {
-      if (this[_children][$isEmpty]) {
-        return T.JSArrayOfDiagnosticsNode().of([diagnostics.DiagnosticsNode.message("table is empty")]);
-      }
-      let children = T.JSArrayOfDiagnosticsNode().of([]);
-      for (let y = 0; y < this.rows; y = y + 1) {
-        for (let x = 0; x < this.columns; x = x + 1) {
-          let xy = x + y * this.columns;
-          let child = this[_children][$_get](xy);
-          let name = "child (" + dart.str(x) + ", " + dart.str(y) + ")";
-          if (child != null)
-            children[$add](child.toDiagnosticsNode({name: name}));
-          else
-            children[$add](new (T.DiagnosticsPropertyOfObject()).new(name, null, {ifNull: "is null", showSeparator: false}));
-        }
-      }
-      return children;
+    performRebuild() {
     }
   };
-  (table.RenderTable.new = function(opts) {
-    let t0, t0$, t0$0, t0$1, t0$2;
-    let columns = opts && 'columns' in opts ? opts.columns : null;
-    let rows = opts && 'rows' in opts ? opts.rows : null;
-    let columnWidths = opts && 'columnWidths' in opts ? opts.columnWidths : null;
-    let defaultColumnWidth = opts && 'defaultColumnWidth' in opts ? opts.defaultColumnWidth : C[6] || CT.C6;
-    let textDirection = opts && 'textDirection' in opts ? opts.textDirection : null;
-    let border = opts && 'border' in opts ? opts.border : null;
-    let rowDecorations = opts && 'rowDecorations' in opts ? opts.rowDecorations : null;
-    let configuration = opts && 'configuration' in opts ? opts.configuration : C[7] || CT.C7;
-    let defaultVerticalAlignment = opts && 'defaultVerticalAlignment' in opts ? opts.defaultVerticalAlignment : C[0] || CT.C0;
-    let textBaseline = opts && 'textBaseline' in opts ? opts.textBaseline : null;
-    let children = opts && 'children' in opts ? opts.children : null;
-    this[_children] = C[8] || CT.C8;
-    this[_rowDecorations] = null;
-    this[_rowDecorationPainters] = null;
-    this[_baselineDistance] = null;
-    this[_rowTops] = T.JSArrayOfdouble().of([]);
-    this[_columnLefts] = null;
-    if (!(columns == null || dart.notNull(columns) >= 0)) dart.assertFailed(null, I[1], 380, 15, "columns == null || columns >= 0");
-    if (!(rows == null || dart.notNull(rows) >= 0)) dart.assertFailed(null, I[1], 381, 15, "rows == null || rows >= 0");
-    if (!(rows == null || children == null)) dart.assertFailed(null, I[1], 382, 15, "rows == null || children == null");
-    if (!(defaultColumnWidth !== null)) dart.assertFailed(null, I[1], 383, 15, "defaultColumnWidth != null");
-    if (!(textDirection !== null)) dart.assertFailed(null, I[1], 384, 15, "textDirection != null");
-    if (!(configuration !== null)) dart.assertFailed(null, I[1], 385, 15, "configuration != null");
-    this[_textDirection] = textDirection;
-    this[_columns] = (t0 = columns, t0 == null ? children != null && children[$isNotEmpty] ? children[$first][$length] : 0 : t0);
-    this[_rows] = (t0$ = rows, t0$ == null ? 0 : t0$);
-    this[_columnWidths] = (t0$0 = columnWidths, t0$0 == null ? new (T.IdentityMapOfint$TableColumnWidth()).new() : t0$0);
-    this[_defaultColumnWidth] = defaultColumnWidth;
-    this[_border] = border;
-    this[_textBaseline] = textBaseline;
-    this[_defaultVerticalAlignment] = defaultVerticalAlignment;
-    this[_configuration] = configuration;
-    table.RenderTable.__proto__.new.call(this);
-    this[_children] = (t0$1 = T.JSArrayOfRenderBoxN().of([]), (() => {
-      t0$1[$length] = this[_columns] * this[_rows];
-      return t0$1;
-    })());
-    this.rowDecorations = rowDecorations;
-    t0$2 = children;
-    t0$2 == null ? null : t0$2[$forEach](dart.bind(this, 'addRow'));
-  }).prototype = table.RenderTable.prototype;
-  dart.addTypeTests(table.RenderTable);
-  dart.addTypeCaches(table.RenderTable);
-  dart.setMethodSignature(table.RenderTable, () => ({
-    __proto__: dart.getMethods(table.RenderTable.__proto__),
-    setColumnWidth: dart.fnType(dart.void, [core.int, table.TableColumnWidth]),
-    setFlatChildren: dart.fnType(dart.void, [core.int, core.List$(dart.nullable(box.RenderBox))]),
-    setChildren: dart.fnType(dart.void, [dart.nullable(core.List$(core.List$(box.RenderBox)))]),
-    addRow: dart.fnType(dart.void, [core.List$(dart.nullable(box.RenderBox))]),
-    setChild: dart.fnType(dart.void, [core.int, core.int, dart.nullable(box.RenderBox)]),
-    column: dart.fnType(core.Iterable$(box.RenderBox), [core.int]),
-    row: dart.fnType(core.Iterable$(box.RenderBox), [core.int]),
-    [_computeColumnWidths]: dart.fnType(core.List$(core.double), [box.BoxConstraints]),
-    getRowBox: dart.fnType(ui.Rect, [core.int])
+  (text_selection_toolbar._NullElement.new = function() {
+    text_selection_toolbar._NullElement.__proto__.new.call(this, new text_selection_toolbar._NullWidget.new({$creationLocationd_0dea112b090073317d4: C[61] || CT.C61}));
+    ;
+  }).prototype = text_selection_toolbar._NullElement.prototype;
+  dart.addTypeTests(text_selection_toolbar._NullElement);
+  dart.addTypeCaches(text_selection_toolbar._NullElement);
+  dart.setMethodSignature(text_selection_toolbar._NullElement, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._NullElement.__proto__),
+    performRebuild: dart.fnType(dart.void, [])
   }));
-  dart.setGetterSignature(table.RenderTable, () => ({
-    __proto__: dart.getGetters(table.RenderTable.__proto__),
-    columns: core.int,
-    rows: core.int,
-    columnWidths: dart.nullable(core.Map$(core.int, table.TableColumnWidth)),
-    defaultColumnWidth: table.TableColumnWidth,
-    textDirection: ui.TextDirection,
-    border: dart.nullable(table_border.TableBorder),
-    rowDecorations: core.List$(decoration.Decoration),
-    configuration: image_provider.ImageConfiguration,
-    defaultVerticalAlignment: table.TableCellVerticalAlignment,
-    textBaseline: dart.nullable(ui.TextBaseline)
+  dart.setGetterSignature(text_selection_toolbar._NullElement, () => ({
+    __proto__: dart.getGetters(text_selection_toolbar._NullElement.__proto__),
+    debugDoingBuild: core.bool
   }));
-  dart.setSetterSignature(table.RenderTable, () => ({
-    __proto__: dart.getSetters(table.RenderTable.__proto__),
-    columns: core.int,
-    rows: core.int,
-    columnWidths: dart.nullable(core.Map$(core.int, table.TableColumnWidth)),
-    defaultColumnWidth: table.TableColumnWidth,
-    textDirection: ui.TextDirection,
-    border: dart.nullable(table_border.TableBorder),
-    rowDecorations: dart.nullable(core.List$(dart.nullable(decoration.Decoration))),
-    configuration: image_provider.ImageConfiguration,
-    defaultVerticalAlignment: table.TableCellVerticalAlignment,
-    textBaseline: dart.nullable(ui.TextBaseline)
+  dart.setLibraryUri(text_selection_toolbar._NullElement, I[1]);
+  dart.defineLazy(text_selection_toolbar._NullElement, {
+    /*text_selection_toolbar._NullElement.instance*/get instance() {
+      return new text_selection_toolbar._NullElement.new();
+    },
+    set instance(_) {}
+  }, false);
+  text_selection_toolbar._NullWidget = class _NullWidget extends framework.Widget {
+    createElement() {
+      return dart.throw(new core.UnimplementedError.new());
+    }
+  };
+  (text_selection_toolbar._NullWidget.new = function(opts) {
+    let $36creationLocationd_0dea112b090073317d4 = opts && '$creationLocationd_0dea112b090073317d4' in opts ? opts.$creationLocationd_0dea112b090073317d4 : null;
+    text_selection_toolbar._NullWidget.__proto__.new.call(this, {$creationLocationd_0dea112b090073317d4: $36creationLocationd_0dea112b090073317d4});
+    ;
+  }).prototype = text_selection_toolbar._NullWidget.prototype;
+  dart.addTypeTests(text_selection_toolbar._NullWidget);
+  dart.addTypeCaches(text_selection_toolbar._NullWidget);
+  dart.setMethodSignature(text_selection_toolbar._NullWidget, () => ({
+    __proto__: dart.getMethods(text_selection_toolbar._NullWidget.__proto__),
+    createElement: dart.fnType(framework.Element, [])
   }));
-  dart.setLibraryUri(table.RenderTable, I[0]);
-  dart.setFieldSignature(table.RenderTable, () => ({
-    __proto__: dart.getFields(table.RenderTable.__proto__),
-    [_children]: dart.fieldType(core.List$(dart.nullable(box.RenderBox))),
-    [_columns]: dart.fieldType(core.int),
-    [_rows]: dart.fieldType(core.int),
-    [_columnWidths]: dart.fieldType(core.Map$(core.int, table.TableColumnWidth)),
-    [_defaultColumnWidth]: dart.fieldType(table.TableColumnWidth),
-    [_textDirection]: dart.fieldType(ui.TextDirection),
-    [_border]: dart.fieldType(dart.nullable(table_border.TableBorder)),
-    [_rowDecorations]: dart.fieldType(dart.nullable(core.List$(dart.nullable(decoration.Decoration)))),
-    [_rowDecorationPainters]: dart.fieldType(dart.nullable(core.List$(dart.nullable(decoration.BoxPainter)))),
-    [_configuration]: dart.fieldType(image_provider.ImageConfiguration),
-    [_defaultVerticalAlignment]: dart.fieldType(table.TableCellVerticalAlignment),
-    [_textBaseline]: dart.fieldType(dart.nullable(ui.TextBaseline)),
-    [_baselineDistance]: dart.fieldType(dart.nullable(core.double)),
-    [_rowTops]: dart.finalFieldType(core.List$(core.double)),
-    [_columnLefts]: dart.fieldType(dart.nullable(core.Iterable$(core.double)))
-  }));
-  dart.trackLibraries("packages/flutter/src/rendering/table.dart", {
-    "package:flutter/src/rendering/table.dart": table
+  dart.setLibraryUri(text_selection_toolbar._NullWidget, I[1]);
+  var Radius_y = dart.privateName(ui, "Radius.y");
+  var Radius_x = dart.privateName(ui, "Radius.x");
+  dart.defineLazy(text_selection_toolbar, {
+    /*text_selection_toolbar._kToolbarHeight*/get _kToolbarHeight() {
+      return 43;
+    },
+    /*text_selection_toolbar._kToolbarContentDistance*/get _kToolbarContentDistance() {
+      return 8;
+    },
+    /*text_selection_toolbar._kToolbarScreenPadding*/get _kToolbarScreenPadding() {
+      return 8;
+    },
+    /*text_selection_toolbar._kToolbarArrowSize*/get _kToolbarArrowSize() {
+      return C[63] || CT.C63;
+    },
+    /*text_selection_toolbar._kToolbarBorderRadius*/get _kToolbarBorderRadius() {
+      return C[64] || CT.C64;
+    },
+    /*text_selection_toolbar._kToolbarDividerColor*/get _kToolbarDividerColor() {
+      return C[3] || CT.C3;
+    }
+  }, false);
+  dart.trackLibraries("packages/flutter/src/cupertino/text_selection_toolbar.dart", {
+    "package:flutter/src/cupertino/text_selection_toolbar.dart": text_selection_toolbar
   }, {
-  }, '{"version":3,"sourceRoot":"","sources":["table.dart"],"names":[],"mappings":"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","file":"../../../../../../../../D:/packages/flutter/src/rendering/table.dart.lib.js"}');
+  }, '{"version":3,"sourceRoot":"","sources":["text_selection_toolbar.dart"],"names":[],"mappings":"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","file":"../../../../../../../../D:/packages/flutter/src/cupertino/text_selection_toolbar.dart.lib.js"}');
   // Exports:
   return {
-    src__rendering__table: table
+    src__cupertino__text_selection_toolbar: text_selection_toolbar
   };
 }));
 
-//# sourceMappingURL=table.dart.lib.js.map
+//# sourceMappingURL=text_selection_toolbar.dart.lib.js.map
